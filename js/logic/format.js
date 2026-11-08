@@ -15,7 +15,7 @@ export function rub(n) {
   return (v < 0 ? '-' : '') + s + (f ? ',' + f : '') + NB + '₽';
 }
 
-// '12 400', '12400,50', '1 749 ₽' -> число; пусто или мусор -> NaN
+// '12 400', '12400,50', '1 200 ₽' -> число; пусто или мусор -> NaN
 export function parseMoney(s) {
   const t = String(s ?? '').replace(/[\s ₽р.]+$/i, '').replace(/[\s ]/g, '').replace(',', '.');
   if (!/^\d+(\.\d{1,2})?$/.test(t)) return NaN;

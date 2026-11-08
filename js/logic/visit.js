@@ -1,5 +1,5 @@
 // Визит: «Заказ есть?», отказ с вопросами к ЛПР, следующее действие.
-import { round2 } from './format.js?v=36adbe7e';
+import { round2 } from './format.js?v=5db8579d';
 
 export const NEXT = [
   { id: 'whatsapp', label: 'Написать в WhatsApp', short: 'WhatsApp' },

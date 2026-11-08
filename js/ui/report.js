@@ -1,9 +1,9 @@
 // Отчёт за период. Печать в PDF: кнопка «Печать или PDF», в окне печати выбрать «Сохранить как PDF».
-import { S, memberName } from '../store.js?v=36adbe7e';
-import { h, icon, fill, sheet, choices } from './kit.js?v=36adbe7e';
-import { isoDay, addDays, monthKey, monthStart, monthEnd, dayShort, parseDay, plural } from '../logic/dates.js?v=36adbe7e';
-import { rub } from '../logic/format.js?v=36adbe7e';
-import { buildReport } from '../logic/report.js?v=36adbe7e';
+import { S, memberName } from '../store.js?v=5db8579d';
+import { h, icon, fill, sheet, choices } from './kit.js?v=5db8579d';
+import { isoDay, addDays, monthKey, monthStart, monthEnd, dayShort, parseDay, plural } from '../logic/dates.js?v=5db8579d';
+import { rub } from '../logic/format.js?v=5db8579d';
+import { buildReport } from '../logic/report.js?v=5db8579d';
 
 function periods(today) {
   const m = monthKey(today);
