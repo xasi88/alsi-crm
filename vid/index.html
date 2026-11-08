@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ALSI Продажи: три варианта вида</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,800;1,900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0D2445; --red:#DF2228; --blue:#006DC0; --black:#0F0F0D; --white:#FFFFFF;
+  --red-deep:#B5161C; --ice:#EEF3F9; --ink-2:#4A5A75; --line:#DCE3EC; --navy-2:#173763;
+  --f-ui:'Golos Text',system-ui,sans-serif; --f-brand:'Exo 2','Golos Text',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#E4EAF2;color:var(--navy);font-family:var(--f-ui);-webkit-font-smoothing:antialiased}
+.page{max-width:1240px;margin:0 auto;padding:32px 16px 64px}
+.page>h1{font:900 italic 32px/1.1 var(--f-brand);letter-spacing:-.5px}
+.page>p{margin-top:8px;font-size:16px;line-height:1.5;color:var(--ink-2);max-width:720px}
+.row{display:flex;flex-wrap:wrap;gap:32px;justify-content:center;margin-top:32px}
+.opt{width:376px;max-width:100%}
+.opt h2{font:900 italic 24px/1.2 var(--f-brand);margin-top:16px}
+.opt p{font-size:15px;line-height:1.5;color:var(--ink-2);margin-top:4px}
+.phone{width:376px;max-width:100%;height:780px;border-radius:44px;background:var(--black);padding:8px;box-shadow:0 24px 48px rgba(13,36,69,.25)}
+.scr{position:relative;height:100%;border-radius:36px;overflow:hidden;display:flex;flex-direction:column}
+.num{font-variant-numeric:tabular-nums}
+svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.body{flex:1;overflow:hidden}
+.sec{display:flex;align-items:baseline;justify-content:space-between;padding:20px 20px 8px}
+.sec h3{font-size:18px;font-weight:700}
+.sec span{font-size:14px;font-weight:600}
+.it{display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 20px}
+.it b{display:block;font-size:16px;font-weight:600;line-height:1.3}
+.it small{display:block;font-size:13px;line-height:1.35;margin-top:2px}
+.it .t{flex:1;min-width:0}
+.it .r{font-size:14px;font-weight:700;text-align:right}
+.ib{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex:none}
+/* нижнее меню */
+.nav{display:flex;align-items:flex-end;justify-content:space-around;padding:8px 4px 20px}
+.nav a{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;font-weight:600;min-width:56px;min-height:44px;justify-content:center;text-decoration:none;color:inherit}
+.nav .go{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;margin-top:-28px}
+.nav .go svg{width:28px;height:28px}
+
+/* 1. Банка */
+.v1 .scr{background:var(--white)}
+.v1 .top{background:var(--red);color:var(--white);padding:20px 20px 40px}
+.v1 .bar{display:flex;align-items:center;justify-content:space-between}
+.mark{font:900 italic 26px/1 var(--f-brand);letter-spacing:-.5px}
+.mark i{font:700 normal 14px var(--f-ui);margin-left:6px;letter-spacing:0}
+.sync{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:6px 10px;border-radius:12px}
+.sync svg{width:18px;height:18px}
+.v1 .sync{background:rgba(255,255,255,.18)}
+.v1 .date{font-size:15px;margin-top:20px;opacity:.9}
+.v1 .plan{margin-top:12px;display:flex;align-items:baseline;gap:8px}
+.v1 .plan strong{font:900 italic 56px/1 var(--f-brand)}
+.v1 .plan span{font-size:15px;font-weight:600}
+.track{height:10px;border-radius:5px;margin-top:12px;overflow:hidden}
+.track i{display:block;height:100%;border-radius:5px}
+.v1 .track{background:rgba(15,15,13,.22)}
+.v1 .track i{background:var(--white);width:46.5%}
+.v1 .body{background:var(--white);border-radius:24px 24px 0 0;margin-top:-24px;position:relative}
+.v1 .it{border-bottom:1px solid var(--line)}
+.v1 .it small{color:var(--ink-2)}
+.v1 .warn{color:var(--red)}
+.v1 .nav{background:var(--white);box-shadow:0 -1px 0 var(--line);color:var(--ink-2)}
+.v1 .nav .on{color:var(--navy)}
+.v1 .nav .go{background:var(--navy);color:var(--white);box-shadow:0 8px 16px rgba(13,36,69,.3)}
+
+/* 2. Маршрут */
+.v2 .scr{background:var(--ice)}
+.v2 .top{padding:24px 20px 12px}
+.v2 .bar{display:flex;align-items:flex-start;justify-content:space-between}
+.v2 h4{font:900 italic 34px/1 var(--f-brand)}
+.v2 .date{font-size:15px;color:var(--ink-2);margin-top:6px}
+.v2 .sync{color:var(--navy);background:var(--white)}
+.v2 .plan{margin-top:16px;background:var(--white);border-radius:16px;padding:12px 16px}
+.v2 .plan div{display:flex;justify-content:space-between;font-size:14px;font-weight:600}
+.v2 .plan em{font-style:normal;color:var(--ink-2);font-weight:500}
+.v2 .track{height:8px;background:var(--line);margin-top:8px}
+.v2 .track i{background:var(--navy);width:46.5%}
+.v2 .ya{display:flex;align-items:center;justify-content:center;gap:8px;margin:12px 20px 4px;min-height:48px;border:2px solid var(--navy);border-radius:14px;font-size:15px;font-weight:700}
+.route{position:relative;padding:8px 20px 0 20px}
+.route:before{content:"";position:absolute;left:41px;top:28px;bottom:0;width:2px;background:var(--line)}
+.stop{position:relative;display:flex;gap:14px;padding:10px 0}
+.dot{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:900 italic 18px var(--f-brand);flex:none;background:var(--white);color:var(--navy);border:2px solid var(--navy);position:relative}
+.stop.now .dot{background:var(--red);border-color:var(--red);color:var(--white)}
+.stop .t{flex:1;min-width:0;padding-top:2px}
+.stop b{display:block;font-size:16px;font-weight:600}
+.stop small{display:block;font-size:13px;color:var(--ink-2);margin-top:2px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{font-size:12px;font-weight:700;padding:4px 8px;border-radius:8px;background:var(--white);color:var(--navy)}
+.tag.red{background:var(--red);color:var(--white)}
+.tag.blue{background:var(--blue);color:var(--white)}
+.start{display:flex;align-items:center;justify-content:center;min-height:52px;margin-top:10px;background:var(--red);color:var(--white);border-radius:14px;font-size:16px;font-weight:700}
+.v2 .nav{background:var(--navy);color:rgba(255,255,255,.7)}
+.v2 .nav .on{color:var(--white)}
+.v2 .nav .go{background:var(--red);color:var(--white);box-shadow:0 0 0 6px var(--ice)}
+
+/* 3. Холодильник */
+.v3 .scr{background:var(--navy);color:var(--white)}
+.v3 .top{padding:20px 20px 8px}
+.v3 .bar{display:flex;align-items:center;justify-content:space-between}
+.v3 .mark b{color:var(--red)}
+.v3 .sync{background:var(--navy-2)}
+.v3 .date{font-size:15px;margin-top:16px;color:rgba(255,255,255,.75)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 20px}
+.tile{border-radius:20px;padding:16px;min-height:112px;display:flex;flex-direction:column;justify-content:space-between}
+.tile strong{font:900 italic 44px/1 var(--f-brand)}
+.tile span{font-size:15px;font-weight:600}
+.tile.big{grid-column:1/3;background:var(--red);flex-direction:row;align-items:flex-end;min-height:120px}
+.tile.big .k{display:flex;flex-direction:column;gap:6px}
+.tile.big .go2{width:52px;height:52px;border-radius:50%;background:var(--white);color:var(--red);display:grid;place-items:center}
+.tile.blue{background:var(--blue)}
+.tile.white{background:var(--white);color:var(--navy)}
+.tile.white strong{font-size:30px;color:var(--red)}
+.v3 .plan{margin:4px 20px 0;padding:14px 0;border-top:1px solid rgba(255,255,255,.14);border-bottom:1px solid rgba(255,255,255,.14)}
+.v3 .plan div{display:flex;justify-content:space-between;font-size:14px;font-weight:600}
+.v3 .plan em{font-style:normal;color:rgba(255,255,255,.7);font-weight:500}
+.v3 .track{background:var(--navy-2);margin-top:10px}
+.v3 .track i{background:var(--white);width:46.5%}
+.v3 .sec h3{font-size:17px}
+.v3 .it{border-bottom:1px solid rgba(255,255,255,.1)}
+.v3 .it small{color:rgba(255,255,255,.7)}
+.v3 .nav{background:var(--black);color:rgba(255,255,255,.6)}
+.v3 .nav .on{color:var(--white)}
+.v3 .nav .go{background:var(--red);color:var(--white);box-shadow:0 0 0 6px var(--black)}
+.note{margin-top:48px;font-size:15px;line-height:1.6;color:var(--ink-2);max-width:760px}
+.note b{color:var(--navy)}
+@media (max-width:420px){.phone{height:740px}.page>h1{font-size:26px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 2.5V5M16 2.5V5M3.5 10h17"/><rect x="13.5" y="13.5" width="3.5" height="3.5" rx=".8" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-shop" viewBox="0 0 24 24"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8M10 20v-4.5h4V20"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.4a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.6" r="2.6"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7.5V6a2 2 0 0 0-2-2H5.5A2.5 2.5 0 0 0 3 6.5v11A2.5 2.5 0 0 0 5.5 20H19a2 2 0 0 0 2-2v-8.5a2 2 0 0 0-2-2H5.5"/><circle cx="16.5" cy="13.75" r="1.25" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.6" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20.5 11.6a8.4 8.4 0 0 1-12.3 7.4L3.5 20.5l1.6-4.5A8.4 8.4 0 1 1 20.5 11.6z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M20.5 16.6v2.6a1.8 1.8 0 0 1-2 1.8A17.8 17.8 0 0 1 3 5.5a1.8 1.8 0 0 1 1.8-2h2.6a1.8 1.8 0 0 1 1.8 1.5c.1.9.4 1.8.7 2.6a1.8 1.8 0 0 1-.4 1.9l-1.1 1.1a14.4 14.4 0 0 0 5 5l1.1-1.1a1.8 1.8 0 0 1 1.9-.4c.8.3 1.7.6 2.6.7a1.8 1.8 0 0 1 1.5 1.8z"/></symbol>
+  <symbol id="i-ok" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-go" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></symbol>
+</svg>
+
+<main class="page">
+  <h1>ALSI Продажи: три варианта вида</h1>
+  <p>Один и тот же экран «Сегодня» торгового в трёх видах. Цвета взяты с сайта alsicola.com: логотип ALSI и образцы банок. Выберите вариант, по нему соберу брендбук и всё приложение.</p>
+
+  <div class="row">
+    <!-- 1 -->
+    <section class="opt v1">
+      <div class="phone"><div class="scr">
+        <div class="top">
+          <div class="bar"><div class="mark">ALSI<i>Продажи</i></div><div class="sync"><svg class="i"><use href="#i-ok"/></svg>Отправлено</div></div>
+          <div class="date">Воскресенье, 8 ноября</div>
+          <div class="plan"><strong class="num">186</strong><span class="num">из 400 упаковок в ноябре</span></div>
+          <div class="track"><i></i></div>
+        </div>
+        <div class="body">
+          <div class="sec"><h3>Посетить</h3><span class="num">4</span></div>
+          <div class="it"><div class="t"><b>Караван Баши</b><small>ул. Бисултанова, 325</small></div><div class="r warn num">12 дней<br>без заказа</div></div>
+          <div class="it"><div class="t"><b>Аймани</b><small>пр. Кадырова, 248</small></div><div class="r num">Пт: 6 уп.</div></div>
+          <div class="sec"><h3>Связаться</h3><span class="num">2</span></div>
+          <div class="it"><div class="t"><b>Itminot</b><small>Написать в WhatsApp: ждут Code Red</small></div><div class="ib" style="background:var(--blue);color:#fff"><svg class="i"><use href="#i-chat"/></svg></div></div>
+          <div class="sec"><h3>Забрать долг</h3><span class="num warn" style="color:var(--red)">12 400 ₽</span></div>
+          <div class="it"><div class="t"><b>Старый Дворик</b><small>с. Гехи, при въезде</small></div><div class="r num">12 400 ₽</div></div>
+        </div>
+        <nav class="nav">
+          <a class="on"><svg class="i"><use href="#i-cal"/></svg>Сегодня</a>
+          <a><svg class="i"><use href="#i-shop"/></svg>Точки</a>
+          <a><span class="go"><svg class="i"><use href="#i-pin"/></svg></span>Визит</a>
+          <a><svg class="i"><use href="#i-wallet"/></svg>Долги</a>
+          <a><svg class="i"><use href="#i-more"/></svg>Ещё</a>
+        </nav>
+      </div></div>
+      <h2>1. Банка</h2>
+      <p>Красная шапка, как банка Alsi Cola. План месяца крупно, ниже список дел на белом. Ярко и сразу узнаётся бренд.</p>
+    </section>
+
+    <!-- 2 -->
+    <section class="opt v2">
+      <div class="phone"><div class="scr">
+        <div class="top">
+          <div class="bar"><div><h4>Сегодня</h4><div class="date">Воскресенье, 8 ноября</div></div><div class="sync"><svg class="i"><use href="#i-ok"/></svg>Отправлено</div></div>
+          <div class="plan"><div><span>План ноября</span><span class="num">186 <em>из 400 уп.</em></span></div><div class="track"><i></i></div></div>
+        </div>
+        <div class="ya"><svg class="i"><use href="#i-route"/></svg>Маршрут дня в Яндекс Картах</div>
+        <div class="body route">
+          <div class="stop now"><div class="dot num">1</div><div class="t"><b>Караван Баши</b><small>ул. Бисултанова, 325</small><div class="tags"><span class="tag">Визит</span><span class="tag red">12 дней без заказа</span></div><div class="start">Начать визит</div></div></div>
+          <div class="stop"><div class="dot num">2</div><div class="t"><b>Старый Дворик</b><small>с. Гехи, при въезде</small><div class="tags"><span class="tag">Визит</span><span class="tag red num">Долг 12 400 ₽</span></div></div></div>
+          <div class="stop"><div class="dot num">3</div><div class="t"><b>Itminot</b><small>Пиццерия, Грозный</small><div class="tags"><span class="tag blue">Написать в WhatsApp</span></div></div></div>
+          <div class="stop"><div class="dot num">4</div><div class="t"><b>Аймани</b><small>пр. Кадырова, 248</small><div class="tags"><span class="tag">Визит</span></div></div></div>
+        </div>
+        <nav class="nav">
+          <a class="on"><svg class="i"><use href="#i-cal"/></svg>Сегодня</a>
+          <a><svg class="i"><use href="#i-shop"/></svg>Точки</a>
+          <a><span class="go"><svg class="i"><use href="#i-pin"/></svg></span>Визит</a>
+          <a><svg class="i"><use href="#i-wallet"/></svg>Долги</a>
+          <a><svg class="i"><use href="#i-more"/></svg>Ещё</a>
+        </nav>
+      </div></div>
+      <h2>2. Маршрут</h2>
+      <p>День как маршрутный лист: точки по порядку, у каждой свои дела. Красная только главная кнопка. Спокойно и хорошо читается на солнце.</p>
+    </section>
+
+    <!-- 3 -->
+    <section class="opt v3">
+      <div class="phone"><div class="scr">
+        <div class="top">
+          <div class="bar"><div class="mark">ALSI<i>Продажи</i></div><div class="sync"><svg class="i"><use href="#i-ok"/></svg>Отправлено</div></div>
+          <div class="date">Воскресенье, 8 ноября</div>
+        </div>
+        <div class="tiles">
+          <div class="tile big"><div class="k"><strong class="num">4</strong><span>точки посетить</span></div><span style="flex:1"></span><span class="go2"><svg class="i"><use href="#i-go"/></svg></span></div>
+          <div class="tile blue"><strong class="num">2</strong><span>связаться</span></div>
+          <div class="tile white"><strong class="num">12 400 ₽</strong><span>забрать долг</span></div>
+        </div>
+        <div class="plan"><div><span>План ноября</span><span class="num">186 <em>из 400 уп.</em></span></div><div class="track"><i></i></div></div>
+        <div class="body">
+          <div class="sec"><h3>Первым делом</h3></div>
+          <div class="it"><div class="t"><b>Караван Баши</b><small>12 дней без заказа</small></div><div class="ib" style="background:var(--navy-2)"><svg class="i"><use href="#i-pin"/></svg></div></div>
+          <div class="it"><div class="t"><b>Itminot</b><small>Написать в WhatsApp</small></div><div class="ib" style="background:var(--blue)"><svg class="i"><use href="#i-chat"/></svg></div></div>
+        </div>
+        <nav class="nav">
+          <a class="on"><svg class="i"><use href="#i-cal"/></svg>Сегодня</a>
+          <a><svg class="i"><use href="#i-shop"/></svg>Точки</a>
+          <a><span class="go"><svg class="i"><use href="#i-pin"/></svg></span>Визит</a>
+          <a><svg class="i"><use href="#i-wallet"/></svg>Долги</a>
+          <a><svg class="i"><use href="#i-more"/></svg>Ещё</a>
+        </nav>
+      </div></div>
+      <h2>3. Холодильник</h2>
+      <p>Тёмно-синий, как брендовый холодильник ALSI в точке. Три большие плитки: визиты, связь, долги. Выглядит сильнее всех, но на ярком солнце читается хуже.</p>
+    </section>
+  </div>
+
+  <p class="note"><b>Во всех вариантах одинаково:</b> внизу пять кнопок под палец, в центре большая кнопка «Визит». Вверху видно, всё ли ушло в облако. Без связи запись остаётся на телефоне с пометкой «Ждёт отправки». Названия точек взяты из Instagram ALSI Грозный, цифры для примера.</p>
+</main>
+</body>
+</html>
