@@ -1,12 +1,12 @@
 // ALSI Продажи: вход, нижнее меню, экраны.
-import { login, logout, onUser } from './fb.js?v=282e3437';
-import { S, start, stop, subscribe, setErrorHandler } from './store.js?v=282e3437';
-import { h, icon, fill, toast } from './ui/kit.js?v=282e3437';
-import { mountToday } from './ui/today.js?v=282e3437';
-import { mountShops } from './ui/shops.js?v=282e3437';
-import { mountDebts } from './ui/debts.js?v=282e3437';
-import { mountMore } from './ui/more.js?v=282e3437';
-import { startVisit } from './ui/visit.js?v=282e3437';
+import { login, logout, onUser } from './fb.js?v=36adbe7e';
+import { S, start, stop, subscribe, setErrorHandler } from './store.js?v=36adbe7e';
+import { h, icon, fill, toast } from './ui/kit.js?v=36adbe7e';
+import { mountToday } from './ui/today.js?v=36adbe7e';
+import { mountShops } from './ui/shops.js?v=36adbe7e';
+import { mountDebts } from './ui/debts.js?v=36adbe7e';
+import { mountMore } from './ui/more.js?v=36adbe7e';
+import { startVisit } from './ui/visit.js?v=36adbe7e';
 
 const root = document.getElementById('app');
 const SCREENS = { today: mountToday, shops: mountShops, debts: mountDebts, more: mountMore };

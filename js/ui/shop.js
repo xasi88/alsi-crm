@@ -1,15 +1,15 @@
 // Карточка точки: связь, визит, долг, следующее действие, история.
-import { S, subscribe, shopById, doneNext, memberName } from '../store.js?v=282e3437';
-import { h, icon, fill, sheet, ext, toast } from './kit.js?v=282e3437';
-import { planContact, nextText, ageText } from './common.js?v=282e3437';
-import { isoDay, dayShort, daysWord, daysBetween } from '../logic/dates.js?v=282e3437';
-import { rub, prettyPhone, telLink, waLink } from '../logic/format.js?v=282e3437';
-import { balances } from '../logic/money.js?v=282e3437';
-import { activeNext, orderPacks, optionLabel, nextById } from '../logic/visit.js?v=282e3437';
-import { placeLink } from '../logic/maps.js?v=282e3437';
-import { editShop } from './shops.js?v=282e3437';
-import { startVisit, startOrder } from './visit.js?v=282e3437';
-import { takePayment } from './debts.js?v=282e3437';
+import { S, subscribe, shopById, doneNext, memberName } from '../store.js?v=36adbe7e';
+import { h, icon, fill, sheet, ext, toast } from './kit.js?v=36adbe7e';
+import { planContact, nextText, ageText } from './common.js?v=36adbe7e';
+import { isoDay, dayShort, daysWord, daysBetween } from '../logic/dates.js?v=36adbe7e';
+import { rub, prettyPhone, telLink, waLink } from '../logic/format.js?v=36adbe7e';
+import { balances } from '../logic/money.js?v=36adbe7e';
+import { activeNext, orderPacks, optionLabel, nextById } from '../logic/visit.js?v=36adbe7e';
+import { placeLink } from '../logic/maps.js?v=36adbe7e';
+import { editShop } from './shops.js?v=36adbe7e';
+import { startVisit, startOrder } from './visit.js?v=36adbe7e';
+import { takePayment } from './debts.js?v=36adbe7e';
 
 function history(shopId) {
   const today = isoDay();

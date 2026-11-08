@@ -1,11 +1,11 @@
 // Долги: кто должен, деньги на руках, «Деньги переданы».
-import { S, addPayment, handOver } from '../store.js?v=282e3437';
-import { h, icon, fill, sheet, toast, ask, field, inp } from './kit.js?v=282e3437';
-import { head, ageText } from './common.js?v=282e3437';
-import { isoDay, plural } from '../logic/dates.js?v=282e3437';
-import { rub, parseMoney } from '../logic/format.js?v=282e3437';
-import { balances, inHand, paymentError } from '../logic/money.js?v=282e3437';
-import { openShop } from './shop.js?v=282e3437';
+import { S, addPayment, handOver } from '../store.js?v=36adbe7e';
+import { h, icon, fill, sheet, toast, ask, field, inp } from './kit.js?v=36adbe7e';
+import { head, ageText } from './common.js?v=36adbe7e';
+import { isoDay, plural } from '../logic/dates.js?v=36adbe7e';
+import { rub, parseMoney } from '../logic/format.js?v=36adbe7e';
+import { balances, inHand, paymentError } from '../logic/money.js?v=36adbe7e';
+import { openShop } from './shop.js?v=36adbe7e';
 
 export function mountDebts(root) {
   const update = () => {

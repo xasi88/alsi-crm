@@ -1,10 +1,10 @@
 // Общие куски экранов: связь, план, строки точек, следующее действие.
-import { S, pendingCount, planOf, savePlan, addContact } from '../store.js?v=282e3437';
-import { h, icon, toast, sheet, choices, field, inp, fill } from './kit.js?v=282e3437';
-import { isoDay, addDays, monthKey, monthGen, dayShort, daysWord, QUICK_DATES } from '../logic/dates.js?v=282e3437';
-import { monthFact, planBar } from '../logic/day.js?v=282e3437';
-import { NEXT } from '../logic/visit.js?v=282e3437';
-import { rub, parseCount } from '../logic/format.js?v=282e3437';
+import { S, pendingCount, planOf, savePlan, addContact } from '../store.js?v=36adbe7e';
+import { h, icon, toast, sheet, choices, field, inp, fill } from './kit.js?v=36adbe7e';
+import { isoDay, addDays, monthKey, monthGen, dayShort, daysWord, QUICK_DATES } from '../logic/dates.js?v=36adbe7e';
+import { monthFact, planBar } from '../logic/day.js?v=36adbe7e';
+import { NEXT } from '../logic/visit.js?v=36adbe7e';
+import { rub, parseCount } from '../logic/format.js?v=36adbe7e';
 
 export function syncChip() {
   const n = pendingCount();
