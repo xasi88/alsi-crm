@@ -195,10 +195,10 @@ export function pickFile(accept) {
 }
 
 // Кнопка выбора файла: поле файла стоит внутри кнопки постоянно. Файл можно выбрать касанием или подать в поле напрямую.
-// check() перед окном выбора: вернёт текст ошибки, окно не откроется
-export function fileButton(label, accept, onFile, { cls = 'btn line wide', style = '', check } = {}) {
+// check() перед окном выбора: вернёт текст ошибки, окно не откроется. raw: отдать сам файл (фото), без чтения как текст
+export function fileButton(label, accept, onFile, { cls = 'btn line wide', style = '', check, raw = false } = {}) {
   const i = h('input', { type: 'file', accept, 'aria-label': label, style: 'position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;overflow:hidden',
-    onchange: async () => { const x = await readFile(i.files && i.files[0]); i.value = ''; if (x) onFile(x); } });
+    onchange: async () => { const f = i.files && i.files[0]; const x = raw ? f : await readFile(f); i.value = ''; if (x) onFile(x); } });
   return h('label', { class: cls, style: 'position:relative;cursor:pointer;' + style,
     onclick: (e) => { if (e.target === i || !check) return; const why = check(); if (why) { e.preventDefault(); toast(why, true); } } }, label, i);
 }

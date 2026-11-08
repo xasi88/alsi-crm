@@ -1,8 +1,8 @@
 // Экран «Сегодня»: маршрут дня, ближайшие дела, давно без заказа, план месяца.
-import { addDays, daysBetween, monthKey } from './dates.js?v=e63f9436';
-import { activeNext } from './visit.js?v=e63f9436';
-import { itemsPacks } from './products.js?v=e63f9436';
-import { shopDebts } from './money.js?v=e63f9436';
+import { addDays, daysBetween, monthKey } from './dates.js?v=d38d063e';
+import { activeNext } from './visit.js?v=d38d063e';
+import { itemsPacks } from './products.js?v=d38d063e';
+import { shopDebts } from './money.js?v=d38d063e';
 
 const groupBy = (list, key) => {
   const m = new Map();

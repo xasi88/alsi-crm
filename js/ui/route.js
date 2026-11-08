@@ -1,11 +1,11 @@
 // Маршрут объезда на карте: кого объехать, порядок от места телефона, номера и линия на карте,
 // части для Яндекс Карт по 10 точек. Маршрут хранится на телефоне до закрытия: можно уйти в визит и вернуться.
-import { S, view } from '../store.js?v=e63f9436';
-import { h, icon, fill, toast, remember, seg, ext } from './kit.js?v=e63f9436';
-import { rub } from '../logic/format.js?v=e63f9436';
-import { hasPoint } from '../logic/maps.js?v=e63f9436';
-import { planRoute, routeParts, pathKm } from '../logic/route.js?v=e63f9436';
-import { openShop } from './shop.js?v=e63f9436';
+import { S, view } from '../store.js?v=d38d063e';
+import { h, icon, fill, toast, remember, seg, ext } from './kit.js?v=d38d063e';
+import { rub } from '../logic/format.js?v=d38d063e';
+import { hasPoint } from '../logic/maps.js?v=d38d063e';
+import { planRoute, routeParts, pathKm } from '../logic/route.js?v=d38d063e';
+import { openShop } from './shop.js?v=d38d063e';
 
 const WHO = [['all', 'Все'], ['debt', 'Должники'], ['stale', 'Давно без заказа'], ['new', 'Не были сегодня']];
 const STALE = 14; // дней без заказа
@@ -18,10 +18,13 @@ function lastOrders() {
 }
 const daysAgo = (day, today) => Math.round((Date.parse(today) - Date.parse(day)) / 864e5);
 
+// Место телефона. Окно разрешения может висеть: ждём не больше 15 секунд
 function where() {
   return new Promise((ok) => {
     if (!navigator.geolocation) { ok(null); return; }
-    navigator.geolocation.getCurrentPosition((p) => ok({ lat: p.coords.latitude, lng: p.coords.longitude }), () => ok(null),
+    const t = setTimeout(() => ok(null), 15000);
+    const done = (x) => { clearTimeout(t); ok(x); };
+    navigator.geolocation.getCurrentPosition((p) => done({ lat: p.coords.latitude, lng: p.coords.longitude }), () => done(null),
       { enableHighAccuracy: true, timeout: 9000, maximumAge: 60000 });
   });
 }

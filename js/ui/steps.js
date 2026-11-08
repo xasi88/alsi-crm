@@ -1,10 +1,10 @@
 // Общие шаги визита, заказа и возврата: выбор точки, предупреждение о долге, оплата.
-import { S, view, all } from '../store.js?v=e63f9436';
-import { h, icon, fill, choices, field, inp } from './kit.js?v=e63f9436';
-import { isoDay, dayShort } from '../logic/dates.js?v=e63f9436';
-import { rub, parseMoney, shopMatches } from '../logic/format.js?v=e63f9436';
-import { shopDebts, PAYMENTS, partialError } from '../logic/money.js?v=e63f9436';
-import { editShop } from './shops.js?v=e63f9436';
+import { S, view, all } from '../store.js?v=d38d063e';
+import { h, icon, fill, choices, field, inp } from './kit.js?v=d38d063e';
+import { isoDay, dayShort } from '../logic/dates.js?v=d38d063e';
+import { rub, parseMoney, shopMatches } from '../logic/format.js?v=d38d063e';
+import { shopDebts, PAYMENTS, partialError } from '../logic/money.js?v=d38d063e';
+import { editShop } from './shops.js?v=d38d063e';
 
 // Предупреждение о долге точки при выборе
 export function debtWarn(shopId) {

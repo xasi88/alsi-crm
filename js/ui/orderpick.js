@@ -1,10 +1,10 @@
 // Выбор товаров в заказ: категории, поиск, упаковки и штуки.
-// Касание названия добавляет упаковку. Число и штуки вводятся в окне товара.
-import { S, all } from '../store.js?v=e63f9436';
-import { h, icon, fill, sheet, toast, inp, field, seg } from './kit.js?v=e63f9436';
-import { rub, parseCount, norm } from '../logic/format.js?v=e63f9436';
-import { activeProducts, GROUPS, groupOf, LINES, catLabel, catOf, measure, sellsUnits, unitPriceOf, itemsFromPick, itemsSum } from '../logic/products.js?v=e63f9436';
-import { editProduct } from './catalog.js?v=e63f9436';
+// Касание фото или названия добавляет упаковку. Число и штуки вводятся в окне товара.
+import { S, all } from '../store.js?v=d38d063e';
+import { h, icon, fill, sheet, toast, inp, field, seg } from './kit.js?v=d38d063e';
+import { rub, parseCount, norm } from '../logic/format.js?v=d38d063e';
+import { activeProducts, GROUPS, groupOf, LINES, catLabel, catOf, measure, sellsUnits, unitPriceOf, itemsFromPick, itemsSum } from '../logic/products.js?v=d38d063e';
+import { editProduct, pic } from './product.js?v=d38d063e';
 
 export const products = () => activeProducts(all('products'));
 
@@ -56,7 +56,9 @@ export function productPicker(body, pick, onChange) {
       onChange();
     };
     cnt.onclick = () => askQty(p, q0(), set);
-    fill(el,
+    const ph = pic(p);
+    ph.onclick = () => set(q0().packs + 1, q0().units);
+    fill(el, ph,
       h('button', { class: 'add', onclick: () => set(q0().packs + 1, q0().units), 'aria-label': 'Добавить упаковку ' + p.name },
         h('b', {}, p.name), h('small', { class: 'num' }, meta(p))),
       h('button', { class: 'minus', 'aria-label': 'Убрать', onclick: () => { const x = q0(); if (x.packs > 0) set(x.packs - 1, x.units); else set(0, x.units - 1); } }, icon('minus')),

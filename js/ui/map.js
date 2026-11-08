@@ -1,18 +1,18 @@
 // Карта точек: те же фильтры, что у списка, метки, список под картой. Маршрут объезда: js/ui/route.js.
 // Метку можно поставить или переставить только после подтверждения. Адрес точки не меняется.
 // Библиотека карты (Leaflet 1.9.4, лицензия BSD) лежит в js/vendor и грузится только на этом экране.
-import { S, view, canEdit } from '../store.js?v=e63f9436';
-import { saveShop } from '../save.js?v=e63f9436';
-import { h, icon, fill, toast, ask } from './kit.js?v=e63f9436';
-import { liveHead } from './common.js?v=e63f9436';
-import { isoDay } from '../logic/dates.js?v=e63f9436';
-import { rub } from '../logic/format.js?v=e63f9436';
-import { shopDebts } from '../logic/money.js?v=e63f9436';
-import { hasPoint } from '../logic/maps.js?v=e63f9436';
-import { lastVisits } from '../logic/filters.js?v=e63f9436';
-import { shopView, shopFilters, filteredShops, listMapTabs } from './shops.js?v=e63f9436';
-import { openShop } from './shop.js?v=e63f9436';
-import { routeMode } from './route.js?v=e63f9436';
+import { S, view, canEdit } from '../store.js?v=d38d063e';
+import { saveShop } from '../save.js?v=d38d063e';
+import { h, icon, fill, toast, ask } from './kit.js?v=d38d063e';
+import { liveHead } from './common.js?v=d38d063e';
+import { isoDay } from '../logic/dates.js?v=d38d063e';
+import { rub } from '../logic/format.js?v=d38d063e';
+import { shopDebts } from '../logic/money.js?v=d38d063e';
+import { hasPoint } from '../logic/maps.js?v=d38d063e';
+import { lastVisits } from '../logic/filters.js?v=d38d063e';
+import { shopView, shopFilters, filteredShops, listMapTabs } from './shops.js?v=d38d063e';
+import { openShop } from './shop.js?v=d38d063e';
+import { routeMode } from './route.js?v=d38d063e';
 
 let loading = null;
 function loadLeaflet() {

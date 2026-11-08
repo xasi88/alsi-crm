@@ -1,17 +1,17 @@
 // Визит и заказ по телефону: шаги за несколько касаний, одной рукой. Каждый шаг пишется в черновик.
-import { S, all, shopById } from '../store.js?v=e63f9436';
-import { saveVisit } from '../save.js?v=e63f9436';
-import { h, icon, fill, sheet, toast, choices, field, inp } from './kit.js?v=e63f9436';
-import { nextPicker } from './common.js?v=e63f9436';
-import { isoDay, addDays, dayShort } from '../logic/dates.js?v=e63f9436';
-import { rub, parseMoney } from '../logic/format.js?v=e63f9436';
-import { REFUSAL, OTHER, optionPairs, visitErrors, lateVisits } from '../logic/visit.js?v=e63f9436';
-import { itemsPacks, itemsUnits, qtyText } from '../logic/products.js?v=e63f9436';
-import { hasPoint } from '../logic/maps.js?v=e63f9436';
-import { gpsFix, askMapLink } from './shops.js?v=e63f9436';
-import { debtWarn, shopStep, payBlock, payError } from './steps.js?v=e63f9436';
-import { productPicker, pickItems, pickTotal } from './orderpick.js?v=e63f9436';
-import { keepDraft, dropDraft, draftFor, draftById } from './drafts.js?v=e63f9436';
+import { S, all, shopById } from '../store.js?v=d38d063e';
+import { saveVisit } from '../save.js?v=d38d063e';
+import { h, icon, fill, sheet, toast, choices, field, inp } from './kit.js?v=d38d063e';
+import { nextPicker } from './common.js?v=d38d063e';
+import { isoDay, addDays, dayShort } from '../logic/dates.js?v=d38d063e';
+import { rub, parseMoney } from '../logic/format.js?v=d38d063e';
+import { REFUSAL, OTHER, optionPairs, visitErrors, lateVisits } from '../logic/visit.js?v=d38d063e';
+import { itemsPacks, itemsUnits, qtyText } from '../logic/products.js?v=d38d063e';
+import { hasPoint } from '../logic/maps.js?v=d38d063e';
+import { gpsFix, askMapLink } from './shops.js?v=d38d063e';
+import { debtWarn, shopStep, payBlock, payError } from './steps.js?v=d38d063e';
+import { productPicker, pickItems, pickTotal } from './orderpick.js?v=d38d063e';
+import { keepDraft, dropDraft, draftFor, draftById } from './drafts.js?v=d38d063e';
 
 export const startVisit = (shopId) => flow('visit', shopId);
 export const startOrder = (shopId) => flow('order', shopId);
