@@ -1,13 +1,13 @@
 // Каталог: карточки товаров с фото, категории, цены, чистые продажи. Карточка и правка товара: product.js.
 // Загрузка списка товаров из файла (CSV или JSON): тот же товар обновляется, новый добавляется.
-import { S, all, view } from '../store.js?v=895b33d7';
-import { writeMany } from '../save.js?v=895b33d7';
-import { h, fill, sheet, toast, remember, seg, pickFile } from './kit.js?v=895b33d7';
-import { liveHead } from './common.js?v=895b33d7';
-import { rub } from '../logic/format.js?v=895b33d7';
-import { CATS, GROUPS, LINES, groupOf, catOf, catLabel, measure, sortProducts, qtyText, parseCatalog, findSame } from '../logic/products.js?v=895b33d7';
-import { newId } from '../fb.js?v=895b33d7';
-import { editProduct, openProduct, pic } from './product.js?v=895b33d7';
+import { S, all, view } from '../store.js?v=7a9cd2c1';
+import { writeMany } from '../save.js?v=7a9cd2c1';
+import { h, fill, sheet, toast, remember, seg, pickFile } from './kit.js?v=7a9cd2c1';
+import { liveHead } from './common.js?v=7a9cd2c1';
+import { rub } from '../logic/format.js?v=7a9cd2c1';
+import { CATS, GROUPS, LINES, groupOf, catOf, catLabel, measure, sortProducts, qtyText, parseCatalog, findSame } from '../logic/products.js?v=7a9cd2c1';
+import { newId } from '../fb.js?v=7a9cd2c1';
+import { editProduct, openProduct, pic } from './product.js?v=7a9cd2c1';
 
 export { editProduct };
 

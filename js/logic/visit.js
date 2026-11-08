@@ -1,8 +1,8 @@
 // Визит: «Заказ есть?», отказ с вопросами к ЛПР, следующее действие.
 // Варианты ответов те же, что в программе Атама: его ответы переносятся без потерь.
 // Добавлены два варианта для ALSI: «Берут у другого поставщика» и «Холодильник или витрина».
-import { PAYMENTS } from './money.js?v=895b33d7';
-import { itemPacks, itemUnits } from './products.js?v=895b33d7';
+import { PAYMENTS } from './money.js?v=7a9cd2c1';
+import { itemPacks, itemUnits } from './products.js?v=7a9cd2c1';
 
 export const NEXT = [
   { id: 'whatsapp', label: 'Написать в WhatsApp', short: 'WhatsApp' },

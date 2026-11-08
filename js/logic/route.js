@@ -1,6 +1,6 @@
 // Маршрут объезда точек: самый короткий порядок по прямой и ссылки в Яндекс Карты частями.
 // Без облака и без сети: считает телефон. По дорогам ведут Яндекс Карты.
-import { hasPoint } from './maps.js?v=895b33d7';
+import { hasPoint } from './maps.js?v=7a9cd2c1';
 
 const f6 = (n) => Number(n).toFixed(6);
 const rad = (x) => (x * Math.PI) / 180;

@@ -1,14 +1,14 @@
 // Долги: кто должен, деньги на руках, «Деньги переданы».
 // Точка остаётся в списке, пока есть долг или деньги, которые ещё не переданы руководству.
-import { S, view, all, subscribe, shopById, canEdit } from '../store.js?v=895b33d7';
-import { addPayments, handOver } from '../save.js?v=895b33d7';
-import { h, icon, fill, sheet, toast, ask, field, inp } from './kit.js?v=895b33d7';
-import { head, ageText, sec } from './common.js?v=895b33d7';
-import { isoDay, dayShort, plural } from '../logic/dates.js?v=895b33d7';
-import { rub, parseMoney } from '../logic/format.js?v=895b33d7';
-import { shopDebts, debtRows, inHand, paymentError, allocate } from '../logic/money.js?v=895b33d7';
-import { openOrder } from './order.js?v=895b33d7';
-import { openShop } from './shop.js?v=895b33d7';
+import { S, view, all, subscribe, shopById, canEdit } from '../store.js?v=7a9cd2c1';
+import { addPayments, handOver } from '../save.js?v=7a9cd2c1';
+import { h, icon, fill, sheet, toast, ask, field, inp } from './kit.js?v=7a9cd2c1';
+import { head, ageText, sec } from './common.js?v=7a9cd2c1';
+import { isoDay, dayShort, plural } from '../logic/dates.js?v=7a9cd2c1';
+import { rub, parseMoney } from '../logic/format.js?v=7a9cd2c1';
+import { shopDebts, debtRows, inHand, paymentError, allocate } from '../logic/money.js?v=7a9cd2c1';
+import { openOrder } from './order.js?v=7a9cd2c1';
+import { openShop } from './shop.js?v=7a9cd2c1';
 
 async function handOverAsk(list, what) {
   const sum = list.reduce((n, p) => n + Number(p.amount), 0);

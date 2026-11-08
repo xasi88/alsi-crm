@@ -72,7 +72,8 @@ export function sheet({ title, sub = '', full = false, onClose } = {}) {
   const head = h('div', { class: 'sh-head' });
   const body = h('div', { class: 'sh-body' });
   // Как fill: списки раскрываются, пустое (null, false) пропускается. Обычный append печатал бы «[object ...]»
-  body.append = (...kids) => add(body, kids);
+  const put = body.append.bind(body);
+  body.append = (...kids) => put(...kids.flat(Infinity).filter((k) => k !== undefined && k !== null && k !== false));
   const foot = h('div', { class: 'sh-foot hide' });
   const el = h('div', { class: 'sheet' + (full ? ' full' : ''), role: 'dialog', 'aria-modal': 'true' },
     h('div', { class: 'shade', onclick: () => s.close() }),
