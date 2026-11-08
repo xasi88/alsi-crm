@@ -169,6 +169,17 @@ export function download(name, text, type = 'application/json') {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
+// Прочитать выбранный файл как текст
+export function readFile(f) {
+  return new Promise((resolve) => {
+    if (!f) { resolve(null); return; }
+    const r = new FileReader();
+    r.onload = () => resolve({ name: f.name, size: f.size, text: String(r.result || '') });
+    r.onerror = () => resolve(null);
+    r.readAsText(f, 'utf-8');
+  });
+}
+
 // Выбрать файл на устройстве и прочитать как текст
 export function pickFile(accept) {
   return new Promise((resolve) => {
@@ -176,15 +187,20 @@ export function pickFile(accept) {
     i.onchange = () => {
       const f = i.files && i.files[0];
       i.remove();
-      if (!f) { resolve(null); return; }
-      const r = new FileReader();
-      r.onload = () => resolve({ name: f.name, size: f.size, text: String(r.result || '') });
-      r.onerror = () => resolve(null);
-      r.readAsText(f, 'utf-8');
+      readFile(f).then(resolve);
     };
     document.body.append(i);
     i.click();
   });
+}
+
+// Кнопка выбора файла: поле файла стоит внутри кнопки постоянно. Файл можно выбрать касанием или подать в поле напрямую.
+// check() перед окном выбора: вернёт текст ошибки, окно не откроется
+export function fileButton(label, accept, onFile, { cls = 'btn line wide', style = '', check } = {}) {
+  const i = h('input', { type: 'file', accept, 'aria-label': label, style: 'position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;overflow:hidden',
+    onchange: async () => { const x = await readFile(i.files && i.files[0]); i.value = ''; if (x) onFile(x); } });
+  return h('label', { class: cls, style: 'position:relative;cursor:pointer;' + style,
+    onclick: (e) => { if (e.target === i || !check) return; const why = check(); if (why) { e.preventDefault(); toast(why, true); } } }, label, i);
 }
 
 // Память экрана на телефоне: фильтры, поиск, вкладка

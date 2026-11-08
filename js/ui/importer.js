@@ -1,11 +1,11 @@
 // Перенос базы из программы Атама: что в файле, люди, товары, запись, сверка счётчиков.
 // Только владелец. Повторный перенос перезаписывает те же записи: двойников нет.
-import { S, all, pendingCount, member } from '../store.js?v=453931aa';
-import { writeMany } from '../save.js?v=453931aa';
-import { h, fill, sheet, toast, ask, choices, field, inp } from './kit.js?v=453931aa';
-import { readAtam, convertAtam, reconcile, SRC } from '../logic/atam.js?v=453931aa';
-import { LABELS } from '../logic/backup.js?v=453931aa';
-import { rub } from '../logic/format.js?v=453931aa';
+import { S, all, pendingCount, member } from '../store.js?v=92040873';
+import { writeMany } from '../save.js?v=92040873';
+import { h, fill, sheet, toast, ask, choices, field, inp } from './kit.js?v=92040873';
+import { readAtam, convertAtam, reconcile, SRC } from '../logic/atam.js?v=92040873';
+import { LABELS } from '../logic/backup.js?v=92040873';
+import { rub } from '../logic/format.js?v=92040873';
 
 const ROLE_ATAM = { owner: 'владелец', supervisor: 'супервайзер', sales: 'торговый' };
 const LIMIT = 18000; // бесплатный тариф Firebase: 20 000 записей в сутки
@@ -16,9 +16,11 @@ export function startAtamImport(data, name) {
   const s = sheet({ title: 'Перенос из программы Атама', sub: name + (info.exportedAt ? ', файл от ' + info.exportedAt.slice(0, 10) : ''), full: true });
   // Кого куда: почта в нашей команде, роль, добавить ли в команду
   const plan = new Map(info.people.map((p) => [p.userId, {
-    email: p.email, name: p.name, add: p.email ? 'add' : 'me',
+    email: p.email, name: p.name, add: p.email ? 'add' : 'me', fileRole: p.role,
     role: p.role === 'supervisor' || p.role === 'owner' ? 'supervisor' : 'sales', supUserId: p.supervisorUserId,
   }]));
+  // Владелец у Атама видит всех. Торговый без супервайзера в файле встаёт под владельца, если владелец у нас супервайзер
+  const fileBoss = [...plan.values()].find((x) => x.fileRole === 'owner');
   const total = Object.values(info.counts).reduce((a, b) => a + b, 0);
   let step = 'people';
 
@@ -60,7 +62,7 @@ export function startAtamImport(data, name) {
     for (const [uid, x] of plan) map.set(uid, { email: x.add === 'add' ? x.email : S.email, lead: '' });
     for (const [uid, x] of plan) {
       if (x.add !== 'add' || x.role === 'supervisor') continue;
-      const sup = plan.get(x.supUserId);
+      const sup = plan.get(x.supUserId) || fileBoss;
       map.get(uid).lead = sup && sup.add === 'add' && sup.role === 'supervisor' ? sup.email : member(x.email)?.lead || '';
     }
     map.get('') || map.set('', { email: S.email, lead: '' });

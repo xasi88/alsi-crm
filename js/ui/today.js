@@ -1,17 +1,17 @@
 // Экран «Сегодня»: план, цифры дня, маршрут, ближайшие дела, долги, давно без заказа.
-import { S, view, canEdit } from '../store.js?v=453931aa';
-import { doneNext } from '../save.js?v=453931aa';
-import { h, icon, fill, ext, toast, stat } from './kit.js?v=453931aa';
-import { head, planCard, owedTag, sec, whoText } from './common.js?v=453931aa';
-import { isoDay, dayTitle, dayShort, daysWord, plural } from '../logic/dates.js?v=453931aa';
-import { buildDay } from '../logic/day.js?v=453931aa';
-import { dayStats } from '../logic/stats.js?v=453931aa';
-import { qtyText } from '../logic/products.js?v=453931aa';
-import { rub, waLink, telLink } from '../logic/format.js?v=453931aa';
-import { routeLink, placeLink } from '../logic/maps.js?v=453931aa';
-import { openShop } from './shop.js?v=453931aa';
-import { startVisit } from './visit.js?v=453931aa';
-import { draftBanner } from './drafts.js?v=453931aa';
+import { S, view, canEdit } from '../store.js?v=92040873';
+import { doneNext } from '../save.js?v=92040873';
+import { h, icon, fill, ext, toast, stat } from './kit.js?v=92040873';
+import { head, planCard, owedTag, sec, whoText } from './common.js?v=92040873';
+import { isoDay, dayTitle, dayShort, daysWord, plural } from '../logic/dates.js?v=92040873';
+import { buildDay } from '../logic/day.js?v=92040873';
+import { dayStats } from '../logic/stats.js?v=92040873';
+import { qtyText } from '../logic/products.js?v=92040873';
+import { rub, waLink, telLink } from '../logic/format.js?v=92040873';
+import { routeLink, placeLink } from '../logic/maps.js?v=92040873';
+import { openShop } from './shop.js?v=92040873';
+import { startVisit } from './visit.js?v=92040873';
+import { draftBanner } from './drafts.js?v=92040873';
 
 const TASK = { visit: 'Визит', call: 'Позвонить', whatsapp: 'Написать в WhatsApp' };
 

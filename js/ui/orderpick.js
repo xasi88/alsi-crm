@@ -1,10 +1,10 @@
 // Выбор товаров в заказ: категории, поиск, упаковки и штуки.
 // Касание названия добавляет упаковку. Число и штуки вводятся в окне товара.
-import { S, all } from '../store.js?v=453931aa';
-import { h, icon, fill, sheet, toast, inp, field, seg } from './kit.js?v=453931aa';
-import { rub, parseCount, norm } from '../logic/format.js?v=453931aa';
-import { activeProducts, GROUPS, groupOf, LINES, catLabel, catOf, measure, sellsUnits, unitPriceOf, itemsFromPick, itemsSum } from '../logic/products.js?v=453931aa';
-import { editProduct } from './catalog.js?v=453931aa';
+import { S, all } from '../store.js?v=92040873';
+import { h, icon, fill, sheet, toast, inp, field, seg } from './kit.js?v=92040873';
+import { rub, parseCount, norm } from '../logic/format.js?v=92040873';
+import { activeProducts, GROUPS, groupOf, LINES, catLabel, catOf, measure, sellsUnits, unitPriceOf, itemsFromPick, itemsSum } from '../logic/products.js?v=92040873';
+import { editProduct } from './catalog.js?v=92040873';
 
 export const products = () => activeProducts(all('products'));
 

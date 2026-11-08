@@ -1,12 +1,12 @@
 // Данные: счётчики, связь, работа без связи, резервная копия, перенос из программы Атама.
-import { S, pendingCount, all } from '../store.js?v=453931aa';
-import { writeMany } from '../save.js?v=453931aa';
-import { h, icon, fill, sheet, toast, ask, choices, download, pickFile, stat } from './kit.js?v=453931aa';
-import { head, sec } from './common.js?v=453931aa';
-import { isoDay } from '../logic/dates.js?v=453931aa';
-import { buildBackup, kindOf, restorePlan, fileName, COLS, LABELS } from '../logic/backup.js?v=453931aa';
-import { listDrafts } from './drafts.js?v=453931aa';
-import { startAtamImport } from './importer.js?v=453931aa';
+import { S, pendingCount, all } from '../store.js?v=92040873';
+import { writeMany } from '../save.js?v=92040873';
+import { h, icon, fill, sheet, toast, ask, choices, download, fileButton, stat } from './kit.js?v=92040873';
+import { head, sec } from './common.js?v=92040873';
+import { isoDay } from '../logic/dates.js?v=92040873';
+import { buildBackup, kindOf, restorePlan, fileName, COLS, LABELS } from '../logic/backup.js?v=92040873';
+import { listDrafts } from './drafts.js?v=92040873';
+import { startAtamImport } from './importer.js?v=92040873';
 
 // Готово ли приложение к работе без связи: файлы приложения лежат в копии на телефоне
 async function offlineCheck() {
@@ -53,7 +53,7 @@ export function mountData(root) {
           download(fileName(isoDay()), JSON.stringify(b, null, 1));
           toast(n ? 'Копия скачана вместе с записями, которые ещё не ушли в облако' : 'Резервная копия скачана');
         } }, 'Скачать резервную копию'),
-        S.owner ? h('button', { class: 'btn line wide', style: 'margin-top:8px', onclick: () => loadFile() }, 'Загрузить копию или файл программы Атама') : null),
+        S.owner ? fileButton('Загрузить копию или файл программы Атама', '.json,application/json', loadFile, { style: 'margin-top:8px', check: blocked }) : null),
       h('div', { class: 'gap' }));
   };
   update();
@@ -61,11 +61,10 @@ export function mountData(root) {
 }
 
 // Загрузка: наша копия или файл программы Атама. Только владелец, со связью, без неотправленных записей.
-async function loadFile() {
-  if (!S.online) { toast('Нужна связь с облаком', true); return; }
-  if (pendingCount()) { toast('Сначала дождитесь отправки всех записей', true); return; }
-  const f = await pickFile('.json,application/json');
-  if (!f) return;
+const blocked = () => (!S.online ? 'Нужна связь с облаком' : pendingCount() ? 'Сначала дождитесь отправки всех записей' : '');
+async function loadFile(f) {
+  const why = blocked();
+  if (why) { toast(why, true); return; }
   let data;
   try { data = JSON.parse(f.text); } catch (e) { toast('Файл не читается как JSON', true); return; }
   const kind = kindOf(data);

@@ -1,13 +1,13 @@
 // Возврат: точка, заказ, что возвращают (упаковки и штуки), не больше проданного.
-import { S, subscribe, all, shopById, orderById, canEdit, memberName } from '../store.js?v=453931aa';
-import { saveReturn, hide } from '../save.js?v=453931aa';
-import { h, icon, fill, sheet, toast, ask, field, inp } from './kit.js?v=453931aa';
-import { isoDay, dayShort } from '../logic/dates.js?v=453931aa';
-import { rub, parseCount } from '../logic/format.js?v=453931aa';
-import { orderSum } from '../logic/money.js?v=453931aa';
-import { qtyText, itemsPacks, itemsUnits, itemSum } from '../logic/products.js?v=453931aa';
-import { available, returnItems, returnErrors, returnTotal } from '../logic/returns.js?v=453931aa';
-import { shopStep } from './steps.js?v=453931aa';
+import { S, subscribe, all, shopById, orderById, canEdit, memberName } from '../store.js?v=92040873';
+import { saveReturn, hide } from '../save.js?v=92040873';
+import { h, icon, fill, sheet, toast, ask, field, inp } from './kit.js?v=92040873';
+import { isoDay, dayShort } from '../logic/dates.js?v=92040873';
+import { rub, parseCount } from '../logic/format.js?v=92040873';
+import { orderSum } from '../logic/money.js?v=92040873';
+import { qtyText, itemsPacks, itemsUnits, itemSum } from '../logic/products.js?v=92040873';
+import { available, returnItems, returnErrors, returnTotal } from '../logic/returns.js?v=92040873';
+import { shopStep } from './steps.js?v=92040873';
 
 const kv = (k, v) => h('div', { class: 'kv' }, h('span', {}, k), h('b', {}, v));
 

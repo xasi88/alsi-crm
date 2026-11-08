@@ -1,9 +1,9 @@
 // Перенос базы из программы Атама (файл «Скачать резервную копию», JSON).
 // Только чтение файла и перевод полей. К его облаку не подключаемся.
 // Номера записей постоянные: 'atam-' и номер у Атама. Повторный перенос перезаписывает те же записи, двойников нет.
-import { normPhone } from './format.js?v=453931aa';
-import { sameAnswer } from './visit.js?v=453931aa';
-import { productFromAny, findSame, itemsSum, LINES } from './products.js?v=453931aa';
+import { normPhone } from './format.js?v=92040873';
+import { sameAnswer } from './visit.js?v=92040873';
+import { productFromAny, findSame, itemsSum, LINES } from './products.js?v=92040873';
 
 export const SRC = 'atam';
 export const atamId = (id) => 'atam-' + String(id ?? '').replace(/[^A-Za-z0-9_-]/g, '_').slice(0, 200);
@@ -47,14 +47,15 @@ export function readAtam(data) {
   };
 }
 
+// Планы по людям. В настоящем файле цель лежит в settingsByUser[id].settings, в старом прямо в settingsByUser[id]
 function goalsByUser(data) {
   const meta = data._workspaceBackup || {};
   const out = new Map();
-  for (const [uid, s] of Object.entries(meta.settingsByUser || {})) out.set(uid, s?.monthlyPackageGoals || {});
+  for (const [uid, s] of Object.entries(meta.settingsByUser || {})) out.set(uid, s?.settings?.monthlyPackageGoals || s?.monthlyPackageGoals || {});
   const own = data.settings?.monthlyPackageGoals;
   if (own && typeof own === 'object') {
     const boss = arr(meta.members).find((m) => m.role === 'owner')?.user_id || '';
-    if (!out.has(boss)) out.set(boss, own);
+    if (!Object.keys(out.get(boss) || {}).length) out.set(boss, own);
   }
   return out;
 }
@@ -64,7 +65,9 @@ const countGoals = (data) => [...goalsByUser(data).values()]
 const NEXT = { 'Написать в WhatsApp': 'whatsapp', 'Позвонить': 'call', 'Приехать': 'visit', 'Действий не требуется': 'none' };
 const PAY = { 'Оплата водителю': 'driver', 'Не указано': 'unknown', 'Оплачено': 'cash', 'Долг': 'debt', 'Частично': 'partial' };
 const POINT_SRC = { 'manual-map': 'Карта', gps: 'GPS', GPS: 'GPS' };
-const guessLine = (name) => LINES.find((l) => String(name).toLowerCase().includes(l.toLowerCase())) || '';
+// Названия у Атама и у нас: «Nerv» это Nerve, «ж/б» это банка
+export const sameName = (n) => str(n).replace(/\bNerv\b/gi, 'Nerve').replace(/ж\/б/gi, 'банка');
+const guessLine = (name) => LINES.find((l) => sameName(name).toLowerCase().includes(l.toLowerCase())) || '';
 
 // Перевод всех записей. people: Map userId -> { email, lead }. ours: наши товары.
 export function convertAtam(data, { people, ours = [], now = new Date().toISOString() }) {
@@ -79,12 +82,14 @@ export function convertAtam(data, { people, ours = [], now = new Date().toISOStr
 
   // Товары: тот же товар у нас (артикул или название) или новый
   const prodMap = new Map();
+  const ourName = new Map();
   const products = [];
   const matched = [];
   for (const p of arr(data.products)) {
-    const same = findSame(ours, p);
+    const same = findSame(ours, p) || findSame(ours, { name: sameName(p.name) });
     if (same) {
       prodMap.set(p.id, same.id);
+      ourName.set(p.id, same.name);
       const price = numOr(p.price, 0);
       if (price && Math.abs(price - (Number(same.packPrice) || 0)) > 0.004) matched.push({ name: same.name, ours: same.packPrice, atam: price });
       continue;
@@ -104,7 +109,7 @@ export function convertAtam(data, { people, ours = [], now = new Date().toISOStr
       : it.packages !== undefined ? numOr(it.packages, 0) : unitMode ? 0 : numOr(it.qty, 0);
     const units = it.unitQty !== undefined && it.unitQty !== null ? numOr(it.unitQty, 0)
       : it.cans !== undefined ? numOr(it.cans, 0) : it.units !== undefined ? numOr(it.units, 0) : unitMode ? numOr(it.qty, 0) : 0;
-    const name = str(p.name) || str(it.name) || 'Удалённый товар';
+    const name = ourName.get(it.productId) || str(p.name) || str(it.name) || str(it.productName) || 'Удалённый товар';
     const cat = productFromAny({ ...p, category: p.category || it.category }).cat;
     return {
       productId: prodMap.get(it.productId) || atamId(it.productId), name, cat, line: guessLine(name),
@@ -116,6 +121,15 @@ export function convertAtam(data, { people, ours = [], now = new Date().toISOStr
   const shopName = (x) => str(shopsById.get(x.shopId)?.name) || str(x.shopSnapshot?.name) || 'Точка';
   const at = (x) => str(x.createdAt) || (day(x.date) ? day(x.date) + 'T12:00:00.000Z' : now);
   const missingShop = (x, what) => { if (!shopsById.has(x.shopId)) problems.push(what + ' без точки в файле: ' + str(x.id)); };
+  // Ссылка на заказ или визит, которых нет в файле (удалены у Атама): ссылку убираем, запись оставляем
+  const orderIds = new Set(arr(data.orders).map((o) => o.id));
+  const visitIds = new Set(arr(data.visits).map((v) => v.id));
+  const link = (id, ids, what, x) => {
+    if (!id) return null;
+    if (ids.has(id)) return atamId(id);
+    problems.push(what + ' ссылается на запись, которой нет в файле: ' + str(x.id));
+    return null;
+  };
 
   const shops = arr(data.shops).map((s) => {
     const pt = point(s.latitude, s.longitude);
@@ -143,7 +157,7 @@ export function convertAtam(data, { people, ours = [], now = new Date().toISOStr
     const pt = point(v.latitude, v.longitude);
     return [atamId(v.id), {
       shopId: atamId(v.shopId), shopName: shopName(v), date: day(v.date) || day(v.createdAt), at: at(v), result,
-      orderId: v.orderId ? atamId(v.orderId) : null, lpr: result === 'none' ? lpr : null, refusal,
+      orderId: link(v.orderId, orderIds, 'Визит', v), lpr: result === 'none' ? lpr : null, refusal,
       next: { type: nt, date: nt === 'none' ? null : day(v.nextContact) || null, doneAt: str(v.nextActionCompletedAt) || null },
       nextText: str(v.nextAction), note: str(v.note),
       geo: pt ? { ...pt, acc: numOr(v.geoAccuracy), src: str(v.geoSource), link: str(v.geoLink) } : null,
@@ -163,7 +177,7 @@ export function convertAtam(data, { people, ours = [], now = new Date().toISOStr
       shopId: atamId(o.shopId), shopName: shopName(o), date: day(o.date) || day(o.createdAt), at: at(o),
       shop: { name: str(live.name || snap.name), contact: str(live.contact || snap.contact), phone: str(live.phone || snap.phone),
         address: str(live.address || snap.address), district: str(live.district || snap.district), locality: str(live.locality || snap.locality) },
-      visitId: o.visitId ? atamId(o.visitId) : null, items, total: items.length ? itemsSum(items) : numOr(o.total, 0),
+      visitId: link(o.visitId, visitIds, 'Заказ', o), items, total: items.length ? itemsSum(items) : numOr(o.total, 0),
       payment: pay, paymentText: str(o.payment), paidNow: pay === 'partial' ? numOr(o.initialPaid, 0) : 0, note: str(o.note ?? o.comment),
       ...tag(o),
     }];
@@ -173,14 +187,14 @@ export function convertAtam(data, { people, ours = [], now = new Date().toISOStr
     missingShop(r, 'Возврат');
     const items = arr(r.items).map(item).filter((i) => i.packs > 0 || i.units > 0);
     return [atamId(r.id), {
-      shopId: atamId(r.shopId), shopName: shopName(r), orderId: r.orderId ? atamId(r.orderId) : null,
+      shopId: atamId(r.shopId), shopName: shopName(r), orderId: link(r.orderId, orderIds, 'Возврат', r),
       date: day(r.date) || day(r.createdAt), at: at(r), items, total: typeof r.total === 'number' ? r.total : itemsSum(items),
       note: str(r.note), ...tag(r),
     }];
   });
 
   const payments = arr(data.payments).map((p) => [atamId(p.id), {
-    shopId: atamId(p.shopId), shopName: shopName(p), orderId: p.orderId ? atamId(p.orderId) : null,
+    shopId: atamId(p.shopId), shopName: shopName(p), orderId: link(p.orderId, orderIds, 'Оплата', p),
     date: day(p.date) || day(p.createdAt), at: at(p), amount: Math.max(0, numOr(p.amount, 0)), kind: 'debt',
     handedAt: str(p.handedOverAt) || null, handedDate: day(p.handedOverDate) || (str(p.handedOverAt) ? day(p.handedOverAt) : null),
     note: str(p.note), ...tag(p),
