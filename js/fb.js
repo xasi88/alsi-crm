@@ -8,6 +8,7 @@ import {
 import {
   initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
   collection, doc, setDoc, updateDoc, getDoc, onSnapshot, query, where, writeBatch,
+  terminate, clearIndexedDbPersistence,
 } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 
 const app = initializeApp({
@@ -51,6 +52,14 @@ export function onUser(fn) {
 }
 
 export const logout = () => signOut(auth);
+
+// Выход без неотправленных записей: стираем копию базы на телефоне,
+// чтобы следующий человек на этом телефоне не увидел чужих записей.
+export async function logoutClean() {
+  await signOut(auth);
+  try { await terminate(db); await clearIndexedDbPersistence(db); } catch (e) { /* копия занята другой вкладкой */ }
+  location.reload();
+}
 
 export const newId = (col) => doc(collection(db, col)).id;
 

@@ -1,15 +1,31 @@
-// ALSI Продажи: вход, нижнее меню, экраны.
-import { login, logout, onUser } from './fb.js?v=5db8579d';
-import { S, start, stop, subscribe, setErrorHandler } from './store.js?v=5db8579d';
-import { h, icon, fill, toast } from './ui/kit.js?v=5db8579d';
-import { mountToday } from './ui/today.js?v=5db8579d';
-import { mountShops } from './ui/shops.js?v=5db8579d';
-import { mountDebts } from './ui/debts.js?v=5db8579d';
-import { mountMore } from './ui/more.js?v=5db8579d';
-import { startVisit } from './ui/visit.js?v=5db8579d';
+// ALSI Продажи: вход, меню, экраны.
+// Телефон: нижнее меню из пяти кнопок. Широкий экран (Surface, компьютер): боковая панель со всеми разделами.
+import { login, onUser, logout } from './fb.js?v=79063987';
+import { S, start, stop, subscribe } from './store.js?v=79063987';
+import { setErrorHandler } from './save.js?v=79063987';
+import { h, icon, fill, toast } from './ui/kit.js?v=79063987';
+import { mountToday } from './ui/today.js?v=79063987';
+import { mountShops } from './ui/shops.js?v=79063987';
+import { mountMap } from './ui/map.js?v=79063987';
+import { mountDebts } from './ui/debts.js?v=79063987';
+import { mountMore, MENU } from './ui/more.js?v=79063987';
+import { mountJournal } from './ui/journal.js?v=79063987';
+import { mountStats } from './ui/insights.js?v=79063987';
+import { mountReport } from './ui/report.js?v=79063987';
+import { mountPlan } from './ui/common.js?v=79063987';
+import { mountCatalog } from './ui/catalog.js?v=79063987';
+import { mountScript } from './ui/script.js?v=79063987';
+import { mountDrafts } from './ui/drafts.js?v=79063987';
+import { mountTeam } from './ui/team.js?v=79063987';
+import { mountData } from './ui/data.js?v=79063987';
+import { startVisit } from './ui/visit.js?v=79063987';
 
 const root = document.getElementById('app');
-const SCREENS = { today: mountToday, shops: mountShops, debts: mountDebts, more: mountMore };
+const SCREENS = {
+  today: mountToday, shops: mountShops, map: mountMap, debts: mountDebts, more: mountMore, journal: mountJournal,
+  stats: mountStats, report: mountReport, plan: mountPlan, catalog: mountCatalog, script: mountScript,
+  drafts: mountDrafts, team: mountTeam, data: mountData,
+};
 let current = '';
 let update = null;
 
@@ -18,8 +34,13 @@ setErrorHandler((e) => {
   toast(code === 'permission-denied' ? 'Облако не приняло запись: нет прав. Спросите владельца' : 'Запись не ушла в облако. Повторите', true);
 });
 
+// Раздел «Ещё» на телефоне подсвечивает и вложенные экраны
+const PHONE = ['today', 'shops', 'debts', 'more'];
+const phoneTab = (name) => (PHONE.includes(name) ? name : name === 'map' ? 'shops' : 'more');
+
 function nav(active) {
-  const a = (id, label, ic) => h('a', { href: '#/' + id, class: active === id ? 'on' : '', 'aria-current': active === id ? 'page' : null }, icon(ic), label);
+  const tab = phoneTab(active);
+  const a = (id, label, ic) => h('a', { href: '#/' + id, class: tab === id ? 'on' : '', 'aria-current': tab === id ? 'page' : null }, icon(ic), label);
   return h('nav', { class: 'nav', 'aria-label': 'Разделы' }, h('div', { class: 'in' },
     a('today', 'Сегодня', 'cal'),
     a('shops', 'Точки', 'shop'),
@@ -29,6 +50,17 @@ function nav(active) {
     a('more', 'Ещё', 'more')));
 }
 
+function side(active) {
+  const items = MENU().flatMap((g) => g.items);
+  return h('aside', { class: 'side', 'aria-label': 'Все разделы' },
+    h('div', { class: 'brand' }, h('span', { class: 'mark' }, 'ALSI'), h('span', {}, 'Продажи')),
+    h('button', { class: 'btn red wide', onclick: () => startVisit() }, icon('pin'), 'Начать визит'),
+    h('div', { class: 'links' }, items.filter((i) => i.id).map((i) => h('a', {
+      href: '#/' + i.id, class: active === i.id || (i.id === 'shops' && active === 'map') ? 'on' : '', 'aria-current': active === i.id ? 'page' : null,
+    }, icon(i.icon), i.title))),
+    h('div', { class: 'who' }, h('b', {}, S.me?.name || S.email), h('small', {}, S.email)));
+}
+
 function route() {
   if (!S.ready || S.denied || !S.user) return;
   const id = (location.hash.match(/^#\/(\w+)/) || [])[1];
@@ -36,7 +68,7 @@ function route() {
   if (name === current && update) { update(); return; }
   current = name;
   const screen = h('main', { class: 'screen' });
-  fill(root, screen, nav(name));
+  fill(root, side(name), screen, nav(name));
   update = SCREENS[name](screen);
   scrollTo(0, 0);
 }
@@ -53,7 +85,7 @@ function loginScreen(text = '') {
   fill(root, h('section', { class: 'login' },
     h('div', { class: 'mark' }, 'ALSI'),
     h('h1', {}, 'Продажи'),
-    h('p', {}, text || 'День торгового: точки, визиты, заказы и долги. Работает и без связи.'),
+    h('p', {}, text || 'День торгового: точки, визиты, заказы, возвраты и долги. Работает и без связи.'),
     btn,
     h('p', { class: 'note' }, 'Вход только для команды ALSI. Почту добавляет владелец.')));
 }

@@ -104,13 +104,9 @@ textarea.inp { min-height: 88px; resize: vertical; }
 @keyframes toast { from { opacity: 0; transform: translate(-50%, 12px); } }
 
 @media print {
-  body, html { background: #fff; }
-  .nav, .sh-head .ib, .noprint, .toast { display: none !important; }
-  .sheet { position: static; display: block; }
-  .sheet .shade { display: none; }
-  .sheet .panel { box-shadow: none; max-height: none; height: auto; background: #fff; animation: none; }
-  .sh-body { overflow: visible; }
-  #app { display: none !important; }
-  body > .sheet:not(:last-of-type) { display: none !important; }
+  body, html, .app { background: #fff; }
+  .nav, .side, .noprint, .toast, .top .sync, .scope, .filters, .sheet { display: none !important; }
+  .app { padding: 0 !important; max-width: none !important; }
   .stat, .rep-day, .group { border: 1px solid #ccd; break-inside: avoid; }
+  .report .group { margin: 0 0 8px; }
 }

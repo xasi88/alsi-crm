@@ -1,76 +1,89 @@
-// Отчёт за период: визиты, заказы, отказы, продажи по дням.
-// В отчёте нет координат, ссылок на карты и внутренних номеров точек.
-import { round2 } from './format.js?v=5db8579d';
-import { REFUSAL, orderPacks } from './visit.js?v=5db8579d';
+// Отчёт PDF: разделы на выбор, сотрудник, точка, категория, даты.
+// Продажи строго по датам. Внутри даты точка один раз, её товары по категориям.
+// В отчёте нет координат, ссылок на карты и внутренних номеров.
+import { round2 } from './format.js?v=79063987';
+import { CATS, catOf, groupOf, itemPacks, itemUnits, itemSum, qtyText } from './products.js?v=79063987';
+import { returnSum, shopDebts, debtRows } from './money.js?v=79063987';
+import { inRange } from './filters.js?v=79063987';
+import { salesStats, refusalStats } from './stats.js?v=79063987';
 
-const inRange = (x, from, to) => !x.deleted && x.date >= from && x.date <= to;
+export const SECTIONS = [['sales', 'Продажи'], ['analytics', 'Аналитика'], ['debts', 'Долги'], ['refusals', 'Отказы'], ['returns', 'Возвраты']];
+export const PRESETS = [
+  ['full', 'Полный', ['sales', 'analytics', 'debts', 'refusals', 'returns']],
+  ['salesDebts', 'Продажи и долги', ['sales', 'debts']],
+  ['sales', 'Только продажи', ['sales']],
+  ['analytics', 'Только аналитика', ['analytics']],
+  ['debts', 'Только долги', ['debts']],
+  ['refusals', 'Только отказы', ['refusals']],
+];
 
-export function buildReport({ visits, orders, payments, shops, from, to, rep = '' }) {
-  const who = (x) => !rep || x.rep === rep;
-  const vs = visits.filter((v) => inRange(v, from, to) && who(v) && v.kind !== 'contact');
-  const os = orders.filter((o) => inRange(o, from, to) && who(o));
-  const ps = payments.filter((p) => inRange(p, from, to) && who(p));
-  const shopName = new Map(shops.map((s) => [s.id, s.name]));
+// Категория: '' все, 'drinks' 'sweets' 'snacks' группа, иначе одна категория
+const catMatch = (i, cat) => !cat || groupOf(i) === cat || catOf(i) === cat;
+const onlyCat = (list, cat) => list.map((x) => ({ ...x, items: (x.items || []).filter((i) => catMatch(i, cat)) }))
+  .filter((x) => !cat || x.items.length);
 
-  const withOrder = vs.filter((v) => v.result === 'order').length;
-  const noOrder = vs.filter((v) => v.result === 'none').length;
-  const asked = vs.filter((v) => v.result === 'none' && v.lpr === true && v.refusal);
+// Точка в отчёте: только название, адрес, телефон, ЛПР
+export const shopInfo = (s, snap = {}) => ({
+  name: s?.name || snap.name || 'Точка', address: [s?.address || snap.address, s?.locality || snap.locality].filter(Boolean).join(', '),
+  phone: s?.phone || snap.phone || '', contact: s?.contact || snap.contact || '',
+});
 
-  // Причины отказа: знаменатель только визиты без заказа, где ЛПР был и ответил
-  const refusals = REFUSAL.map((q) => {
-    const counts = new Map(q.options.map(([id]) => [id, 0]));
-    for (const v of asked) {
-      const a = v.refusal[q.id];
-      for (const id of Array.isArray(a) ? a : [a]) if (counts.has(id)) counts.set(id, counts.get(id) + 1);
+export function buildReport({ visits, orders, returns, payments, shops, from, to, rep = '', shopId = '', cat = '', sections = [] }) {
+  const range = { from, to };
+  const who = (x) => !x.deleted && (!rep || x.rep === rep) && (!shopId || x.shopId === shopId);
+  const shopMap = new Map(shops.map((s) => [s.id, s]));
+  const osAll = orders.filter((o) => who(o) && inRange(o.date, range));
+  const os = onlyCat(osAll, cat);
+  const rs = onlyCat(returns.filter((r) => who(r) && inRange(r.date, range)), cat);
+  const vs = visits.filter((v) => who(v) && inRange(v.date, range) && v.kind !== 'contact');
+  const has = (id) => sections.includes(id);
+  const out = { from, to, rep, shopId, cat, sections };
+
+  if (has('sales')) {
+    const days = new Map();
+    for (const o of os.slice().sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0))) {
+      if (!days.has(o.date)) days.set(o.date, new Map());
+      const dm = days.get(o.date);
+      if (!dm.has(o.shopId)) dm.set(o.shopId, { shop: shopInfo(shopMap.get(o.shopId), o.shop || { name: o.shopName }), cats: new Map(), sum: 0 });
+      const s = dm.get(o.shopId);
+      for (const i of o.items) {
+        const c = catOf(i);
+        if (!s.cats.has(c)) s.cats.set(c, new Map());
+        const im = s.cats.get(c);
+        const cur = im.get(i.productId) || { name: i.name, packs: 0, units: 0, sum: 0 };
+        cur.packs += itemPacks(i); cur.units += itemUnits(i); cur.sum = round2(cur.sum + itemSum(i));
+        im.set(i.productId, cur);
+        s.sum = round2(s.sum + itemSum(i));
+      }
     }
-    const rows = q.options.map(([id, label]) => ({
-      id, label, count: counts.get(id), pct: asked.length ? Math.round((counts.get(id) / asked.length) * 100) : 0,
-    })).filter((r) => r.count > 0).sort((a, b) => b.count - a.count);
-    return { id: q.id, title: q.title, multi: q.multi, rows };
-  });
-
-  // Продажи по дням: внутри дня каждая точка один раз, напитки по линейкам
-  const days = new Map();
-  const products = new Map();
-  for (const o of os.slice().sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0))) {
-    if (!days.has(o.date)) days.set(o.date, new Map());
-    const shops2 = days.get(o.date);
-    const name = o.shopName || shopName.get(o.shopId) || 'Точка';
-    if (!shops2.has(o.shopId)) shops2.set(o.shopId, { name, lines: new Map(), total: 0 });
-    const s = shops2.get(o.shopId);
-    s.total += Number(o.total) || 0;
-    for (const i of o.items || []) {
-      const line = i.line || 'Другое';
-      if (!s.lines.has(line)) s.lines.set(line, new Map());
-      const items = s.lines.get(line);
-      const cur = items.get(i.name) || { name: i.name, packs: 0, sum: 0 };
-      cur.packs += i.packs;
-      cur.sum += i.packs * i.packPrice;
-      items.set(i.name, cur);
-      const p = products.get(i.name) || { name: i.name, line, packs: 0, sum: 0 };
-      p.packs += i.packs;
-      p.sum += i.packs * i.packPrice;
-      products.set(i.name, p);
-    }
+    const order = CATS.map((c) => c.id);
+    out.sales = [...days].map(([date, dm]) => ({
+      date,
+      sum: round2([...dm.values()].reduce((n, s) => n + s.sum, 0)),
+      shops: [...dm.values()].map((s) => ({
+        ...s.shop, sum: s.sum,
+        cats: [...s.cats].sort((a, b) => order.indexOf(a[0]) - order.indexOf(b[0]))
+          .map(([c, im]) => ({ cat: c, items: [...im.values()].map((i) => ({ ...i, qty: qtyText(i.packs, i.units) })) })),
+      })),
+    }));
+    out.salesSum = round2(out.sales.reduce((n, d) => n + d.sum, 0));
   }
-  const dayList = [...days].map(([date, m]) => ({
-    date,
-    shops: [...m.values()].map((s) => ({
-      name: s.name, total: round2(s.total),
-      lines: [...s.lines].map(([line, items]) => ({ line, items: [...items.values()] })),
-    })),
-  }));
-
-  return {
-    from, to,
-    visits: vs.length, withOrder, noOrder, asked: asked.length,
-    conversion: vs.length ? Math.round((withOrder / vs.length) * 100) : 0,
-    orders: os.length,
-    packs: os.reduce((n, o) => n + orderPacks(o.items), 0),
-    sum: round2(os.reduce((n, o) => n + (Number(o.total) || 0), 0)),
-    paid: round2(ps.reduce((n, p) => n + (Number(p.amount) || 0), 0)),
-    refusals,
-    days: dayList,
-    products: [...products.values()].sort((a, b) => b.packs - a.packs),
-  };
+  if (has('analytics')) out.analytics = salesStats({ orders: os, returns: rs, visits: vs, allOrders: orders, shops: shopMap });
+  if (has('refusals')) out.refusals = refusalStats(vs);
+  if (has('returns')) {
+    out.returns = rs.map((r) => ({ date: r.date, shop: shopInfo(shopMap.get(r.shopId), { name: r.shopName }), sum: returnSum(r),
+      items: r.items.map((i) => i.name + ' ' + qtyText(i.packs, i.units)).join(', '), note: r.note || '' }))
+      .sort((a, b) => (a.date < b.date ? -1 : 1));
+    out.returnsSum = round2(out.returns.reduce((n, r) => n + r.sum, 0));
+  }
+  if (has('debts')) {
+    // Долг по заказу целиком, без фильтра категории и дат: оплаты относятся ко всему заказу
+    const mine = (x) => !x.deleted && (!rep || x.rep === rep) && (!shopId || x.shopId === shopId);
+    const debts = shopDebts(orders.filter(mine), returns.filter(mine), payments.filter(mine), to);
+    out.debts = debtRows(shops.filter((s) => !shopId || s.id === shopId), debts, payments.filter(mine))
+      .filter((r) => r.owed > 0)
+      .map((r) => ({ shop: shopInfo(r.shop), owed: r.owed, age: r.age, orders: r.orders.map((x) => ({ date: x.order.date, debt: x.debt })) }));
+    out.debtsSum = round2(out.debts.reduce((n, r) => n + r.owed, 0));
+  }
+  return out;
 }

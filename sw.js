@@ -1,7 +1,7 @@
 // Работа без связи: приложение открывается из копии на телефоне.
 // Данные хранит сама база Firebase на телефоне, здесь только файлы приложения.
 // Хранилище копий общее у всех приложений на xasi88.github.io: удаляем только свои (имя с alsi-crm-).
-const CACHE = 'alsi-crm-1';
+const CACHE = 'alsi-crm-2';
 const OWN = self.registration.scope;
 const CDN = ['https://www.gstatic.com/firebasejs/', 'https://fonts.googleapis.com/', 'https://fonts.gstatic.com/'];
 const mine = (u) => u.startsWith(OWN);

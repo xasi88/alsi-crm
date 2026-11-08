@@ -127,3 +127,74 @@ export function field(label, input, note = '') {
 }
 
 export const inp = (props = {}) => h('input', { class: 'inp', ...props });
+
+// Выбор одного варианта из списка своим листом (вместо выпадающего списка: удобно пальцем)
+export function pickOne({ title, sub = '', items, value, onPick, search = false }) {
+  const s = sheet({ title, sub });
+  let q = '';
+  const list = h('div');
+  const draw = () => {
+    const words = q.toLowerCase().split(/\s+/).filter(Boolean);
+    const rows = items.filter(([, label, note]) => words.every((w) => (label + ' ' + (note || '')).toLowerCase().includes(w)));
+    fill(list, h('div', { class: 'group', style: 'margin:0' }, rows.slice(0, 200).map(([id, label, note]) => h('button', {
+      class: 'item' + (id === value ? ' picked' : ''), onclick: () => { onPick(id); s.close(); },
+    }, h('div', { class: 't' }, h('b', {}, label), note ? h('small', {}, note) : null), id === value ? icon('ok') : null))),
+    rows.length ? null : h('div', { class: 'empty', style: 'margin:0' }, 'Ничего не нашлось'));
+  };
+  if (search) {
+    s.body.append(h('div', { class: 'search', style: 'margin:0 0 12px' }, icon('search'),
+      inp({ type: 'search', placeholder: 'Поиск', oninput: (e) => { q = e.target.value; draw(); } })));
+  }
+  s.body.append(list);
+  draw();
+  return s;
+}
+
+// Вкладки одного экрана
+export function seg(list, value, onPick) {
+  return h('div', { class: 'seg', role: 'tablist' }, list.map(([id, label]) => h('button', {
+    class: id === value ? 'on' : '', role: 'tab', 'aria-selected': id === value ? 'true' : 'false', onclick: () => onPick(id),
+  }, label)));
+}
+
+export const stat = (value, label, cls = '') => h('div', { class: 'stat ' + cls }, h('b', { class: 'num' }, value), h('span', {}, label));
+
+// Скачать файл, созданный в приложении
+export function download(name, text, type = 'application/json') {
+  const url = URL.createObjectURL(new Blob([text], { type }));
+  const a = h('a', { href: url, download: name });
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// Выбрать файл на устройстве и прочитать как текст
+export function pickFile(accept) {
+  return new Promise((resolve) => {
+    const i = h('input', { type: 'file', accept, style: 'display:none' });
+    i.onchange = () => {
+      const f = i.files && i.files[0];
+      i.remove();
+      if (!f) { resolve(null); return; }
+      const r = new FileReader();
+      r.onload = () => resolve({ name: f.name, size: f.size, text: String(r.result || '') });
+      r.onerror = () => resolve(null);
+      r.readAsText(f, 'utf-8');
+    };
+    document.body.append(i);
+    i.click();
+  });
+}
+
+// Память экрана на телефоне: фильтры, поиск, вкладка
+export function remember(key, defaults) {
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(key) || '{}') || {}; } catch (e) { saved = {}; }
+  const state = { ...defaults, ...saved };
+  state.save = () => {
+    const { save, ...rest } = state;
+    try { localStorage.setItem(key, JSON.stringify(rest)); } catch (e) { /* без памяти */ }
+  };
+  return state;
+}
