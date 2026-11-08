@@ -1,11 +1,11 @@
 // Отчёт PDF: разделы на выбор, сотрудник, точка, категория, даты.
 // Продажи строго по датам. Внутри даты точка один раз, её товары по категориям.
 // В отчёте нет координат, ссылок на карты и внутренних номеров.
-import { round2 } from './format.js?v=79063987';
-import { CATS, catOf, groupOf, itemPacks, itemUnits, itemSum, qtyText } from './products.js?v=79063987';
-import { returnSum, shopDebts, debtRows } from './money.js?v=79063987';
-import { inRange } from './filters.js?v=79063987';
-import { salesStats, refusalStats } from './stats.js?v=79063987';
+import { round2 } from './format.js?v=453931aa';
+import { CATS, catOf, groupOf, itemPacks, itemUnits, itemSum, qtyText } from './products.js?v=453931aa';
+import { returnSum, shopDebts, debtRows } from './money.js?v=453931aa';
+import { inRange } from './filters.js?v=453931aa';
+import { salesStats, refusalStats } from './stats.js?v=453931aa';
 
 export const SECTIONS = [['sales', 'Продажи'], ['analytics', 'Аналитика'], ['debts', 'Долги'], ['refusals', 'Отказы'], ['returns', 'Возвраты']];
 export const PRESETS = [

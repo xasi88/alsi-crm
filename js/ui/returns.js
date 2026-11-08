@@ -1,13 +1,13 @@
 // Возврат: точка, заказ, что возвращают (упаковки и штуки), не больше проданного.
-import { S, subscribe, all, shopById, orderById, canEdit, memberName } from '../store.js?v=79063987';
-import { saveReturn, hide } from '../save.js?v=79063987';
-import { h, icon, fill, sheet, toast, ask, field, inp } from './kit.js?v=79063987';
-import { isoDay, dayShort } from '../logic/dates.js?v=79063987';
-import { rub, parseCount } from '../logic/format.js?v=79063987';
-import { orderSum } from '../logic/money.js?v=79063987';
-import { qtyText, itemsPacks, itemsUnits, itemSum } from '../logic/products.js?v=79063987';
-import { available, returnItems, returnErrors, returnTotal } from '../logic/returns.js?v=79063987';
-import { shopStep } from './steps.js?v=79063987';
+import { S, subscribe, all, shopById, orderById, canEdit, memberName } from '../store.js?v=453931aa';
+import { saveReturn, hide } from '../save.js?v=453931aa';
+import { h, icon, fill, sheet, toast, ask, field, inp } from './kit.js?v=453931aa';
+import { isoDay, dayShort } from '../logic/dates.js?v=453931aa';
+import { rub, parseCount } from '../logic/format.js?v=453931aa';
+import { orderSum } from '../logic/money.js?v=453931aa';
+import { qtyText, itemsPacks, itemsUnits, itemSum } from '../logic/products.js?v=453931aa';
+import { available, returnItems, returnErrors, returnTotal } from '../logic/returns.js?v=453931aa';
+import { shopStep } from './steps.js?v=453931aa';
 
 const kv = (k, v) => h('div', { class: 'kv' }, h('span', {}, k), h('b', {}, v));
 
@@ -54,7 +54,7 @@ export function startReturn(shopId = '', orderId = '') {
       h('div', { class: 'group', style: 'margin:0' }, o.items.map((i) => {
         const a = available(o, i.productId, rets);
         return h('div', { class: 'item ret' }, h('div', { class: 't' }, h('b', {}, i.name),
-          h('small', {}, 'Продано ' + qtyText(i.packs, i.units) + '. Можно вернуть ' + (a.units ? a.text : 'ничего'))),
+          h('small', {}, 'Продано ' + qtyText(i.packs, i.units) + ', можно вернуть ' + (a.units ? a.text : 'ничего'))),
         a.units ? h('div', { class: 'ret-in' }, field('уп.', num(i.productId, 'packs', 'Упаковки ' + i.name)), field('шт.', num(i.productId, 'units', 'Штуки ' + i.name))) : null);
       })),
       h('div', { class: 'gap' }),

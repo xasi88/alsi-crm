@@ -1,17 +1,17 @@
 // Карта точек: те же фильтры, что у списка, метки, список под картой.
 // Метку можно поставить или переставить только после подтверждения. Адрес точки не меняется.
 // Библиотека карты (Leaflet 1.9.4, лицензия BSD) лежит в js/vendor и грузится только на этом экране.
-import { S, view, canEdit } from '../store.js?v=79063987';
-import { saveShop } from '../save.js?v=79063987';
-import { h, icon, fill, toast, ask } from './kit.js?v=79063987';
-import { liveHead } from './common.js?v=79063987';
-import { isoDay } from '../logic/dates.js?v=79063987';
-import { rub } from '../logic/format.js?v=79063987';
-import { shopDebts } from '../logic/money.js?v=79063987';
-import { hasPoint } from '../logic/maps.js?v=79063987';
-import { lastVisits } from '../logic/filters.js?v=79063987';
-import { shopView, shopFilters, filteredShops, listMapTabs } from './shops.js?v=79063987';
-import { openShop } from './shop.js?v=79063987';
+import { S, view, canEdit } from '../store.js?v=453931aa';
+import { saveShop } from '../save.js?v=453931aa';
+import { h, icon, fill, toast, ask } from './kit.js?v=453931aa';
+import { liveHead } from './common.js?v=453931aa';
+import { isoDay } from '../logic/dates.js?v=453931aa';
+import { rub } from '../logic/format.js?v=453931aa';
+import { shopDebts } from '../logic/money.js?v=453931aa';
+import { hasPoint } from '../logic/maps.js?v=453931aa';
+import { lastVisits } from '../logic/filters.js?v=453931aa';
+import { shopView, shopFilters, filteredShops, listMapTabs } from './shops.js?v=453931aa';
+import { openShop } from './shop.js?v=453931aa';
 
 let loading = null;
 function loadLeaflet() {
@@ -46,7 +46,9 @@ export function mountMap(root) {
   loadLeaflet().then((L) => {
     if (!box.isConnected) return;
     fill(box);
-    map = L.map(box, { zoomControl: true, preferCanvas: true, renderer: L.canvas({ tolerance: 14 }) }).setView(GROZNY, 11);
+    // Масштаб пальцами: кнопок «плюс» и «минус» нет (брендбук). Подпись OpenStreetMap остаётся: так требует лицензия карты.
+    map = L.map(box, { zoomControl: false, preferCanvas: true, renderer: L.canvas({ tolerance: 14 }) }).setView(GROZNY, 11);
+    map.attributionControl.setPrefix(false);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
     layer = L.layerGroup().addTo(map);
     map.on('click', (e) => { if (editing) choose(e.latlng.lat, e.latlng.lng); });

@@ -53,7 +53,6 @@ details.when[open] summary { margin-bottom: var(--s2); }
 
 /* Карта */
 .map-box { position: relative; z-index: 0; height: 56vh; min-height: 320px; border-radius: var(--r-card); overflow: hidden; background: var(--ice-2); }
-.map-box .leaflet-control-zoom a { width: 44px; height: 44px; line-height: 44px; font-size: 22px; }
 .pop b, .pop small { display: block; }
 .pop small { color: var(--ink-2); margin-top: 2px; }
 .pop .btns { margin-top: var(--s2); }
@@ -70,9 +69,9 @@ details.when[open] summary { margin-bottom: var(--s2); }
 /* Боковая панель: Surface и компьютер */
 .side { display: none; }
 @media (min-width: 1000px) {
-  .app:has(.side) { max-width: none; padding-left: 272px; padding-bottom: var(--s8); }
-  .app:has(.side) > .screen { max-width: 760px; margin: 0 auto; }
-  .app:has(.side) .nav { display: none; }
+  .app.signed { max-width: none; padding-left: 272px; padding-bottom: var(--s8); }
+  .app.signed > .screen { max-width: 760px; margin: 0 auto; }
+  .app.signed .nav { display: none; }
   .side { display: flex; flex-direction: column; gap: var(--s4); position: fixed; left: 0; top: 0; bottom: 0; z-index: 15; width: 256px; padding: var(--s6) var(--s4); background: var(--navy); color: var(--white); overflow-y: auto; }
   .side .brand { display: flex; align-items: baseline; gap: var(--s2); font: 900 italic 22px/1 var(--f-brand); }
   .side .brand .mark { font-size: 30px; }
@@ -83,7 +82,7 @@ details.when[open] summary { margin-bottom: var(--s2); }
   .side .links svg { width: 22px; height: 22px; }
   .side .who { margin-top: auto; font-size: var(--t-tiny); color: rgba(255, 255, 255, .7); }
   .side .who b { display: block; color: var(--white); font-size: var(--t-small); }
-  .app:has(.side) ~ .toast, .toast { bottom: var(--s6); }
+  .toast { bottom: var(--s6); }
   .stats { grid-template-columns: repeat(3, 1fr); }
   .sheet .panel { max-width: 720px; }
   .sheet.full .panel { border-radius: 0; }

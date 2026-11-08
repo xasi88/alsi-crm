@@ -1,9 +1,9 @@
 // Ещё: все разделы по группам. На широком экране тот же список стоит в боковой панели.
-import { S, pendingCount } from '../store.js?v=79063987';
-import { h, icon, fill, ask } from './kit.js?v=79063987';
-import { head } from './common.js?v=79063987';
-import { logout, logoutClean } from '../fb.js?v=79063987';
-import { listDrafts } from './drafts.js?v=79063987';
+import { S, pendingCount } from '../store.js?v=453931aa';
+import { h, icon, fill, ask } from './kit.js?v=453931aa';
+import { head } from './common.js?v=453931aa';
+import { logout, logoutClean } from '../fb.js?v=453931aa';
+import { listDrafts } from './drafts.js?v=453931aa';
 
 const ROLE = { owner: 'владелец', supervisor: 'супервайзер', sales: 'торговый' };
 

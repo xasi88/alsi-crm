@@ -1,5 +1,5 @@
 // Возвраты: упаковками и штуками, по заказу, не больше проданного.
-import { itemAllUnits, itemSum, perPackOf, itemsSum, qtyText } from './products.js?v=79063987';
+import { itemAllUnits, itemSum, perPackOf, itemsSum, qtyText } from './products.js?v=453931aa';
 
 const live = (x) => !x.deleted;
 

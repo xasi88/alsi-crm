@@ -1,11 +1,11 @@
 // Перенос базы из программы Атама: что в файле, люди, товары, запись, сверка счётчиков.
 // Только владелец. Повторный перенос перезаписывает те же записи: двойников нет.
-import { S, all, pendingCount, member } from '../store.js?v=79063987';
-import { writeMany } from '../save.js?v=79063987';
-import { h, fill, sheet, toast, ask, choices, field, inp } from './kit.js?v=79063987';
-import { readAtam, convertAtam, reconcile, SRC } from '../logic/atam.js?v=79063987';
-import { LABELS } from '../logic/backup.js?v=79063987';
-import { rub } from '../logic/format.js?v=79063987';
+import { S, all, pendingCount, member } from '../store.js?v=453931aa';
+import { writeMany } from '../save.js?v=453931aa';
+import { h, fill, sheet, toast, ask, choices, field, inp } from './kit.js?v=453931aa';
+import { readAtam, convertAtam, reconcile, SRC } from '../logic/atam.js?v=453931aa';
+import { LABELS } from '../logic/backup.js?v=453931aa';
+import { rub } from '../logic/format.js?v=453931aa';
 
 const ROLE_ATAM = { owner: 'владелец', supervisor: 'супервайзер', sales: 'торговый' };
 const LIMIT = 18000; // бесплатный тариф Firebase: 20 000 записей в сутки
@@ -127,7 +127,7 @@ export function startAtamImport(data, name) {
     s.hideFoot();
     fill(s.body, h('div', { class: ok ? 'okbox' : 'warnbox' }, h('b', {}, ok ? 'Счётчики сходятся с файлом' : 'Счётчики пока не сходятся')),
       h('div', { class: 'group', style: 'margin:12px 0 0' }, rows.map((r) => h('div', { class: 'kv' }, h('span', {}, LABELS[r.key] || r.key),
-        h('b', { class: 'num ' + (r.ok ? 'ok' : 'red') }, r.file + ' в файле, ' + r.ours + ' у нас')))),
+        h('b', { class: 'num ' + (r.ok ? 'ok' : 'red') }, r.file + (r.key === 'plans' ? ' к записи, ' : ' в файле, ') + r.ours + ' у нас')))),
       ok ? null : h('p', { class: 'hint', style: 'margin-top:12px' }, 'Облако могло ещё не прислать все записи. Нажмите «Сверить снова» через минуту.'),
       h('div', { class: 'gap' }),
       h('button', { class: 'btn navy wide', onclick: verify }, 'Сверить снова'),

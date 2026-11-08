@@ -1,17 +1,17 @@
 // Журнал: визиты, заказы, возвраты. Фильтры и поиск запоминаются у каждой вкладки.
 // Цифры над списком считаются из того же отбора, что и список.
-import { S, view } from '../store.js?v=79063987';
-import { h, icon, fill, remember, seg, stat } from './kit.js?v=79063987';
-import { liveHead, filterBar, whoText } from './common.js?v=79063987';
-import { isoDay, dayShort, plural } from '../logic/dates.js?v=79063987';
-import { rub } from '../logic/format.js?v=79063987';
-import { orderSum, returnSum, payLabel, indexMoney, orderDebt } from '../logic/money.js?v=79063987';
-import { qtyText, itemsPacks, itemsUnits } from '../logic/products.js?v=79063987';
-import { filterRecords, periodRange, ordersSummary, returnsSummary } from '../logic/filters.js?v=79063987';
-import { resultText, nextById } from '../logic/visit.js?v=79063987';
-import { openOrder, openVisit } from './order.js?v=79063987';
-import { openReturn, startReturn } from './returns.js?v=79063987';
-import { startOrder } from './visit.js?v=79063987';
+import { S, view } from '../store.js?v=453931aa';
+import { h, icon, fill, remember, seg, stat } from './kit.js?v=453931aa';
+import { liveHead, filterBar, whoText } from './common.js?v=453931aa';
+import { isoDay, dayShort, plural } from '../logic/dates.js?v=453931aa';
+import { rub } from '../logic/format.js?v=453931aa';
+import { orderSum, returnSum, payLabel, indexMoney, orderDebt } from '../logic/money.js?v=453931aa';
+import { qtyText, itemsPacks, itemsUnits } from '../logic/products.js?v=453931aa';
+import { filterRecords, periodRange, ordersSummary, returnsSummary } from '../logic/filters.js?v=453931aa';
+import { resultText, nextById } from '../logic/visit.js?v=453931aa';
+import { openOrder, openVisit } from './order.js?v=453931aa';
+import { openReturn, startReturn } from './returns.js?v=453931aa';
+import { startOrder } from './visit.js?v=453931aa';
 
 const TABS = [['visits', 'Визиты'], ['orders', 'Заказы'], ['returns', 'Возвраты']];
 

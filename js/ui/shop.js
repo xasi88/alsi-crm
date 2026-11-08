@@ -1,19 +1,19 @@
 // Карточка точки: связь, визит, долг, следующее действие, цифры, история.
-import { S, subscribe, shopById, all, canEdit, memberName } from '../store.js?v=79063987';
-import { doneNext, hide } from '../save.js?v=79063987';
-import { h, icon, fill, sheet, ext, toast, ask, stat } from './kit.js?v=79063987';
-import { planContact, nextText, ageText, whoText } from './common.js?v=79063987';
-import { isoDay, dayShort, daysWord, daysBetween } from '../logic/dates.js?v=79063987';
-import { rub, prettyPhone, telLink, waLink } from '../logic/format.js?v=79063987';
-import { shopDebts, orderSum, returnSum, payLabel, inHand } from '../logic/money.js?v=79063987';
-import { activeNext, resultText } from '../logic/visit.js?v=79063987';
-import { itemsPacks } from '../logic/products.js?v=79063987';
-import { placeLink, dgisLink, googleLink, hasPoint } from '../logic/maps.js?v=79063987';
-import { editShop } from './shops.js?v=79063987';
-import { startVisit, startOrder } from './visit.js?v=79063987';
-import { openOrder, openVisit } from './order.js?v=79063987';
-import { startReturn, openReturn } from './returns.js?v=79063987';
-import { openShopDebt } from './debts.js?v=79063987';
+import { S, subscribe, shopById, all, canEdit, memberName } from '../store.js?v=453931aa';
+import { doneNext, hide } from '../save.js?v=453931aa';
+import { h, icon, fill, sheet, ext, toast, ask, stat } from './kit.js?v=453931aa';
+import { planContact, nextText, ageText, whoText } from './common.js?v=453931aa';
+import { isoDay, dayShort, daysWord, daysBetween, plural } from '../logic/dates.js?v=453931aa';
+import { rub, prettyPhone, telLink, waLink } from '../logic/format.js?v=453931aa';
+import { shopDebts, orderSum, returnSum, payLabel, inHand } from '../logic/money.js?v=453931aa';
+import { activeNext, resultText } from '../logic/visit.js?v=453931aa';
+import { itemsPacks } from '../logic/products.js?v=453931aa';
+import { placeLink, dgisLink, googleLink, hasPoint } from '../logic/maps.js?v=453931aa';
+import { editShop } from './shops.js?v=453931aa';
+import { startVisit, startOrder } from './visit.js?v=453931aa';
+import { openOrder, openVisit } from './order.js?v=453931aa';
+import { startReturn, openReturn } from './returns.js?v=453931aa';
+import { openShopDebt } from './debts.js?v=453931aa';
 
 function history(shopId) {
   const today = isoDay();
@@ -93,7 +93,7 @@ export function openShop(id) {
         h('span', { class: 'chev' }, icon('right'))),
       h('div', { class: 'sec', style: 'padding-left:0;padding-right:0' }, h('h2', {}, 'Цифры')),
       h('div', { class: 'stats', style: 'margin:0' },
-        stat(String(orders.length), 'заказов'), stat(rub(sold - back), 'чистая сумма'),
+        stat(String(orders.length), plural(orders.length, ['заказ', 'заказа', 'заказов'])), stat(rub(sold - back), 'чистая сумма'),
         stat(rub(sold), 'продажи всего'), stat(rub(back), 'возвраты')),
       h('div', { class: 'group', style: 'margin:8px 0 0' },
         h('div', { class: 'kv' }, h('span', {}, 'Последний заказ'), h('b', {}, ago(lastO))),
