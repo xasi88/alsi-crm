@@ -1,9 +1,9 @@
 // Отчёт за период. Печать в PDF: кнопка «Печать или PDF», в окне печати выбрать «Сохранить как PDF».
-import { S, memberName } from '../store.js?v=9020e2e8';
-import { h, icon, fill, sheet, choices } from './kit.js?v=9020e2e8';
-import { isoDay, addDays, monthKey, monthStart, monthEnd, dayShort, parseDay } from '../logic/dates.js?v=9020e2e8';
-import { rub } from '../logic/format.js?v=9020e2e8';
-import { buildReport } from '../logic/report.js?v=9020e2e8';
+import { S, memberName } from '../store.js?v=282e3437';
+import { h, icon, fill, sheet, choices } from './kit.js?v=282e3437';
+import { isoDay, addDays, monthKey, monthStart, monthEnd, dayShort, parseDay, plural } from '../logic/dates.js?v=282e3437';
+import { rub } from '../logic/format.js?v=282e3437';
+import { buildReport } from '../logic/report.js?v=282e3437';
 
 function periods(today) {
   const m = monthKey(today);
@@ -32,14 +32,14 @@ export function openReport() {
     const who = view.rep ? memberName(view.rep) : 'Вся команда';
     const stat = (v, t) => h('div', { class: 'stat' }, h('b', { class: 'num' }, v), h('span', {}, t));
     fill(out,
-      h('p', { class: 'muted', style: 'margin:16px 0 8px' }, label + ': ' + dayShort(from, today) + (from !== to ? ' - ' + dayShort(to, today) : '') + '. ' + who),
+      h('p', { class: 'muted', style: 'margin:16px 0 8px' }, label + ': ' + dayShort(from, today) + (from !== to ? ' - ' + dayShort(to, today).toLowerCase() : '') + '. ' + who),
       h('div', { class: 'stats', style: 'margin:0' },
-        stat(String(r.visits), 'визитов'),
+        stat(String(r.visits), plural(r.visits, ['визит', 'визита', 'визитов'])),
         stat(r.conversion + '%', 'визитов с заказом'),
-        stat(String(r.packs), 'упаковок продано'),
+        stat(String(r.packs), 'уп. продано'),
         stat(rub(r.sum), 'сумма заказов'),
         stat(rub(r.paid), 'получено денег'),
-        stat(String(r.noOrder), 'без заказа, ЛПР ответил: ' + r.asked)),
+        stat(String(r.noOrder), 'без заказа' + (r.noOrder ? ', из них ЛПР ответил: ' + r.asked : ''))),
       r.asked ? [h('div', { class: 'sec', style: 'padding-left:0;padding-right:0' }, h('h2', {}, 'Почему нет заказа')),
         h('p', { class: 'hint', style: 'margin:-4px 0 8px' }, 'Доля от визитов без заказа, где ЛПР был и ответил: ' + r.asked),
         r.refusals.filter((q) => q.rows.length).map((q) => [h('div', { class: 'q', style: 'font-size:16px;margin:12px 0 8px' }, q.title),

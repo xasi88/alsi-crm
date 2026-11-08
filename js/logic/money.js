@@ -2,8 +2,8 @@
 // Заказ «наличными» сразу даёт оплату на всю сумму: деньги у торгового, их надо передать.
 // Заказ «в долг»: точка должна сумму, оплату получают потом (можно часть сразу).
 // Заказ «переводом»: деньги идут на счёт, торговый их не держит, долга нет.
-import { round2 } from './format.js?v=9020e2e8';
-import { daysBetween } from './dates.js?v=9020e2e8';
+import { round2 } from './format.js?v=282e3437';
+import { daysBetween } from './dates.js?v=282e3437';
 
 export const PAYMENTS = [
   { id: 'cash', label: 'Наличные' },

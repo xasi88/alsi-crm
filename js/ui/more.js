@@ -1,10 +1,10 @@
 // Ещё: план, отчёт, каталог, команда, выход.
-import { S, saveProduct, saveMember, subscribe } from '../store.js?v=9020e2e8';
-import { h, icon, fill, sheet, toast, ask, choices, field, inp } from './kit.js?v=9020e2e8';
-import { head, openPlan } from './common.js?v=9020e2e8';
-import { rub, parseMoney, parseCount, norm } from '../logic/format.js?v=9020e2e8';
-import { logout } from '../fb.js?v=9020e2e8';
-import { openReport } from './report.js?v=9020e2e8';
+import { S, saveProduct, saveMember, subscribe } from '../store.js?v=282e3437';
+import { h, icon, fill, sheet, toast, ask, choices, field, inp } from './kit.js?v=282e3437';
+import { head, openPlan } from './common.js?v=282e3437';
+import { rub, parseMoney, parseCount, norm } from '../logic/format.js?v=282e3437';
+import { logout } from '../fb.js?v=282e3437';
+import { openReport } from './report.js?v=282e3437';
 
 const ROLES = [['sales', 'Торговый'], ['supervisor', 'Супервайзер'], ['owner', 'Владелец']];
 const roleName = (r) => (ROLES.find((x) => x[0] === r) || [, ''])[1];

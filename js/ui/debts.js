@@ -1,11 +1,11 @@
 // Долги: кто должен, деньги на руках, «Деньги переданы».
-import { S, addPayment, handOver } from '../store.js?v=9020e2e8';
-import { h, icon, fill, sheet, toast, ask, field, inp } from './kit.js?v=9020e2e8';
-import { head } from './common.js?v=9020e2e8';
-import { isoDay, daysWord, plural } from '../logic/dates.js?v=9020e2e8';
-import { rub, parseMoney } from '../logic/format.js?v=9020e2e8';
-import { balances, inHand, paymentError } from '../logic/money.js?v=9020e2e8';
-import { openShop } from './shop.js?v=9020e2e8';
+import { S, addPayment, handOver } from '../store.js?v=282e3437';
+import { h, icon, fill, sheet, toast, ask, field, inp } from './kit.js?v=282e3437';
+import { head, ageText } from './common.js?v=282e3437';
+import { isoDay, plural } from '../logic/dates.js?v=282e3437';
+import { rub, parseMoney } from '../logic/format.js?v=282e3437';
+import { balances, inHand, paymentError } from '../logic/money.js?v=282e3437';
+import { openShop } from './shop.js?v=282e3437';
 
 export function mountDebts(root) {
   const update = () => {
@@ -20,7 +20,7 @@ export function mountDebts(root) {
       head('Долги', rows.length ? rows.length + ' ' + plural(rows.length, ['точка должна', 'точки должны', 'точек должны']) + ' ' + rub(total) : 'Долгов нет'),
       h('section', { class: 'hand' },
         h('div', { class: 'row1' }, h('span', {}, 'У вас на руках'), h('b', { class: 'big-sum num' }, rub(hand.sum))),
-        h('small', {}, hand.list.length ? hand.list.length + ' ' + plural(hand.list.length, ['оплата', 'оплаты', 'оплат']) + ' ещё не переданы' : 'Все деньги переданы'),
+        h('small', {}, hand.list.length ? hand.list.length + ' ' + plural(hand.list.length, ['оплата ещё не передана', 'оплаты ещё не переданы', 'оплат ещё не переданы']) : 'Все деньги переданы'),
         hand.sum > 0 ? h('button', { class: 'btn red wide', onclick: async () => {
           const ok = await ask('Деньги переданы?', 'Отметить, что ' + rub(hand.sum) + ' переданы руководству. Оплаты останутся в истории.', 'Да, переданы');
           if (ok) { handOver(hand.list); toast('Отмечено: ' + rub(hand.sum) + ' переданы'); }
@@ -28,7 +28,7 @@ export function mountDebts(root) {
       rows.length ? h('div', { class: 'sec' }, h('h2', {}, 'Кто должен'), h('span', { class: 'muted', style: 'font-size:14px' }, 'старые выше')) : null,
       rows.length ? h('div', { class: 'group' }, rows.map((r) => h('div', { class: 'item' },
         h('button', { class: 't', style: 'text-align:left;min-height:48px', onclick: () => openShop(r.shop.id) },
-          h('b', {}, r.shop.name), h('small', { class: r.age >= 14 ? 'red' : '' }, 'Не оплачено ' + daysWord(r.age))),
+          h('b', {}, r.shop.name), h('small', { class: r.age >= 14 ? 'red' : '' }, ageText(r.age))),
         h('span', { class: 'r red num' }, rub(r.owed)),
         h('button', { class: 'ib navy', 'aria-label': 'Получить оплату', onclick: () => takePayment(r.shop, r.owed) }, icon('cash'))))) : null,
       !rows.length && S.loaded.orders ? h('div', { class: 'empty' }, h('b', {}, 'Никто не должен'), 'Заказы в долг появятся здесь.') : null,

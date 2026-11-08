@@ -1,7 +1,7 @@
 // Экран «Сегодня»: маршрут дня, давно без заказа, план месяца.
-import { daysBetween, monthKey } from './dates.js?v=9020e2e8';
-import { activeNext, orderPacks } from './visit.js?v=9020e2e8';
-import { balances } from './money.js?v=9020e2e8';
+import { daysBetween, monthKey } from './dates.js?v=282e3437';
+import { activeNext, orderPacks } from './visit.js?v=282e3437';
+import { balances } from './money.js?v=282e3437';
 
 const groupBy = (list, key) => {
   const m = new Map();

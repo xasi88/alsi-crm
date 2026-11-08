@@ -1,12 +1,12 @@
 // Визит и заказ по телефону: шаги за несколько касаний, одной рукой.
-import { S, saveVisit, shopById } from '../store.js?v=9020e2e8';
-import { h, icon, fill, sheet, toast, choices, field, inp } from './kit.js?v=9020e2e8';
-import { nextPicker } from './common.js?v=9020e2e8';
-import { isoDay, addDays } from '../logic/dates.js?v=9020e2e8';
-import { rub, parseMoney, parseCount, shopMatches } from '../logic/format.js?v=9020e2e8';
-import { balances, PAYMENTS } from '../logic/money.js?v=9020e2e8';
-import { REFUSAL, orderItems, orderTotal, visitErrors, lateVisits } from '../logic/visit.js?v=9020e2e8';
-import { editShop } from './shops.js?v=9020e2e8';
+import { S, saveVisit, shopById } from '../store.js?v=282e3437';
+import { h, icon, fill, sheet, toast, choices, field, inp } from './kit.js?v=282e3437';
+import { nextPicker } from './common.js?v=282e3437';
+import { isoDay, addDays } from '../logic/dates.js?v=282e3437';
+import { rub, parseMoney, parseCount, shopMatches } from '../logic/format.js?v=282e3437';
+import { balances, PAYMENTS } from '../logic/money.js?v=282e3437';
+import { REFUSAL, orderItems, orderTotal, visitErrors, lateVisits } from '../logic/visit.js?v=282e3437';
+import { editShop } from './shops.js?v=282e3437';
 
 const LINES = ['Alsi Cola', 'Code Red', 'FIFA', 'Nerve'];
 const draftKey = () => 'alsi-draft-' + S.email;

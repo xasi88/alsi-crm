@@ -1,13 +1,13 @@
 // Экран «Сегодня»: маршрут дня торгового.
-import { S, doneNext } from '../store.js?v=9020e2e8';
-import { h, icon, fill, ext, toast } from './kit.js?v=9020e2e8';
-import { head, planCard, owedTag } from './common.js?v=9020e2e8';
-import { isoDay, dayTitle, daysWord, plural } from '../logic/dates.js?v=9020e2e8';
-import { buildDay } from '../logic/day.js?v=9020e2e8';
-import { rub, waLink, telLink } from '../logic/format.js?v=9020e2e8';
-import { routeLink, placeLink } from '../logic/maps.js?v=9020e2e8';
-import { openShop } from './shop.js?v=9020e2e8';
-import { startVisit } from './visit.js?v=9020e2e8';
+import { S, doneNext } from '../store.js?v=282e3437';
+import { h, icon, fill, ext, toast } from './kit.js?v=282e3437';
+import { head, planCard, owedTag } from './common.js?v=282e3437';
+import { isoDay, dayTitle, daysWord, plural } from '../logic/dates.js?v=282e3437';
+import { buildDay } from '../logic/day.js?v=282e3437';
+import { rub, waLink, telLink } from '../logic/format.js?v=282e3437';
+import { routeLink, placeLink } from '../logic/maps.js?v=282e3437';
+import { openShop } from './shop.js?v=282e3437';
+import { startVisit } from './visit.js?v=282e3437';
 
 const TASK = { visit: 'Визит', call: 'Позвонить', whatsapp: 'Написать в WhatsApp' };
 

@@ -1,11 +1,11 @@
 // Точки: список с поиском и форма точки.
-import { S, saveShop } from '../store.js?v=9020e2e8';
-import { h, icon, fill, sheet, field, inp, toast } from './kit.js?v=9020e2e8';
-import { head } from './common.js?v=9020e2e8';
-import { isoDay, daysBetween, daysWord, plural } from '../logic/dates.js?v=9020e2e8';
-import { rub, shopMatches, similarShops, normPhone, prettyPhone } from '../logic/format.js?v=9020e2e8';
-import { balances } from '../logic/money.js?v=9020e2e8';
-import { openShop } from './shop.js?v=9020e2e8';
+import { S, saveShop } from '../store.js?v=282e3437';
+import { h, icon, fill, sheet, field, inp, toast } from './kit.js?v=282e3437';
+import { head } from './common.js?v=282e3437';
+import { isoDay, daysBetween, daysWord, plural } from '../logic/dates.js?v=282e3437';
+import { rub, shopMatches, similarShops, normPhone, prettyPhone } from '../logic/format.js?v=282e3437';
+import { balances } from '../logic/money.js?v=282e3437';
+import { openShop } from './shop.js?v=282e3437';
 
 const view = { q: '', who: '', place: '' };
 

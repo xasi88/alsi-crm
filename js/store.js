@@ -1,9 +1,9 @@
 // Данные приложения: подписка на облако, роль, запись.
 // Запись не ждёт облака: она сразу видна на экране, а в облако уходит сама, когда есть связь.
-import { db, collection, doc, setDoc, updateDoc, getDoc, onSnapshot, query, where, writeBatch, newId } from './fb.js?v=9020e2e8';
-import { isoDay } from './logic/dates.js?v=9020e2e8';
-import { paymentsForOrder } from './logic/money.js?v=9020e2e8';
-import { round2 } from './logic/format.js?v=9020e2e8';
+import { db, collection, doc, setDoc, updateDoc, getDoc, onSnapshot, query, where, writeBatch, newId } from './fb.js?v=282e3437';
+import { isoDay } from './logic/dates.js?v=282e3437';
+import { paymentsForOrder } from './logic/money.js?v=282e3437';
+import { round2 } from './logic/format.js?v=282e3437';
 
 export const S = {
   user: null, email: '', me: null, role: '', lead: false, owner: false, denied: false, ready: false,

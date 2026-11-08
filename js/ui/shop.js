@@ -1,15 +1,15 @@
 // Карточка точки: связь, визит, долг, следующее действие, история.
-import { S, subscribe, shopById, doneNext, memberName } from '../store.js?v=9020e2e8';
-import { h, icon, fill, sheet, ext, toast } from './kit.js?v=9020e2e8';
-import { planContact, nextText } from './common.js?v=9020e2e8';
-import { isoDay, dayShort, daysWord, daysBetween } from '../logic/dates.js?v=9020e2e8';
-import { rub, prettyPhone, telLink, waLink } from '../logic/format.js?v=9020e2e8';
-import { balances } from '../logic/money.js?v=9020e2e8';
-import { activeNext, orderPacks, optionLabel, nextById } from '../logic/visit.js?v=9020e2e8';
-import { placeLink } from '../logic/maps.js?v=9020e2e8';
-import { editShop } from './shops.js?v=9020e2e8';
-import { startVisit, startOrder } from './visit.js?v=9020e2e8';
-import { takePayment } from './debts.js?v=9020e2e8';
+import { S, subscribe, shopById, doneNext, memberName } from '../store.js?v=282e3437';
+import { h, icon, fill, sheet, ext, toast } from './kit.js?v=282e3437';
+import { planContact, nextText, ageText } from './common.js?v=282e3437';
+import { isoDay, dayShort, daysWord, daysBetween } from '../logic/dates.js?v=282e3437';
+import { rub, prettyPhone, telLink, waLink } from '../logic/format.js?v=282e3437';
+import { balances } from '../logic/money.js?v=282e3437';
+import { activeNext, orderPacks, optionLabel, nextById } from '../logic/visit.js?v=282e3437';
+import { placeLink } from '../logic/maps.js?v=282e3437';
+import { editShop } from './shops.js?v=282e3437';
+import { startVisit, startOrder } from './visit.js?v=282e3437';
+import { takePayment } from './debts.js?v=282e3437';
 
 function history(shopId) {
   const today = isoDay();
@@ -68,7 +68,7 @@ export function openShop(id) {
       h('div', { class: 'sec', style: 'padding-left:0;padding-right:0' }, h('h2', {}, 'Долг')),
       h('div', { class: 'group', style: 'margin:0' },
         h('div', { class: 'item' }, h('div', { class: 't' }, h('b', { class: 'big-sum num' + (bal.owed > 0 ? ' red' : '') }, rub(Math.max(0, bal.owed))),
-          h('small', {}, bal.owed > 0 ? 'Не оплачено ' + daysWord(bal.age) : 'Долга нет')),
+          h('small', {}, bal.owed > 0 ? ageText(bal.age) : 'Долга нет')),
         bal.owed > 0 ? h('button', { class: 'btn navy small', onclick: () => takePayment(shop, bal.owed) }, 'Получить') : null)),
       h('div', { class: 'gap' }),
       h('button', { class: 'btn line wide', onclick: () => startOrder(id) }, 'Заказ по телефону'),

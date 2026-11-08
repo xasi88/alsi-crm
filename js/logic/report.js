@@ -1,7 +1,7 @@
 // Отчёт за период: визиты, заказы, отказы, продажи по дням.
 // В отчёте нет координат, ссылок на карты и внутренних номеров точек.
-import { round2 } from './format.js?v=9020e2e8';
-import { REFUSAL, orderPacks } from './visit.js?v=9020e2e8';
+import { round2 } from './format.js?v=282e3437';
+import { REFUSAL, orderPacks } from './visit.js?v=282e3437';
 
 const inRange = (x, from, to) => !x.deleted && x.date >= from && x.date <= to;
 

@@ -1,10 +1,10 @@
 // Общие куски экранов: связь, план, строки точек, следующее действие.
-import { S, pendingCount, planOf, savePlan, addContact } from '../store.js?v=9020e2e8';
-import { h, icon, toast, sheet, choices, field, inp, fill } from './kit.js?v=9020e2e8';
-import { isoDay, addDays, monthKey, monthGen, dayShort, QUICK_DATES } from '../logic/dates.js?v=9020e2e8';
-import { monthFact, planBar } from '../logic/day.js?v=9020e2e8';
-import { NEXT } from '../logic/visit.js?v=9020e2e8';
-import { rub, parseCount } from '../logic/format.js?v=9020e2e8';
+import { S, pendingCount, planOf, savePlan, addContact } from '../store.js?v=282e3437';
+import { h, icon, toast, sheet, choices, field, inp, fill } from './kit.js?v=282e3437';
+import { isoDay, addDays, monthKey, monthGen, dayShort, daysWord, QUICK_DATES } from '../logic/dates.js?v=282e3437';
+import { monthFact, planBar } from '../logic/day.js?v=282e3437';
+import { NEXT } from '../logic/visit.js?v=282e3437';
+import { rub, parseCount } from '../logic/format.js?v=282e3437';
 
 export function syncChip() {
   const n = pendingCount();
@@ -101,5 +101,8 @@ export function nextText(n) {
   const kind = NEXT.find((x) => x.id === n.type);
   return (kind ? kind.label : '') + (n.date ? ', ' + dayShort(n.date, isoDay()).toLowerCase() : '');
 }
+
+// Возраст долга: 0 дней звучит странно
+export const ageText = (age) => (age > 0 ? 'Не оплачено ' + daysWord(age) : 'Долг с сегодняшнего дня');
 
 export const owedTag = (owed) => (owed > 0 ? h('span', { class: 'tag red num' }, 'Долг ' + rub(owed)) : null);

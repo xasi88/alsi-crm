@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ALSI Продажи: брендбук</title>
+<link rel="icon" href="../img/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,800;1,900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css?v=282e3437">
+<link rel="stylesheet" href="../css/app.css?v=282e3437">
+<link rel="stylesheet" href="../css/parts.css?v=282e3437">
+<style>
+.bb { max-width: 880px; margin: 0 auto; padding: 32px 16px 64px; }
+.bb h1 { font: 900 italic 40px/1.05 var(--f-brand); }
+.bb > p { color: var(--ink-2); margin-top: 8px; max-width: 640px; }
+.bb h2 { font: 900 italic 26px/1.2 var(--f-brand); margin: 48px 0 16px; }
+.sw { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.sw div { background: var(--white); border-radius: var(--r-card); overflow: hidden; }
+.sw i { display: block; height: 72px; }
+.sw b { display: block; padding: 8px 12px 0; font-size: 14px; }
+.sw span { display: block; padding: 0 12px 10px; font-size: 13px; color: var(--ink-2); }
+.type { background: var(--white); border-radius: var(--r-card); padding: 20px; }
+.type .t1 { font: 900 italic 34px/1.1 var(--f-brand); }
+.type .t2 { font-weight: 700; font-size: 18px; margin-top: 12px; }
+.type .t3 { margin-top: 4px; }
+.type .t4 { font-size: 13px; color: var(--ink-2); margin-top: 4px; }
+.demo-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.phone-strip { background: var(--ice); border-radius: var(--r-card); border: 2px solid var(--line); overflow: hidden; max-width: 420px; }
+.nav-demo { position: static; border-radius: 0 0 var(--r-card) var(--r-card); }
+.nav-demo .in { padding-top: 36px; }
+.icons { display: flex; flex-wrap: wrap; gap: 16px; }
+.icons div { width: 84px; text-align: center; font-size: 12px; color: var(--ink-2); }
+.icons svg.i { width: 32px; height: 32px; color: var(--navy); display: block; margin: 0 auto 6px; }
+.no { background: var(--white); border-radius: var(--r-card); padding: 16px 20px; }
+.no li { margin: 6px 0 6px 18px; }
+.appicon { width: 120px; height: 120px; border-radius: 26px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 2.5V5M16 2.5V5M3.5 10h17"/><rect x="13.5" y="13.5" width="3.5" height="3.5" rx=".8" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-shop" viewBox="0 0 24 24"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8M10 20v-4.5h4V20"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.4a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.6" r="2.6"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7.5V6a2 2 0 0 0-2-2H5.5A2.5 2.5 0 0 0 3 6.5v11A2.5 2.5 0 0 0 5.5 20H19a2 2 0 0 0 2-2v-8.5a2 2 0 0 0-2-2H5.5"/><circle cx="16.5" cy="13.75" r="1.25" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.6" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20.5 11.6a8.4 8.4 0 0 1-12.3 7.4L3.5 20.5l1.6-4.5A8.4 8.4 0 1 1 20.5 11.6z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M20.5 16.6v2.6a1.8 1.8 0 0 1-2 1.8A17.8 17.8 0 0 1 3 5.5a1.8 1.8 0 0 1 1.8-2h2.6a1.8 1.8 0 0 1 1.8 1.5c.1.9.4 1.8.7 2.6a1.8 1.8 0 0 1-.4 1.9l-1.1 1.1a14.4 14.4 0 0 0 5 5l1.1-1.1a1.8 1.8 0 0 1 1.9-.4c.8.3 1.7.6 2.6.7a1.8 1.8 0 0 1 1.5 1.8z"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></symbol>
+  <symbol id="i-ok" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+  <symbol id="i-cash" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M5 9l7 7 7-7"/></symbol>
+</svg>
+<main class="bb">
+  <h1>ALSI Продажи: брендбук</h1>
+  <p>Приложение торгового ALSI. Вид «Маршрут»: светлый фон для солнца, крупный текст, одна красная кнопка на экране. Цвета сняты с alsicola.com: логотип ALSI и образцы банок. Страница собрана на тех же стилях, что и приложение.</p>
+
+  <h2>Цвета</h2>
+  <div class="sw">
+    <div><i style="background:var(--navy)"></i><b>#0D2445</b><span>Буквы ALSI. Текст, меню, выбор</span></div>
+    <div><i style="background:var(--red)"></i><b>#DF2228</b><span>«Cola», красная банка. Главная кнопка, долг</span></div>
+    <div><i style="background:var(--blue)"></i><b>#006DC0</b><span>Синяя банка. Связь: WhatsApp, звонок</span></div>
+    <div><i style="background:var(--black)"></i><b>#0F0F0D</b><span>Чёрная банка. Только печать</span></div>
+    <div><i style="background:var(--ice)"></i><b>#EEF3F9</b><span>Фон экранов</span></div>
+    <div><i style="background:var(--ink-2)"></i><b>#4A5A75</b><span>Второстепенный текст</span></div>
+    <div><i style="background:var(--line)"></i><b>#DCE3EC</b><span>Линии, рамки полей</span></div>
+    <div><i style="background:var(--done)"></i><b>#8A97AB</b><span>Сделано сегодня</span></div>
+  </div>
+
+  <h2>Шрифты</h2>
+  <div class="type">
+    <div class="t1">Сегодня, 186 уп.</div>
+    <div class="t4">Exo 2, 900 курсив: заголовки экранов, номера точек, крупные суммы</div>
+    <div class="t2">Посетить сегодня</div>
+    <div class="t3">Golos Text: весь остальной текст. Караван Баши, ул. Бисултанова, 325</div>
+    <div class="t4 num">Цифры одной ширины: 12 400 ₽, 1 749 ₽, 8 ноября</div>
+  </div>
+
+  <h2>Значок приложения</h2>
+  <div class="demo-row"><img class="appicon" src="../img/icon-512.png" alt="Значок ALSI Продажи: линия маршрута и красная точка"><p class="muted" style="max-width:420px">Тёмно-синий квадрат, белая линия маршрута, красная точка в конце пути. Логотип ALSI в значке не используем.</p></div>
+
+  <h2>Кнопки</h2>
+  <div class="demo-row">
+    <button class="btn red">Начать визит</button>
+    <button class="btn navy">Сохранить</button>
+    <button class="btn blue"><svg class="i"><use href="#i-chat"/></svg>Написать</button>
+    <button class="btn line"><svg class="i"><use href="#i-route"/></svg>Маршрут</button>
+    <button class="btn white">Позвонить</button>
+    <button class="ib navy" aria-label="Получить оплату"><svg class="i"><use href="#i-cash"/></svg></button>
+  </div>
+  <p class="muted" style="margin-top:12px">Скругление 14, не таблетка. Высота 52, 48, 44. Красная кнопка одна на экран.</p>
+
+  <h2>Метки и связь</h2>
+  <div class="demo-row">
+    <span class="tag">Визит</span><span class="tag blue">Позвонить</span><span class="tag red">Долг 12 400 ₽</span><span class="tag red">Просрочено на 5 дней</span><span class="tag grey">Заказ 6 уп.</span>
+    <span class="sync"><svg class="i"><use href="#i-ok"/></svg>Отправлено</span>
+    <span class="sync wait"><svg class="i"><use href="#i-clock"/></svg>Ждёт отправки: 3</span>
+  </div>
+
+  <h2>Маршрут дня и меню</h2>
+  <div class="phone-strip">
+    <div class="route">
+      <div class="stop now"><div class="dot num">1</div><div class="t"><span class="name">Караван Баши</span><small>ул. Бисултанова, 325, Грозный</small><div class="tags"><span class="tag">Визит</span><span class="tag red">Просрочено на 5 дней</span></div><div class="acts"><button class="btn red">Начать визит</button></div></div></div>
+      <div class="stop"><div class="dot num">2</div><div class="t"><span class="name">Старый Дворик</span><small>при въезде в село, Гехи</small><div class="tags"><span class="tag">Визит</span><span class="tag red">Долг 12 400 ₽</span></div></div></div>
+      <div class="stop done"><div class="dot"><svg class="i"><use href="#i-ok"/></svg></div><div class="t"><span class="name">Аймани</span><small>пр. Кадырова, 248, Грозный</small><div class="tags"><span class="tag grey">Заказ 6 уп.</span></div></div></div>
+    </div>
+    <nav class="nav nav-demo" aria-label="Пример меню"><div class="in">
+      <a class="on"><svg class="i"><use href="#i-cal"/></svg>Сегодня</a>
+      <a><svg class="i"><use href="#i-shop"/></svg>Точки</a>
+      <a class="go-wrap"><span class="go"><svg class="i"><use href="#i-pin"/></svg></span>Визит</a>
+      <a><svg class="i"><use href="#i-wallet"/></svg>Долги</a>
+      <a><svg class="i"><use href="#i-more"/></svg>Ещё</a>
+    </div></nav>
+  </div>
+
+  <h2>Значки</h2>
+  <div class="icons">
+    <div><svg class="i"><use href="#i-cal"/></svg>Сегодня</div>
+    <div><svg class="i"><use href="#i-shop"/></svg>Точки</div>
+    <div><svg class="i"><use href="#i-pin"/></svg>Визит</div>
+    <div><svg class="i"><use href="#i-wallet"/></svg>Долги</div>
+    <div><svg class="i"><use href="#i-chat"/></svg>WhatsApp</div>
+    <div><svg class="i"><use href="#i-phone"/></svg>Звонок</div>
+    <div><svg class="i"><use href="#i-route"/></svg>Маршрут</div>
+    <div><svg class="i"><use href="#i-minus"/></svg>Убрать</div>
+    <div><svg class="i"><use href="#i-back"/></svg>Назад</div>
+    <div><svg class="i"><use href="#i-down"/></svg>Свернуть</div>
+  </div>
+  <p class="muted" style="margin-top:12px">Одна толщина линии 2. Значков «плюс» и «крестик» нет: они похожи на крест. Добавить упаковку: касание названия напитка.</p>
+
+  <h2>Тон текстов</h2>
+  <div class="no"><ul>
+    <li>Коротко, глаголом: «Начать визит», «Деньги переданы». Точки в кнопках нет.</li>
+    <li>ЛПР всегда с объяснением: тот, кто решает о закупке.</li>
+    <li>Ошибка говорит, что сделать: «Выберите оплату».</li>
+    <li>Без восклицаний, приветствий и эмодзи.</li>
+  </ul></div>
+
+  <h2>Чего не делаем</h2>
+  <div class="no"><ul>
+    <li>Тёмная тема как у SaaS, градиенты, свечение, кремовый фон.</li>
+    <li>Курсив одним словом, моноширинные подписи, капс с разрядкой, нумерация 01 / 02.</li>
+    <li>Кнопки-таблетки, сетка одинаковых карточек, полоса слева у карточки, карточка в карточке.</li>
+    <li>Знаки, похожие на крест. Пульс и мигание без причины.</li>
+    <li>Логотип и фото банок ALSI без разрешения бренда. Люди на картинках.</li>
+  </ul></div>
+</main>
+</body>
+</html>
