@@ -1,14 +1,14 @@
 // Команда: люди, роли, супервайзер каждого, цифры за месяц. Меняет админ.
 // Роль даёт права. Супервайзер в карточке человека задаёт, чьи записи видит супервайзер.
 // Главный админ (почта автора в правилах базы) меняет всех. Другой админ: только торговых и супервайзеров.
-import { S, all, people, memberName } from '../store.js?v=564a57de';
-import { saveMember, retag } from '../save.js?v=564a57de';
-import { h, icon, fill, sheet, toast, choices, field, inp } from './kit.js?v=564a57de';
-import { inviteText, normEmail, validEmail } from '../logic/auth.js?v=564a57de';
-import { head } from './common.js?v=564a57de';
-import { isoDay, monthKey, dayShort } from '../logic/dates.js?v=564a57de';
-import { rub } from '../logic/format.js?v=564a57de';
-import { memberStats } from '../logic/stats.js?v=564a57de';
+import { S, all, people, memberName } from '../store.js?v=895b33d7';
+import { saveMember, retag } from '../save.js?v=895b33d7';
+import { h, icon, fill, sheet, toast, choices, field, inp } from './kit.js?v=895b33d7';
+import { inviteText, normEmail, validEmail } from '../logic/auth.js?v=895b33d7';
+import { head } from './common.js?v=895b33d7';
+import { isoDay, monthKey, dayShort } from '../logic/dates.js?v=895b33d7';
+import { rub } from '../logic/format.js?v=895b33d7';
+import { memberStats } from '../logic/stats.js?v=895b33d7';
 
 export const ROLES = [['sales', 'Торговый'], ['supervisor', 'Супервайзер'], ['owner', 'Админ']];
 export const roleName = (r) => (ROLES.find((x) => x[0] === r) || [, ''])[1];

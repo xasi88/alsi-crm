@@ -1,9 +1,9 @@
 // Перенос базы из программы Атама (файл «Скачать резервную копию», JSON).
 // Только чтение файла и перевод полей. К его облаку не подключаемся.
 // Номера записей постоянные: 'atam-' и номер у Атама. Повторный перенос перезаписывает те же записи, двойников нет.
-import { normPhone } from './format.js?v=564a57de';
-import { sameAnswer } from './visit.js?v=564a57de';
-import { productFromAny, findSame, itemsSum, LINES } from './products.js?v=564a57de';
+import { normPhone } from './format.js?v=895b33d7';
+import { sameAnswer } from './visit.js?v=895b33d7';
+import { productFromAny, findSame, itemsSum, LINES } from './products.js?v=895b33d7';
 
 export const SRC = 'atam';
 export const atamId = (id) => 'atam-' + String(id ?? '').replace(/[^A-Za-z0-9_-]/g, '_').slice(0, 200);

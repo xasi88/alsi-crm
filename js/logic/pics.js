@@ -1,7 +1,7 @@
 // Фото товаров: своё фото владельца (поле photo в товаре) или фото упаковки производителя из img/products.
 // Таблицу FILES собирает tools/foto.py из docs/foto-tovarov.json. Руками не править.
-import { norm } from './format.js?v=564a57de';
-import { sameName } from './atam.js?v=564a57de';
+import { norm } from './format.js?v=895b33d7';
+import { sameName } from './atam.js?v=895b33d7';
 
 const FILES = {
   "Alsi Cola": "img/products/alsi-cola.webp",

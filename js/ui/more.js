@@ -1,11 +1,11 @@
 // Ещё: все разделы по группам. На широком экране тот же список стоит в боковой панели.
-import { S, pendingCount } from '../store.js?v=564a57de';
-import { h, icon, fill, ask, toast } from './kit.js?v=564a57de';
-import { head } from './common.js?v=564a57de';
-import { logout, logoutClean, providers, resetPass } from '../fb.js?v=564a57de';
-import { signInWays, authText } from '../logic/auth.js?v=564a57de';
-import { listDrafts } from './drafts.js?v=564a57de';
-import { installCard } from './install.js?v=564a57de';
+import { S, pendingCount } from '../store.js?v=895b33d7';
+import { h, icon, fill, ask, toast } from './kit.js?v=895b33d7';
+import { head } from './common.js?v=895b33d7';
+import { logout, logoutClean, providers, resetPass } from '../fb.js?v=895b33d7';
+import { signInWays, authText } from '../logic/auth.js?v=895b33d7';
+import { listDrafts } from './drafts.js?v=895b33d7';
+import { installCard } from './install.js?v=895b33d7';
 
 const ROLE = { owner: 'админ', supervisor: 'супервайзер', sales: 'торговый' };
 

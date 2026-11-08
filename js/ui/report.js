@@ -1,13 +1,13 @@
 // Отчёт PDF: разделы на выбор, сотрудник, точка, категория, даты. Выбор запоминается.
 // Кнопка «Сохранить PDF» открывает окно печати: там выбрать «Сохранить как PDF».
-import { S, view, people, memberName, shopById } from '../store.js?v=564a57de';
-import { h, icon, fill, remember, choices, field, inp, pickOne, toast } from './kit.js?v=564a57de';
-import { liveHead } from './common.js?v=564a57de';
-import { isoDay, dayShort, dayTitle, plural } from '../logic/dates.js?v=564a57de';
-import { rub, prettyPhone } from '../logic/format.js?v=564a57de';
-import { CATS, GROUPS, catLabel } from '../logic/products.js?v=564a57de';
-import { periodRange } from '../logic/filters.js?v=564a57de';
-import { buildReport, SECTIONS, PRESETS } from '../logic/report.js?v=564a57de';
+import { S, view, people, memberName, shopById } from '../store.js?v=895b33d7';
+import { h, icon, fill, remember, choices, field, inp, pickOne, toast } from './kit.js?v=895b33d7';
+import { liveHead } from './common.js?v=895b33d7';
+import { isoDay, dayShort, dayTitle, plural } from '../logic/dates.js?v=895b33d7';
+import { rub, prettyPhone } from '../logic/format.js?v=895b33d7';
+import { CATS, GROUPS, catLabel } from '../logic/products.js?v=895b33d7';
+import { periodRange } from '../logic/filters.js?v=895b33d7';
+import { buildReport, SECTIONS, PRESETS } from '../logic/report.js?v=895b33d7';
 
 const CAT_ITEMS = [['', 'Все категории'], ...GROUPS.map((g) => [g.id, g.label]), ...CATS.filter((c) => c.group !== 'drinks').map((c) => [c.id, c.label])];
 

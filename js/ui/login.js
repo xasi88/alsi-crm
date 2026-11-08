@@ -1,8 +1,8 @@
 // Экраны входа: почта и пароль, первый вход, новый пароль, подтверждение почты, нет доступа.
 // Войти может любой, но правила базы покажут данные только почте из «Команды» и только подтверждённой.
-import { login, loginPass, signupPass, resetPass, resendVerify, checkVerified, logout } from '../fb.js?v=564a57de';
-import { h, fill, field, inp } from './kit.js?v=564a57de';
-import { emailProblem, passProblem, authText, normEmail, PASS_MIN } from '../logic/auth.js?v=564a57de';
+import { login, loginPass, signupPass, resetPass, resendVerify, checkVerified, logout } from '../fb.js?v=895b33d7';
+import { h, fill, field, inp } from './kit.js?v=895b33d7';
+import { emailProblem, passProblem, authText, normEmail, PASS_MIN } from '../logic/auth.js?v=895b33d7';
 
 let email = ''; // почта остаётся при переходе между экранами входа
 let unwatch = () => {};
