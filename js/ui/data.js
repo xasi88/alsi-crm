@@ -1,12 +1,12 @@
 // Данные: счётчики, связь, работа без связи, резервная копия, перенос из программы Атама.
-import { S, pendingCount, all } from '../store.js?v=69f8b533';
-import { writeMany } from '../save.js?v=69f8b533';
-import { h, icon, fill, sheet, toast, ask, choices, download, fileButton, stat } from './kit.js?v=69f8b533';
-import { head, sec } from './common.js?v=69f8b533';
-import { isoDay } from '../logic/dates.js?v=69f8b533';
-import { buildBackup, kindOf, restorePlan, fileName, COLS, LABELS } from '../logic/backup.js?v=69f8b533';
-import { listDrafts } from './drafts.js?v=69f8b533';
-import { startAtamImport } from './importer.js?v=69f8b533';
+import { S, pendingCount, all } from '../store.js?v=564a57de';
+import { writeMany } from '../save.js?v=564a57de';
+import { h, icon, fill, sheet, toast, ask, choices, download, fileButton, stat } from './kit.js?v=564a57de';
+import { head, sec } from './common.js?v=564a57de';
+import { isoDay } from '../logic/dates.js?v=564a57de';
+import { buildBackup, kindOf, restorePlan, fileName, COLS, LABELS } from '../logic/backup.js?v=564a57de';
+import { listDrafts } from './drafts.js?v=564a57de';
+import { startAtamImport } from './importer.js?v=564a57de';
 
 // Готово ли приложение к работе без связи: файлы приложения лежат в копии на телефоне
 async function offlineCheck() {
@@ -69,7 +69,7 @@ async function loadFile(f) {
   try { data = JSON.parse(f.text); } catch (e) { toast('Файл не читается как JSON', true); return; }
   const kind = kindOf(data);
   if (kind === 'atam') { startAtamImport(data, f.name); return; }
-  if (kind !== 'ours') { toast('Это не резервная копия «ALSI Продажи» и не файл программы Атама', true); return; }
+  if (kind !== 'ours') { toast('Это не резервная копия «ALSI Sales CRM» и не файл программы Атама', true); return; }
   const s = sheet({ title: 'Загрузить копию', sub: f.name + ', от ' + String(data.exportedAt || '').slice(0, 10), full: true });
   let hideMissing = 'no';
   s.body.append(

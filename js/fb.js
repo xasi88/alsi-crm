@@ -3,7 +3,8 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
 import {
   getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult,
-  onAuthStateChanged, signOut,
+  onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+  sendEmailVerification, sendPasswordResetEmail, reload,
 } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
 import {
   initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
@@ -45,6 +46,32 @@ export async function login() {
     throw e;
   }
 }
+
+// Вход по почте и паролю (как у Атама). Пароль придумывает сам человек при первом входе,
+// почту подтверждает письмом. Без подтверждения правила базы ничего не покажут.
+const back = () => ({ url: location.origin + location.pathname });
+
+export const loginPass = (email, pass) => signInWithEmailAndPassword(auth, email, pass);
+
+export async function signupPass(email, pass) {
+  const c = await createUserWithEmailAndPassword(auth, email, pass);
+  await sendEmailVerification(c.user, back());
+  return c.user;
+}
+
+export const resendVerify = () => sendEmailVerification(auth.currentUser, back());
+export const resetPass = (email) => sendPasswordResetEmail(auth, email, back());
+
+// Человек нажал ссылку в письме: обновляем данные входа и пропуск для базы
+export async function checkVerified() {
+  const u = auth.currentUser;
+  if (!u) return false;
+  await reload(u);
+  if (u.emailVerified) await u.getIdToken(true);
+  return u.emailVerified;
+}
+
+export const providers = () => (auth.currentUser?.providerData || []).map((p) => p.providerId);
 
 export function onUser(fn) {
   getRedirectResult(auth).catch(() => {});

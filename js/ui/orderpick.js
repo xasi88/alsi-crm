@@ -1,10 +1,10 @@
 // Выбор товаров в заказ: категории, поиск, упаковки и штуки.
 // Касание фото или названия добавляет упаковку. Число и штуки вводятся в окне товара.
-import { S, all } from '../store.js?v=69f8b533';
-import { h, icon, fill, sheet, toast, inp, field, seg } from './kit.js?v=69f8b533';
-import { rub, parseCount, norm } from '../logic/format.js?v=69f8b533';
-import { activeProducts, GROUPS, groupOf, LINES, catLabel, catOf, measure, sellsUnits, unitPriceOf, itemsFromPick, itemsSum } from '../logic/products.js?v=69f8b533';
-import { editProduct, pic } from './product.js?v=69f8b533';
+import { S, all } from '../store.js?v=564a57de';
+import { h, icon, fill, sheet, toast, inp, field, seg } from './kit.js?v=564a57de';
+import { rub, parseCount, norm } from '../logic/format.js?v=564a57de';
+import { activeProducts, GROUPS, groupOf, LINES, catLabel, catOf, measure, sellsUnits, unitPriceOf, itemsFromPick, itemsSum } from '../logic/products.js?v=564a57de';
+import { editProduct, pic } from './product.js?v=564a57de';
 
 export const products = () => activeProducts(all('products'));
 
@@ -20,7 +20,7 @@ export function productPicker(body, pick, onChange) {
   const draw = () => {
     const ps = products();
     if (!ps.length) {
-      fill(listBox, h('div', { class: 'empty', style: 'margin:0' }, h('b', {}, 'Каталог пуст'), S.owner ? 'Добавьте товары: Ещё, Каталог.' : 'Товары добавляет владелец.'));
+      fill(listBox, h('div', { class: 'empty', style: 'margin:0' }, h('b', {}, 'Каталог пуст'), S.owner ? 'Добавьте товары: Ещё, Каталог.' : 'Товары добавляет админ.'));
       return;
     }
     const groups = GROUPS.filter((g) => ps.some((p) => groupOf(p) === g.id));

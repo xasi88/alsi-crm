@@ -1,13 +1,13 @@
 // Каталог: карточки товаров с фото, категории, цены, чистые продажи. Карточка и правка товара: product.js.
 // Загрузка списка товаров из файла (CSV или JSON): тот же товар обновляется, новый добавляется.
-import { S, all, view } from '../store.js?v=69f8b533';
-import { writeMany } from '../save.js?v=69f8b533';
-import { h, fill, sheet, toast, remember, seg, pickFile } from './kit.js?v=69f8b533';
-import { liveHead } from './common.js?v=69f8b533';
-import { rub } from '../logic/format.js?v=69f8b533';
-import { CATS, GROUPS, LINES, groupOf, catOf, catLabel, measure, sortProducts, qtyText, parseCatalog, findSame } from '../logic/products.js?v=69f8b533';
-import { newId } from '../fb.js?v=69f8b533';
-import { editProduct, openProduct, pic } from './product.js?v=69f8b533';
+import { S, all, view } from '../store.js?v=564a57de';
+import { writeMany } from '../save.js?v=564a57de';
+import { h, fill, sheet, toast, remember, seg, pickFile } from './kit.js?v=564a57de';
+import { liveHead } from './common.js?v=564a57de';
+import { rub } from '../logic/format.js?v=564a57de';
+import { CATS, GROUPS, LINES, groupOf, catOf, catLabel, measure, sortProducts, qtyText, parseCatalog, findSame } from '../logic/products.js?v=564a57de';
+import { newId } from '../fb.js?v=564a57de';
+import { editProduct, openProduct, pic } from './product.js?v=564a57de';
 
 export { editProduct };
 
@@ -48,7 +48,7 @@ export function mountCatalog(root) {
           p.active === false ? h('small', {}, 'Скрыт в заказе') : null,
           h('span', { class: 'price num' }, p.packPrice ? rub(p.packPrice) : 'нет цены'));
       }))]),
-      !list.length ? h('div', { class: 'empty' }, h('b', {}, 'Товаров нет'), S.owner ? 'Добавьте товар или загрузите список из файла.' : 'Товары добавляет владелец.') : null,
+      !list.length ? h('div', { class: 'empty' }, h('b', {}, 'Товаров нет'), S.owner ? 'Добавьте товар или загрузите список из файла.' : 'Товары добавляет админ.') : null,
       h('div', { class: 'pad', style: 'margin-top:16px' },
         h('button', { class: 'btn white wide', onclick: () => { st.hidden = !st.hidden; st.save(); update(); } }, st.hidden ? 'Не показывать скрытые' : 'Показать скрытые'),
         S.owner ? h('button', { class: 'btn line wide', style: 'margin-top:8px', onclick: importCatalog }, 'Загрузить список из файла') : null),

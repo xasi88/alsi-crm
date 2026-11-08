@@ -1,4 +1,4 @@
-/* ALSI Продажи: оболочка, кнопки, экран «Сегодня», нижнее меню. Значения: tokens.css */
+/* ALSI Sales CRM: оболочка, кнопки, экран «Сегодня», нижнее меню. Значения: tokens.css */
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html { background: var(--ice); }
 body { background: var(--ice); color: var(--navy); font: 400 var(--t-body)/1.45 var(--f-ui); -webkit-font-smoothing: antialiased; min-height: 100dvh; }
@@ -116,6 +116,22 @@ button.item:active, a.item:active { background: var(--ice-2); }
 .login p { margin-top: var(--s3); color: rgba(255, 255, 255, .8); max-width: 420px; }
 .login .btn { margin-top: var(--s6); }
 .login .note { font-size: var(--t-tiny); color: rgba(255, 255, 255, .6); margin-top: var(--s4); }
+.login form, .login .links, .login .or, .login > .btn { max-width: 420px; }
+.login form { margin-top: var(--s6); }
+.login form .btn { margin-top: var(--s2); }
+.login .field > span { color: rgba(255, 255, 255, .85); }
+.login p.msg { margin: 0 0 var(--s3); padding: 10px 12px; border-left: 4px solid var(--red); border-radius: var(--r-tag); background: rgba(223, 34, 40, .2); color: var(--white); font-weight: 600; }
+.login p.msg.ok { border-left-color: var(--white); background: rgba(255, 255, 255, .12); }
+.login p.msg:empty { display: none; }
+.login > .btn + .btn { margin-top: var(--s3); }
+.login .links { display: flex; flex-direction: column; align-items: flex-start; margin-top: var(--s3); }
+.login .link { min-height: var(--tap); color: var(--white); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.login .or { display: flex; align-items: center; gap: var(--s3); margin-top: var(--s3); color: rgba(255, 255, 255, .6); font-size: var(--t-small); }
+.login .or::before, .login .or::after { content: ''; flex: 1; height: 1px; background: rgba(255, 255, 255, .25); }
+.login .or + .btn { margin-top: var(--s3); }
+.pass { position: relative; }
+.pass .inp { padding-right: 104px; }
+.pass .eye { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); min-height: var(--tap); padding: 0 var(--s3); color: var(--navy); font-weight: 600; font-size: var(--t-small); }
 
 @media (min-width: 700px) {
   .app { padding-top: var(--s4); }

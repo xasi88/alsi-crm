@@ -1,19 +1,19 @@
 // Карточка точки: связь, визит, долг, следующее действие, цифры, история.
-import { S, subscribe, shopById, all, canEdit, memberName } from '../store.js?v=69f8b533';
-import { doneNext, hide } from '../save.js?v=69f8b533';
-import { h, icon, fill, sheet, ext, toast, ask, stat } from './kit.js?v=69f8b533';
-import { planContact, nextText, ageText, whoText } from './common.js?v=69f8b533';
-import { isoDay, dayShort, daysWord, daysBetween, plural } from '../logic/dates.js?v=69f8b533';
-import { rub, prettyPhone, telLink, waLink } from '../logic/format.js?v=69f8b533';
-import { shopDebts, orderSum, returnSum, payLabel, inHand } from '../logic/money.js?v=69f8b533';
-import { activeNext, resultText } from '../logic/visit.js?v=69f8b533';
-import { itemsPacks } from '../logic/products.js?v=69f8b533';
-import { placeLink, dgisLink, googleLink, hasPoint } from '../logic/maps.js?v=69f8b533';
-import { editShop } from './shops.js?v=69f8b533';
-import { startVisit, startOrder } from './visit.js?v=69f8b533';
-import { openOrder, openVisit } from './order.js?v=69f8b533';
-import { startReturn, openReturn } from './returns.js?v=69f8b533';
-import { openShopDebt } from './debts.js?v=69f8b533';
+import { S, subscribe, shopById, all, canEdit, memberName } from '../store.js?v=564a57de';
+import { doneNext, hide } from '../save.js?v=564a57de';
+import { h, icon, fill, sheet, ext, toast, ask, stat } from './kit.js?v=564a57de';
+import { planContact, nextText, ageText, whoText } from './common.js?v=564a57de';
+import { isoDay, dayShort, daysWord, daysBetween, plural } from '../logic/dates.js?v=564a57de';
+import { rub, prettyPhone, telLink, waLink } from '../logic/format.js?v=564a57de';
+import { shopDebts, orderSum, returnSum, payLabel, inHand } from '../logic/money.js?v=564a57de';
+import { activeNext, resultText } from '../logic/visit.js?v=564a57de';
+import { itemsPacks } from '../logic/products.js?v=564a57de';
+import { placeLink, dgisLink, googleLink, hasPoint } from '../logic/maps.js?v=564a57de';
+import { editShop } from './shops.js?v=564a57de';
+import { startVisit, startOrder } from './visit.js?v=564a57de';
+import { openOrder, openVisit } from './order.js?v=564a57de';
+import { startReturn, openReturn } from './returns.js?v=564a57de';
+import { openShopDebt } from './debts.js?v=564a57de';
 
 function history(shopId) {
   const today = isoDay();
@@ -74,7 +74,7 @@ export function openShop(id) {
       links.length ? h('div', { class: 'btns' }, links) : null,
       maps.length ? h('div', { class: 'btns', style: 'margin-top:8px' }, maps.map(([n, u]) => ext(u, 'btn white small', icon('route'), n))) : null,
       h('div', { class: 'gap' }),
-      edit ? h('button', { class: 'btn red wide', onclick: () => startVisit(id) }, 'Начать визит') : h('p', { class: 'warnbox' }, 'Это точка ' + memberName(shop.rep) + '. Вы видите её записи, менять их может сам торговый или владелец.'),
+      edit ? h('button', { class: 'btn red wide', onclick: () => startVisit(id) }, 'Начать визит') : h('p', { class: 'warnbox' }, 'Это точка ' + memberName(shop.rep) + '. Вы видите её записи, менять их может сам торговый или админ.'),
       edit ? h('div', { class: 'btns', style: 'margin-top:8px' },
         h('button', { class: 'btn line', onclick: () => startOrder(id) }, 'Заказ по телефону'),
         h('button', { class: 'btn line', onclick: () => startReturn(id) }, 'Возврат')) : null,

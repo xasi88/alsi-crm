@@ -1,12 +1,13 @@
 // Ещё: все разделы по группам. На широком экране тот же список стоит в боковой панели.
-import { S, pendingCount } from '../store.js?v=69f8b533';
-import { h, icon, fill, ask } from './kit.js?v=69f8b533';
-import { head } from './common.js?v=69f8b533';
-import { logout, logoutClean } from '../fb.js?v=69f8b533';
-import { listDrafts } from './drafts.js?v=69f8b533';
-import { installCard } from './install.js?v=69f8b533';
+import { S, pendingCount } from '../store.js?v=564a57de';
+import { h, icon, fill, ask, toast } from './kit.js?v=564a57de';
+import { head } from './common.js?v=564a57de';
+import { logout, logoutClean, providers, resetPass } from '../fb.js?v=564a57de';
+import { signInWays, authText } from '../logic/auth.js?v=564a57de';
+import { listDrafts } from './drafts.js?v=564a57de';
+import { installCard } from './install.js?v=564a57de';
 
-const ROLE = { owner: 'владелец', supervisor: 'супервайзер', sales: 'торговый' };
+const ROLE = { owner: 'админ', supervisor: 'супервайзер', sales: 'торговый' };
 
 export const MENU = () => [
   { title: 'Работа', items: [
@@ -41,6 +42,10 @@ export function mountMore(root) {
         h('div', { class: 'group' }, g.items.filter((i) => !['today', 'shops', 'debts'].includes(i.id)).map((i) => h('a', { class: 'item', href: '#/' + i.id },
           icon(i.icon), h('div', { class: 't' }, h('b', {}, i.title), h('small', {}, i.sub)), h('span', { class: 'chev' }, icon('right')))))]),
       h('div', { class: 'gap' }),
+      signInWays(providers()).password ? h('div', { class: 'pad', style: 'margin-bottom:12px' }, h('button', { class: 'btn line wide', onclick: async (e) => {
+        if (!await ask('Сменить пароль?', 'На почту ' + S.email + ' придёт письмо со ссылкой. По ней вы зададите новый пароль.', 'Прислать письмо')) return;
+        try { await resetPass(S.email); toast('Письмо отправлено. Оно может лежать в «Спаме»'); } catch (err) { toast(authText(err), true); }
+      } }, icon('edit'), 'Сменить пароль')) : null,
       h('div', { class: 'pad' }, h('button', { class: 'btn line wide', onclick: async () => {
         const n = pendingCount();
         if (n > 0) {
@@ -50,7 +55,7 @@ export function mountMore(root) {
         }
         if (await ask('Выйти?', 'Все записи в облаке. Копия базы на этом телефоне сотрётся, чтобы её не увидел другой человек.', 'Выйти')) logoutClean();
       } }, icon('door'), 'Выйти')),
-      h('p', { class: 'muted pad', style: 'font-size:13px;margin-top:16px' }, 'ALSI Продажи, версия 2.1'));
+      h('p', { class: 'muted pad', style: 'font-size:13px;margin-top:16px' }, 'ALSI Sales CRM, версия 2.2'));
   };
   update();
   return update;

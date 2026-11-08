@@ -1,13 +1,13 @@
 // Перенос базы из программы Атама: что в файле, люди, товары, запись, сверка счётчиков.
 // Только владелец. Повторный перенос перезаписывает те же записи: двойников нет.
-import { S, all, pendingCount, member } from '../store.js?v=69f8b533';
-import { writeMany } from '../save.js?v=69f8b533';
-import { h, fill, sheet, toast, ask, choices, field, inp } from './kit.js?v=69f8b533';
-import { readAtam, convertAtam, reconcile, SRC } from '../logic/atam.js?v=69f8b533';
-import { LABELS } from '../logic/backup.js?v=69f8b533';
-import { rub } from '../logic/format.js?v=69f8b533';
+import { S, all, pendingCount, member } from '../store.js?v=564a57de';
+import { writeMany } from '../save.js?v=564a57de';
+import { h, fill, sheet, toast, ask, choices, field, inp } from './kit.js?v=564a57de';
+import { readAtam, convertAtam, reconcile, SRC } from '../logic/atam.js?v=564a57de';
+import { LABELS } from '../logic/backup.js?v=564a57de';
+import { rub } from '../logic/format.js?v=564a57de';
 
-const ROLE_ATAM = { owner: 'владелец', supervisor: 'супервайзер', sales: 'торговый' };
+const ROLE_ATAM = { owner: 'админ', supervisor: 'супервайзер', sales: 'торговый' };
 const LIMIT = 18000; // бесплатный тариф Firebase: 20 000 записей в сутки
 
 export function startAtamImport(data, name) {
@@ -35,7 +35,7 @@ export function startAtamImport(data, name) {
       h('div', { class: 'group', style: 'margin:0' }, Object.entries(info.counts).map(([k, v]) => h('div', { class: 'kv' }, h('span', {}, LABELS[k] || k), h('b', { class: 'num' }, String(v))))),
       total > LIMIT ? h('div', { class: 'warnbox' }, h('b', {}, 'Записей больше ' + LIMIT + '.'), ' Бесплатный тариф Firebase пишет до 20 000 записей в сутки. Перенос пойдёт частями: повторите на следующий день, записанное не задвоится.') : null,
       h('div', { class: 'q' }, 'Люди из файла'),
-      h('p', { class: 'hint' }, 'Их визиты и заказы запишутся на почту, которую вы укажете. Чтобы человек вошёл в «ALSI Продажи», нужна его почта Google.'),
+      h('p', { class: 'hint' }, 'Их визиты и заказы запишутся на почту, которую вы укажете. Человек войдёт в «ALSI Sales CRM» с этой почтой: по паролю, который придумает сам, или через Google.'),
       info.people.map((p) => {
         const x = plan.get(p.userId);
         const box = h('div');
@@ -98,7 +98,7 @@ export function startAtamImport(data, name) {
   }
 
   async function run(btn, conv, team) {
-    if (!S.owner) { toast('Перенос делает только владелец', true); return; }
+    if (!S.owner) { toast('Перенос делает только админ', true); return; }
     if (!S.online) { toast('Нужна связь с облаком', true); return; }
     if (pendingCount()) { toast('Сначала дождитесь отправки всех записей', true); return; }
     if (!(await ask('Перенести базу?', 'Записи из файла Атама появятся у вас и у людей, которых вы добавили.', 'Перенести'))) return;

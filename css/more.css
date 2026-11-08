@@ -1,4 +1,4 @@
-/* ALSI Продажи: вкладки, фильтры, взгляд руководителя, боковая панель, карта, отчёт. Значения: tokens.css */
+/* ALSI Sales CRM: вкладки, фильтры, взгляд руководителя, боковая панель, карта, отчёт. Значения: tokens.css */
 
 /* Взгляд руководителя: вся команда или один человек */
 .scope { display: inline-flex; align-items: center; gap: var(--s2); min-height: var(--tap); margin-top: var(--s3); padding: 0 var(--s3); border-radius: 12px; background: var(--white); font-size: var(--t-small); font-weight: 600; }

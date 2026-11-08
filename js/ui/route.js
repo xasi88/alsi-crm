@@ -1,11 +1,11 @@
 // Маршрут объезда на карте: кого объехать, порядок от места телефона, номера и линия на карте,
 // части для Яндекс Карт по 10 точек. Маршрут хранится на телефоне до закрытия: можно уйти в визит и вернуться.
-import { S, view } from '../store.js?v=69f8b533';
-import { h, icon, fill, toast, remember, seg, ext } from './kit.js?v=69f8b533';
-import { rub } from '../logic/format.js?v=69f8b533';
-import { hasPoint } from '../logic/maps.js?v=69f8b533';
-import { planRoute, routeParts, pathKm } from '../logic/route.js?v=69f8b533';
-import { openShop } from './shop.js?v=69f8b533';
+import { S, view } from '../store.js?v=564a57de';
+import { h, icon, fill, toast, remember, seg, ext } from './kit.js?v=564a57de';
+import { rub } from '../logic/format.js?v=564a57de';
+import { hasPoint } from '../logic/maps.js?v=564a57de';
+import { planRoute, routeParts, pathKm } from '../logic/route.js?v=564a57de';
+import { openShop } from './shop.js?v=564a57de';
 
 const WHO = [['all', 'Все'], ['debt', 'Должники'], ['stale', 'Давно без заказа'], ['new', 'Не были сегодня']];
 const STALE = 14; // дней без заказа

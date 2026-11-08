@@ -1,24 +1,25 @@
-// ALSI Продажи: вход, меню, экраны.
+// ALSI Sales CRM: вход, меню, экраны.
 // Телефон: нижнее меню из пяти кнопок. Широкий экран (Surface, компьютер): боковая панель со всеми разделами.
-import { login, onUser, logout } from './fb.js?v=69f8b533';
-import { S, start, stop, subscribe } from './store.js?v=69f8b533';
-import { setErrorHandler } from './save.js?v=69f8b533';
-import { h, icon, fill, toast } from './ui/kit.js?v=69f8b533';
-import { mountToday } from './ui/today.js?v=69f8b533';
-import { mountShops } from './ui/shops.js?v=69f8b533';
-import { mountMap } from './ui/map.js?v=69f8b533';
-import { mountDebts } from './ui/debts.js?v=69f8b533';
-import { mountMore, MENU } from './ui/more.js?v=69f8b533';
-import { mountJournal } from './ui/journal.js?v=69f8b533';
-import { mountStats } from './ui/insights.js?v=69f8b533';
-import { mountReport } from './ui/report.js?v=69f8b533';
-import { mountPlan } from './ui/common.js?v=69f8b533';
-import { mountCatalog } from './ui/catalog.js?v=69f8b533';
-import { mountScript } from './ui/script.js?v=69f8b533';
-import { mountDrafts } from './ui/drafts.js?v=69f8b533';
-import { mountTeam } from './ui/team.js?v=69f8b533';
-import { mountData } from './ui/data.js?v=69f8b533';
-import { startVisit } from './ui/visit.js?v=69f8b533';
+import { onUser } from './fb.js?v=564a57de';
+import { S, start, stop, subscribe } from './store.js?v=564a57de';
+import { setErrorHandler } from './save.js?v=564a57de';
+import { h, icon, fill, toast } from './ui/kit.js?v=564a57de';
+import { mountToday } from './ui/today.js?v=564a57de';
+import { mountShops } from './ui/shops.js?v=564a57de';
+import { mountMap } from './ui/map.js?v=564a57de';
+import { mountDebts } from './ui/debts.js?v=564a57de';
+import { mountMore, MENU } from './ui/more.js?v=564a57de';
+import { mountJournal } from './ui/journal.js?v=564a57de';
+import { mountStats } from './ui/insights.js?v=564a57de';
+import { mountReport } from './ui/report.js?v=564a57de';
+import { mountPlan } from './ui/common.js?v=564a57de';
+import { mountCatalog } from './ui/catalog.js?v=564a57de';
+import { mountScript } from './ui/script.js?v=564a57de';
+import { mountDrafts } from './ui/drafts.js?v=564a57de';
+import { mountTeam } from './ui/team.js?v=564a57de';
+import { mountData } from './ui/data.js?v=564a57de';
+import { startVisit } from './ui/visit.js?v=564a57de';
+import { loginScreen, verifyScreen, deniedScreen, loadingScreen } from './ui/login.js?v=564a57de';
 
 const root = document.getElementById('app');
 const SCREENS = {
@@ -31,7 +32,7 @@ let update = null;
 
 setErrorHandler((e) => {
   const code = e && e.code;
-  toast(code === 'permission-denied' ? 'Облако не приняло запись: нет прав. Спросите владельца' : 'Запись не ушла в облако. Повторите', true);
+  toast(code === 'permission-denied' ? 'Облако не приняло запись: нет прав. Спросите админа' : 'Запись не ушла в облако. Повторите', true);
 });
 
 // Раздел «Ещё» на телефоне подсвечивает и вложенные экраны
@@ -53,7 +54,7 @@ function nav(active) {
 function side(active) {
   const items = MENU().flatMap((g) => g.items);
   return h('aside', { class: 'side', 'aria-label': 'Все разделы' },
-    h('div', { class: 'brand' }, h('span', { class: 'mark' }, 'ALSI'), h('span', {}, 'Продажи')),
+    h('div', { class: 'brand' }, h('span', { class: 'mark' }, 'ALSI'), h('span', {}, 'Sales CRM')),
     h('button', { class: 'btn red wide', onclick: () => startVisit() }, icon('pin'), 'Начать визит'),
     h('div', { class: 'links' }, items.filter((i) => i.id).map((i) => h('a', {
       href: '#/' + i.id, class: active === i.id || (i.id === 'shops' && active === 'map') ? 'on' : '', 'aria-current': active === i.id ? 'page' : null,
@@ -74,46 +75,28 @@ function route() {
   scrollTo(0, 0);
 }
 
-function loginScreen(text = '') {
-  root.classList.remove('signed');
-  current = '';
-  update = null;
-  const btn = h('button', { class: 'btn red wide' }, 'Войти через Google');
-  btn.onclick = async () => {
-    btn.disabled = true;
-    try { await login(); } catch (e) { toast('Вход не удался. Проверьте связь и повторите', true); }
-    btn.disabled = false;
-  };
-  fill(root, h('section', { class: 'login' },
-    h('div', { class: 'mark' }, 'ALSI'),
-    h('h1', {}, 'Продажи'),
-    h('p', {}, text || 'День торгового: точки, визиты, заказы, возвраты и долги. Работает и без связи.'),
-    btn,
-    h('p', { class: 'note' }, 'Вход только для команды ALSI. Почту добавляет владелец.')));
-}
-
-function denied() {
-  root.classList.remove('signed');
-  current = '';
-  update = null;
-  fill(root, h('section', { class: 'login' },
-    h('div', { class: 'mark' }, 'ALSI'),
-    h('h1', {}, 'Нет доступа'),
-    h('p', {}, 'Почты ' + S.email + ' нет в команде. Попросите владельца добавить её в разделе «Команда».'),
-    h('button', { class: 'btn white wide', onclick: () => logout() }, 'Войти другой почтой')));
-}
-
 subscribe(() => {
   if (!S.user) return;
-  if (S.denied) { denied(); return; }
+  if (S.denied) { current = ''; update = null; deniedScreen(root, S.email); return; }
   route();
 });
 addEventListener('hashchange', route);
 
-onUser(async (user) => {
-  if (!user) { stop(); loginScreen(); return; }
-  fill(root, h('section', { class: 'login' }, h('div', { class: 'mark' }, 'ALSI'), h('h1', {}, 'Загрузка')));
+// Вход: Google или почта с паролем. Почта с паролем сначала подтверждается письмом
+let startedFor = '';
+async function enter(user) {
+  if (startedFor === user.uid) return;
+  startedFor = user.uid;
+  loadingScreen(root);
   await start(user);
+}
+
+onUser((user) => {
+  current = '';
+  update = null;
+  if (!user) { startedFor = ''; stop(); loginScreen(root); return; }
+  if (!user.emailVerified) { verifyScreen(root, user, () => enter(user)); return; }
+  enter(user);
 });
 
 // Работа без связи: служба копий и список файлов для неё
