@@ -53,6 +53,13 @@ details.when[open] summary { margin-bottom: var(--s2); }
 
 /* Карта */
 .map-box { position: relative; z-index: 0; height: 56vh; min-height: 320px; border-radius: var(--r-card); overflow: hidden; background: var(--ice-2); }
+/* Маршрут объезда: номера точек на карте и в списке (шрифт номеров по брендбуку) */
+.rt-bar { margin-top: var(--s3); }
+.rt-num { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; border: 3px solid var(--white); background: var(--navy); color: var(--white); font: italic 900 13px/1 var(--f-brand); box-shadow: 0 2px 6px rgba(13, 36, 69, .35); }
+.rt-n { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: var(--navy); color: var(--white); font: italic 900 14px/1 var(--f-brand); }
+.rt-num.debt, .rt-n.debt { background: var(--red); }
+.rt-num.done, .rt-n.done { background: var(--done); }
+.rt-stop.done b { color: var(--ink-2); }
 .pop b, .pop small { display: block; }
 .pop small { color: var(--ink-2); margin-top: 2px; }
 .pop .btns { margin-top: var(--s2); }

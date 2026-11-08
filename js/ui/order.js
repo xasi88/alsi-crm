@@ -1,19 +1,19 @@
 // Карточка заказа и карточка визита: смотреть, принять оплату, изменить, удалить.
-import { S, subscribe, all, orderById, shopById, canEdit, memberName } from '../store.js?v=92040873';
-import { updateOrder, cashHanded, hideOrder, hide, addPayments, updateVisit } from '../save.js?v=92040873';
-import { h, icon, fill, sheet, toast, ask, field, inp, choices } from './kit.js?v=92040873';
-import { nextPicker, nextText } from './common.js?v=92040873';
-import { isoDay, dayShort } from '../logic/dates.js?v=92040873';
-import { rub, parseMoney, prettyPhone } from '../logic/format.js?v=92040873';
-import { indexMoney, orderSum, orderNet, orderDebt, paidAtOrder, payLabel, paymentError } from '../logic/money.js?v=92040873';
-import { CATS, catOf, catLabel, qtyText, itemSum, itemOf, itemsPacks, itemsUnits, unitPriceOf } from '../logic/products.js?v=92040873';
-import { editBlockedBy, deleteBlocked } from '../logic/returns.js?v=92040873';
-import { firstOrders, orderType } from '../logic/stats.js?v=92040873';
-import { REFUSAL, resultText } from '../logic/visit.js?v=92040873';
-import { productPicker, products } from './orderpick.js?v=92040873';
-import { payBlock, payError } from './steps.js?v=92040873';
-import { startReturn, openReturn } from './returns.js?v=92040873';
-import { openShop } from './shop.js?v=92040873';
+import { S, subscribe, all, orderById, shopById, canEdit, memberName } from '../store.js?v=e63f9436';
+import { updateOrder, cashHanded, hideOrder, hide, addPayments, updateVisit } from '../save.js?v=e63f9436';
+import { h, icon, fill, sheet, toast, ask, field, inp, choices } from './kit.js?v=e63f9436';
+import { nextPicker, nextText } from './common.js?v=e63f9436';
+import { isoDay, dayShort } from '../logic/dates.js?v=e63f9436';
+import { rub, parseMoney, prettyPhone } from '../logic/format.js?v=e63f9436';
+import { indexMoney, orderSum, orderNet, orderDebt, paidAtOrder, payLabel, paymentError } from '../logic/money.js?v=e63f9436';
+import { CATS, catOf, catLabel, qtyText, itemSum, itemOf, itemsPacks, itemsUnits, unitPriceOf } from '../logic/products.js?v=e63f9436';
+import { editBlockedBy, deleteBlocked } from '../logic/returns.js?v=e63f9436';
+import { firstOrders, orderType } from '../logic/stats.js?v=e63f9436';
+import { REFUSAL, resultText } from '../logic/visit.js?v=e63f9436';
+import { productPicker, products } from './orderpick.js?v=e63f9436';
+import { payBlock, payError } from './steps.js?v=e63f9436';
+import { startReturn, openReturn } from './returns.js?v=e63f9436';
+import { openShop } from './shop.js?v=e63f9436';
 
 const kv = (k, v, cls = '') => h('div', { class: 'kv' }, h('span', {}, k), h('b', { class: cls }, v));
 const sub = (t) => h('div', { class: 'sec', style: 'padding-left:0;padding-right:0' }, h('h2', {}, t));

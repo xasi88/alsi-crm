@@ -1,12 +1,12 @@
 // Итоги: продажи, отказы, достижения. Период, район и населённый пункт действуют на все цифры.
-import { S, view, all } from '../store.js?v=92040873';
-import { h, fill, remember, seg, stat } from './kit.js?v=92040873';
-import { liveHead, filterBar, sec } from './common.js?v=92040873';
-import { isoDay, dayShort, monthTitle, plural } from '../logic/dates.js?v=92040873';
-import { rub } from '../logic/format.js?v=92040873';
-import { qtyText } from '../logic/products.js?v=92040873';
-import { filterRecords, periodRange } from '../logic/filters.js?v=92040873';
-import { salesStats, refusalStats, achievements } from '../logic/stats.js?v=92040873';
+import { S, view, all } from '../store.js?v=e63f9436';
+import { h, fill, remember, seg, stat } from './kit.js?v=e63f9436';
+import { liveHead, filterBar, sec } from './common.js?v=e63f9436';
+import { isoDay, dayShort, monthTitle, plural } from '../logic/dates.js?v=e63f9436';
+import { rub } from '../logic/format.js?v=e63f9436';
+import { qtyText } from '../logic/products.js?v=e63f9436';
+import { filterRecords, periodRange } from '../logic/filters.js?v=e63f9436';
+import { salesStats, refusalStats, achievements } from '../logic/stats.js?v=e63f9436';
 
 const TABS = [['sales', 'Продажи'], ['refusals', 'Отказы'], ['wins', 'Достижения']];
 

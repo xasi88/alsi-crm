@@ -1,17 +1,18 @@
-// Карта точек: те же фильтры, что у списка, метки, список под картой.
+// Карта точек: те же фильтры, что у списка, метки, список под картой. Маршрут объезда: js/ui/route.js.
 // Метку можно поставить или переставить только после подтверждения. Адрес точки не меняется.
 // Библиотека карты (Leaflet 1.9.4, лицензия BSD) лежит в js/vendor и грузится только на этом экране.
-import { S, view, canEdit } from '../store.js?v=92040873';
-import { saveShop } from '../save.js?v=92040873';
-import { h, icon, fill, toast, ask } from './kit.js?v=92040873';
-import { liveHead } from './common.js?v=92040873';
-import { isoDay } from '../logic/dates.js?v=92040873';
-import { rub } from '../logic/format.js?v=92040873';
-import { shopDebts } from '../logic/money.js?v=92040873';
-import { hasPoint } from '../logic/maps.js?v=92040873';
-import { lastVisits } from '../logic/filters.js?v=92040873';
-import { shopView, shopFilters, filteredShops, listMapTabs } from './shops.js?v=92040873';
-import { openShop } from './shop.js?v=92040873';
+import { S, view, canEdit } from '../store.js?v=e63f9436';
+import { saveShop } from '../save.js?v=e63f9436';
+import { h, icon, fill, toast, ask } from './kit.js?v=e63f9436';
+import { liveHead } from './common.js?v=e63f9436';
+import { isoDay } from '../logic/dates.js?v=e63f9436';
+import { rub } from '../logic/format.js?v=e63f9436';
+import { shopDebts } from '../logic/money.js?v=e63f9436';
+import { hasPoint } from '../logic/maps.js?v=e63f9436';
+import { lastVisits } from '../logic/filters.js?v=e63f9436';
+import { shopView, shopFilters, filteredShops, listMapTabs } from './shops.js?v=e63f9436';
+import { openShop } from './shop.js?v=e63f9436';
+import { routeMode } from './route.js?v=e63f9436';
 
 let loading = null;
 function loadLeaflet() {
@@ -36,7 +37,9 @@ export function mountMap(root) {
   const box = h('div', { class: 'map-box' }, h('div', { class: 'empty', style: 'margin:0' }, 'Загружаю карту'));
   const banner = h('div');
   const list = h('div');
-  root.append(top.el, h('div', { class: 'pad' }, listMapTabs('map')), shopFilters(st, () => update()), banner, h('div', { class: 'pad' }, box), list);
+  const routeBar = h('div');
+  const rt = routeMode(() => update());
+  root.append(top.el, h('div', { class: 'pad' }, listMapTabs('map')), shopFilters(st, () => update()), routeBar, banner, h('div', { class: 'pad' }, box), list);
   let map = null;
   let layer = null;
   let editing = null; // точка, которой ставим метку
@@ -94,10 +97,13 @@ export function mountMap(root) {
     const pts = rows.filter(hasPoint);
     const none = rows.filter((s) => !hasPoint(s));
     top.refresh(pts.length + ' на карте, ' + none.length + ' без места');
+    const ctx = { rows, debts, lv, today };
+    fill(routeBar, editing ? null : rt.bar(ctx));
     if (map && layer) {
       const L = window.L;
       layer.clearLayers();
-      for (const s of pts) {
+      if (rt.on && !editing) rt.draw(L, map, layer, ctx);
+      else for (const s of pts) {
         const kind = (debts.get(s.id)?.owed || 0) > 0 ? 'debt' : lv.get(s.id) === today ? 'today' : 'base';
         const moving = editing && editing.id === s.id;
         const m = moving
@@ -114,8 +120,9 @@ export function mountMap(root) {
         });
         m.addTo(layer);
       }
-      if (!fitted && pts.length) { map.fitBounds(L.latLngBounds(pts.map((s) => [s.lat, s.lng])), { padding: [30, 30], maxZoom: 15 }); fitted = true; }
+      if (!fitted && pts.length && !rt.on) { map.fitBounds(L.latLngBounds(pts.map((s) => [s.lat, s.lng])), { padding: [30, 30], maxZoom: 15 }); fitted = true; }
     }
+    if (rt.on && !editing) { fill(list, rt.list(ctx)); return; }
     fill(list,
       h('div', { class: 'legend pad' }, h('span', {}, h('i', { style: 'background:' + COLOR.base }), 'точка'),
         h('span', {}, h('i', { style: 'background:' + COLOR.debt }), 'есть долг'), h('span', {}, h('i', { style: 'background:' + COLOR.today }), 'был сегодня')),

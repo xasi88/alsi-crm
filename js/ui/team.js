@@ -1,12 +1,12 @@
 // Команда: люди, роли, супервайзер каждого, цифры за месяц. Меняет владелец.
 // Роль даёт права. Супервайзер в карточке человека задаёт, чьи записи видит супервайзер.
-import { S, all, people, memberName } from '../store.js?v=92040873';
-import { saveMember, retag } from '../save.js?v=92040873';
-import { h, icon, fill, sheet, toast, choices, field, inp } from './kit.js?v=92040873';
-import { head } from './common.js?v=92040873';
-import { isoDay, monthKey, dayShort } from '../logic/dates.js?v=92040873';
-import { rub } from '../logic/format.js?v=92040873';
-import { memberStats } from '../logic/stats.js?v=92040873';
+import { S, all, people, memberName } from '../store.js?v=e63f9436';
+import { saveMember, retag } from '../save.js?v=e63f9436';
+import { h, icon, fill, sheet, toast, choices, field, inp } from './kit.js?v=e63f9436';
+import { head } from './common.js?v=e63f9436';
+import { isoDay, monthKey, dayShort } from '../logic/dates.js?v=e63f9436';
+import { rub } from '../logic/format.js?v=e63f9436';
+import { memberStats } from '../logic/stats.js?v=e63f9436';
 
 export const ROLES = [['sales', 'Торговый'], ['supervisor', 'Супервайзер'], ['owner', 'Владелец']];
 export const roleName = (r) => (ROLES.find((x) => x[0] === r) || [, ''])[1];

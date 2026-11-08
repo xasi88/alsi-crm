@@ -1,9 +1,9 @@
 // Фильтры списков: период, район, населённый пункт, поиск, сортировка точек.
 // Один и тот же отбор даёт и список, и цифры над ним: они не расходятся.
-import { addDays, parseDay, monthKey, monthStart, monthEnd } from './dates.js?v=92040873';
-import { norm } from './format.js?v=92040873';
-import { itemsPacks, itemsUnits } from './products.js?v=92040873';
-import { orderSum, returnSum } from './money.js?v=92040873';
+import { addDays, parseDay, monthKey, monthStart, monthEnd } from './dates.js?v=e63f9436';
+import { norm } from './format.js?v=e63f9436';
+import { itemsPacks, itemsUnits } from './products.js?v=e63f9436';
+import { orderSum, returnSum } from './money.js?v=e63f9436';
 
 export const PERIODS = [
   ['today', 'Сегодня'], ['week', 'Неделя'], ['month', 'Месяц'], ['year', 'Год'], ['all', 'Всё время'], ['custom', 'Свои даты'],

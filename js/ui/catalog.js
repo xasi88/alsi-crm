@@ -1,12 +1,12 @@
 // Каталог: категории, упаковки и штуки, цены, чистые продажи. Меняет только владелец.
 // Загрузка списка товаров из файла (CSV или JSON): тот же товар обновляется, новый добавляется.
-import { S, all, view } from '../store.js?v=92040873';
-import { saveProduct, hide, writeMany } from '../save.js?v=92040873';
-import { h, icon, fill, sheet, toast, ask, choices, field, inp, remember, seg, pickFile } from './kit.js?v=92040873';
-import { liveHead } from './common.js?v=92040873';
-import { rub, parseMoney, parseCount, norm } from '../logic/format.js?v=92040873';
-import { CATS, GROUPS, LINES, groupOf, catOf, catLabel, measure, sellsUnits, unitPriceOf, sortProducts, qtyText, parseCatalog, findSame } from '../logic/products.js?v=92040873';
-import { newId } from '../fb.js?v=92040873';
+import { S, all, view } from '../store.js?v=e63f9436';
+import { saveProduct, hide, writeMany } from '../save.js?v=e63f9436';
+import { h, icon, fill, sheet, toast, ask, choices, field, inp, remember, seg, pickFile } from './kit.js?v=e63f9436';
+import { liveHead } from './common.js?v=e63f9436';
+import { rub, parseMoney, parseCount, norm } from '../logic/format.js?v=e63f9436';
+import { CATS, GROUPS, LINES, groupOf, catOf, catLabel, measure, sellsUnits, unitPriceOf, sortProducts, qtyText, parseCatalog, findSame } from '../logic/products.js?v=e63f9436';
+import { newId } from '../fb.js?v=e63f9436';
 
 export function mountCatalog(root) {
   const st = remember('alsi-catalog-' + S.email, { group: 'drinks', hidden: false });

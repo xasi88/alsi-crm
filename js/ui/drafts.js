@@ -1,10 +1,10 @@
 // Черновики визитов и заказов. Хранятся только на этом телефоне, отдельно у каждого человека.
 // Черновик не визит: он не попадает в отчёты, пока его не сохранили.
-import { S, shopById } from '../store.js?v=92040873';
-import { h, icon, fill, toast, ask } from './kit.js?v=92040873';
-import { head } from './common.js?v=92040873';
-import { dayShort, isoDay } from '../logic/dates.js?v=92040873';
-import { resumeDraft } from './visit.js?v=92040873';
+import { S, shopById } from '../store.js?v=e63f9436';
+import { h, icon, fill, toast, ask } from './kit.js?v=e63f9436';
+import { head } from './common.js?v=e63f9436';
+import { dayShort, isoDay } from '../logic/dates.js?v=e63f9436';
+import { resumeDraft } from './visit.js?v=e63f9436';
 
 const KEEP = 7 * 24 * 3600e3; // неделя
 const key = () => 'alsi-drafts-' + S.email;
