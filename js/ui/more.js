@@ -1,11 +1,11 @@
 // Ещё: все разделы по группам. На широком экране тот же список стоит в боковой панели.
-import { S, pendingCount } from '../store.js?v=7a9cd2c1';
-import { h, icon, fill, ask, toast } from './kit.js?v=7a9cd2c1';
-import { head } from './common.js?v=7a9cd2c1';
-import { logout, logoutClean, providers, resetPass } from '../fb.js?v=7a9cd2c1';
-import { signInWays, authText } from '../logic/auth.js?v=7a9cd2c1';
-import { listDrafts } from './drafts.js?v=7a9cd2c1';
-import { installCard } from './install.js?v=7a9cd2c1';
+import { S, pendingCount } from '../store.js?v=536b4882';
+import { h, icon, fill, ask, toast } from './kit.js?v=536b4882';
+import { head } from './common.js?v=536b4882';
+import { logout, logoutClean, providers, resetPass } from '../fb.js?v=536b4882';
+import { signInWays, authText } from '../logic/auth.js?v=536b4882';
+import { listDrafts } from './drafts.js?v=536b4882';
+import { installCard } from './install.js?v=536b4882';
 
 const ROLE = { owner: 'админ', supervisor: 'супервайзер', sales: 'торговый' };
 
@@ -28,7 +28,7 @@ export const MENU = () => [
   ] },
   { title: 'Управление', items: [
     S.lead ? { id: 'team', icon: 'team', title: 'Команда', sub: S.owner ? 'Люди, роли, супервайзеры' : 'Ваши торговые' } : null,
-    { id: 'data', icon: 'cloud', title: 'Данные', sub: S.owner ? 'Копия, перенос из программы Атама' : 'Копия, работа без связи' },
+    { id: 'data', icon: 'cloud', title: 'Данные', sub: S.owner ? 'Копия, перенос из прежней версии' : 'Копия, работа без связи' },
   ].filter(Boolean) },
 ];
 
@@ -55,7 +55,7 @@ export function mountMore(root) {
         }
         if (await ask('Выйти?', 'Все записи в облаке. Копия базы на этом телефоне сотрётся, чтобы её не увидел другой человек.', 'Выйти')) logoutClean();
       } }, icon('door'), 'Выйти')),
-      h('p', { class: 'muted pad', style: 'font-size:13px;margin-top:16px' }, 'ALSI Sales CRM, версия 2.2'));
+      h('p', { class: 'muted pad', style: 'font-size:13px;margin-top:16px' }, 'ATAM SALES CRM, версия 7.0'));
   };
   update();
   return update;

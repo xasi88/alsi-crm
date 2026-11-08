@@ -1,12 +1,12 @@
 // Данные: счётчики, связь, работа без связи, резервная копия, перенос из программы Атама.
-import { S, pendingCount, all } from '../store.js?v=7a9cd2c1';
-import { writeMany } from '../save.js?v=7a9cd2c1';
-import { h, icon, fill, sheet, toast, ask, choices, download, fileButton, stat } from './kit.js?v=7a9cd2c1';
-import { head, sec } from './common.js?v=7a9cd2c1';
-import { isoDay } from '../logic/dates.js?v=7a9cd2c1';
-import { buildBackup, kindOf, restorePlan, fileName, COLS, LABELS } from '../logic/backup.js?v=7a9cd2c1';
-import { listDrafts } from './drafts.js?v=7a9cd2c1';
-import { startAtamImport } from './importer.js?v=7a9cd2c1';
+import { S, pendingCount, all } from '../store.js?v=536b4882';
+import { writeMany } from '../save.js?v=536b4882';
+import { h, icon, fill, sheet, toast, ask, choices, download, fileButton, stat } from './kit.js?v=536b4882';
+import { head, sec } from './common.js?v=536b4882';
+import { isoDay } from '../logic/dates.js?v=536b4882';
+import { buildBackup, kindOf, restorePlan, fileName, COLS, LABELS } from '../logic/backup.js?v=536b4882';
+import { listDrafts } from './drafts.js?v=536b4882';
+import { startAtamImport } from './importer.js?v=536b4882';
 
 // Готово ли приложение к работе без связи: файлы приложения лежат в копии на телефоне
 async function offlineCheck() {
@@ -53,7 +53,7 @@ export function mountData(root) {
           download(fileName(isoDay()), JSON.stringify(b, null, 1));
           toast(n ? 'Копия скачана вместе с записями, которые ещё не ушли в облако' : 'Резервная копия скачана');
         } }, 'Скачать резервную копию'),
-        S.owner ? fileButton('Загрузить копию или файл программы Атама', '.json,application/json', loadFile, { style: 'margin-top:8px', check: blocked }) : null),
+        S.owner ? fileButton('Загрузить копию или файл прежней версии', '.json,application/json', loadFile, { style: 'margin-top:8px', check: blocked }) : null),
       h('div', { class: 'gap' }));
   };
   update();
@@ -69,7 +69,7 @@ async function loadFile(f) {
   try { data = JSON.parse(f.text); } catch (e) { toast('Файл не читается как JSON', true); return; }
   const kind = kindOf(data);
   if (kind === 'atam') { startAtamImport(data, f.name); return; }
-  if (kind !== 'ours') { toast('Это не резервная копия «ALSI Sales CRM» и не файл программы Атама', true); return; }
+  if (kind !== 'ours') { toast('Это не резервная копия ATAM SALES CRM и не файл прежней версии', true); return; }
   const s = sheet({ title: 'Загрузить копию', sub: f.name + ', от ' + String(data.exportedAt || '').slice(0, 10), full: true });
   let hideMissing = 'no';
   s.body.append(

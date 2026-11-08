@@ -1,12 +1,12 @@
 // Карточка товара: большое фото, упаковка, цены, продажи. Владелец меняет товар и фото.
 // Фото: своё (снято на телефон, лежит в товаре, поле photo) или фото упаковки производителя (img/products).
-import { S, all, view } from '../store.js?v=7a9cd2c1';
-import { saveProduct, hide } from '../save.js?v=7a9cd2c1';
-import { h, icon, fill, sheet, toast, ask, choices, field, inp, fileButton } from './kit.js?v=7a9cd2c1';
-import { rub, parseMoney, parseCount, norm } from '../logic/format.js?v=7a9cd2c1';
-import { CATS, LINES, catOf, catLabel, measure, sellsUnits, unitPriceOf, qtyText } from '../logic/products.js?v=7a9cd2c1';
-import { picOf } from '../logic/pics.js?v=7a9cd2c1';
-import { dayShort, isoDay } from '../logic/dates.js?v=7a9cd2c1';
+import { S, all, view } from '../store.js?v=536b4882';
+import { saveProduct, hide } from '../save.js?v=536b4882';
+import { h, icon, fill, sheet, toast, ask, choices, field, inp, fileButton } from './kit.js?v=536b4882';
+import { rub, parseMoney, parseCount, norm } from '../logic/format.js?v=536b4882';
+import { CATS, LINES, catOf, catLabel, measure, sellsUnits, unitPriceOf, qtyText } from '../logic/products.js?v=536b4882';
+import { picOf } from '../logic/pics.js?v=536b4882';
+import { dayShort, isoDay } from '../logic/dates.js?v=536b4882';
 
 // Фото товара или пустое место со значком банки
 export function pic(p, cls = 'pic') {

@@ -1,9 +1,9 @@
 // Перенос базы из программы Атама (файл «Скачать резервную копию», JSON).
 // Только чтение файла и перевод полей. К его облаку не подключаемся.
 // Номера записей постоянные: 'atam-' и номер у Атама. Повторный перенос перезаписывает те же записи, двойников нет.
-import { normPhone } from './format.js?v=7a9cd2c1';
-import { sameAnswer } from './visit.js?v=7a9cd2c1';
-import { productFromAny, findSame, itemsSum, LINES } from './products.js?v=7a9cd2c1';
+import { normPhone } from './format.js?v=536b4882';
+import { sameAnswer } from './visit.js?v=536b4882';
+import { productFromAny, findSame, itemsSum, LINES } from './products.js?v=536b4882';
 
 export const SRC = 'atam';
 export const atamId = (id) => 'atam-' + String(id ?? '').replace(/[^A-Za-z0-9_-]/g, '_').slice(0, 200);
@@ -21,7 +21,7 @@ const owner = (x) => str(x?._ownerUserId);
 // Что в файле: люди и сколько записей. Ошибка, если файл не от программы Атама.
 export function readAtam(data) {
   if (!data || typeof data !== 'object' || !Array.isArray(data.shops) || !Array.isArray(data.orders)) {
-    return { error: 'Это не резервная копия программы Атама: нет точек и заказов' };
+    return { error: 'Это не резервная копия прежней версии: нет точек и заказов' };
   }
   const meta = data._workspaceBackup || {};
   const people = new Map();

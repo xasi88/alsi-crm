@@ -1,4 +1,4 @@
-/* ALSI Sales CRM: оболочка, кнопки, экран «Сегодня», нижнее меню. Значения: tokens.css */
+/* ATAM SALES CRM: оболочка, кнопки, экран «Сегодня», нижнее меню. Значения: tokens.css */
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html { background: var(--ice); }
 body { background: var(--ice); color: var(--navy); font: 400 var(--t-body)/1.45 var(--f-ui); -webkit-font-smoothing: antialiased; min-height: 100dvh; }

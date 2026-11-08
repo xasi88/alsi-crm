@@ -1,0 +1,117 @@
+/* ATAM SALES CRM: графики и панели. Значения: tokens.css. Правила: брендбук, раздел «Графики» */
+
+/* Главное число панели */
+.hero { margin: 0 var(--s4); background: var(--white); border-radius: var(--r-card); padding: var(--s4) var(--s4) var(--s3); }
+.hero-l { display: block; font-size: var(--t-small); font-weight: 600; color: var(--ink-2); }
+.hero-v { display: block; font: 900 italic 44px/1.05 var(--f-brand); letter-spacing: -.5px; margin: var(--s1) 0 var(--s2); color: var(--navy); }
+.hero-sub { margin-top: var(--s3); padding-top: var(--s3); border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); font-size: var(--t-small); color: var(--ink-2); }
+.hero-sub b { color: var(--navy); font-weight: 700; }
+.delta { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px; font-weight: 700; font-size: var(--t-small); }
+.delta small { font-weight: 500; color: var(--ink-2); font-size: var(--t-small); }
+.delta.up { color: var(--good); }
+.delta.down { color: var(--red-deep); }
+.delta.flat { color: var(--ink-2); font-weight: 500; }
+.arr { fill: currentColor; flex: none; }
+
+/* Карточка графика: белая группа с заголовком внутри */
+.card { margin: 0 var(--s4); background: var(--white); border-radius: var(--r-card); padding: var(--s4); }
+.card + .card { margin-top: var(--s2); }
+.card-h { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s2); margin-bottom: var(--s3); }
+.card-h h3 { font-size: var(--t-body); font-weight: 700; }
+.card-h small { color: var(--ink-2); font-size: var(--t-tiny); text-align: right; }
+.pair { display: grid; gap: var(--s2); }
+@media (min-width: 900px) {
+  .pair { grid-template-columns: 1fr 1fr; margin: 0 var(--s4); }
+  .pair > .card, .pair > .group { margin: 0; }
+  .pair > .card + .card { margin-top: 0; }
+}
+
+/* Столбцы */
+.chart-wrap { position: relative; }
+.chart { width: 100%; min-height: 120px; }
+.chart svg { display: block; touch-action: pan-y; outline: none; }
+.chart svg:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+.chart .grid { stroke: var(--line); stroke-width: 1; shape-rendering: crispEdges; }
+.chart .ax { fill: var(--ink-2); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.chart .cap { fill: var(--navy); font-size: 12px; font-weight: 700; }
+.chart .bar { fill: var(--navy); transition: fill var(--fast); }
+.chart .bar.on { fill: var(--blue); }
+.chart svg.play .bar { transform-box: fill-box; transform-origin: 50% 100%; animation: rise 520ms var(--ease) both; }
+/* Строка над графиком: выбранный день или подсказка. Ничего не закрывает */
+.tip { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px var(--s3); min-height: 36px; padding: 8px 12px; margin-bottom: var(--s2); border-radius: var(--r-tag); background: var(--ice); font-size: var(--t-small); }
+.tip b { font-weight: 700; }
+.tip .num { font-weight: 700; color: var(--navy); }
+.tip small { color: var(--ink-2); font-size: var(--t-tiny); }
+.tip .muted { color: var(--ink-2); font-size: var(--t-tiny); }
+
+/* Кольцо плана */
+.ring-box { position: relative; flex: none; }
+.ring-box svg { display: block; }
+.ring-track { fill: none; stroke: var(--ice-2); }
+.ring-fill { fill: none; stroke: var(--navy); stroke-linecap: round; }
+.ring.play .ring-fill { animation: ring-in 1100ms var(--ease) both; }
+.ring-mark { stroke: var(--red); stroke-width: 2.5; stroke-linecap: round; }
+.ring-in { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+.ring-in b { font: 900 italic 30px/1 var(--f-brand); color: var(--navy); }
+.ring-in small { font-size: var(--t-tiny); color: var(--ink-2); margin-top: 2px; }
+.plan-ring { display: flex; align-items: center; gap: var(--s4); }
+.pr-t { min-width: 0; display: grid; gap: 6px; font-size: var(--t-small); }
+.pr-t > b { font-size: var(--t-body); }
+.pr-t .muted { color: var(--ink-2); }
+.key { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-2); font-size: var(--t-tiny); }
+.key i { width: 12px; height: 3px; border-radius: 2px; background: var(--red); display: inline-block; }
+
+/* Доли одной полосой */
+.segbar { display: flex; gap: 2px; height: 14px; border-radius: 7px; overflow: hidden; background: var(--ice-2); }
+.segbar i { display: block; min-width: 3px; }
+.seg-chart.play .segbar i { transform-origin: left; animation: grow-x 700ms var(--ease) both; }
+.legend { margin-top: var(--s3); display: grid; gap: var(--s2); }
+.lg { display: grid; grid-template-columns: 12px 1fr auto 44px; align-items: center; gap: var(--s2); font-size: var(--t-small); }
+.lg-sw { width: 12px; height: 12px; border-radius: 3px; }
+.lg-p { text-align: right; color: var(--ink-2); }
+
+/* Рейтинг */
+.rank .rk { display: flex; align-items: center; gap: var(--s3); width: 100%; padding: 10px var(--s4); border-bottom: 1px solid var(--line); text-align: left; min-height: 56px; }
+.rank .rk:last-child { border-bottom: 0; }
+.rank button.rk:active { background: var(--ice-2); }
+.rk-i { width: 20px; flex: none; font: 900 italic 18px/1 var(--f-brand); color: var(--ink-2); text-align: center; }
+.rk-pic { width: 40px; height: 40px; flex: none; display: grid; place-items: center; }
+.rk-pic img { max-width: 40px; max-height: 40px; object-fit: contain; }
+.rk-t { flex: 1; min-width: 0; }
+.rk-row { display: flex; justify-content: space-between; gap: var(--s2); font-size: var(--t-small); }
+.rk-n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.rk-row b { white-space: nowrap; }
+.rk-t small { display: block; font-size: var(--t-tiny); color: var(--ink-2); }
+.rk-bar { height: 6px; margin-top: 6px; border-radius: 3px; background: var(--ice); overflow: hidden; }
+.rk-bar i { display: block; height: 100%; border-radius: 3px; background: var(--navy); transform-origin: left; }
+.rank .rk:first-child .rk-bar i { background: var(--blue); }
+.rank.play .rk-bar i { animation: grow-x 700ms var(--ease) both; }
+
+/* Воронка */
+.fn-l { display: flex; justify-content: space-between; font-size: var(--t-small); font-weight: 600; margin-bottom: 6px; }
+.fn-bar { height: 14px; border-radius: 4px; background: var(--ice); overflow: hidden; }
+.fn-bar i { display: block; height: 100%; background: var(--navy); border-radius: 4px; transform-origin: left; }
+.fn-row.last .fn-bar i { background: var(--blue); }
+.funnel.play .fn-bar i { animation: grow-x 800ms var(--ease) both; }
+.fn-step { display: flex; align-items: center; gap: 6px; font-size: var(--t-tiny); color: var(--ink-2); margin: 6px 0; }
+
+/* Шкала плана человека */
+.meter { position: relative; height: 8px; border-radius: 4px; background: var(--ice-2); margin-top: 6px; }
+.meter i { position: absolute; inset: 0; border-radius: 4px; background: var(--navy); transform-origin: left; }
+.meter.play i { animation: grow-x 800ms var(--ease) both; }
+.meter b { position: absolute; top: -3px; width: 2px; height: 14px; margin-left: -1px; background: var(--red); border-radius: 1px; }
+
+/* Отступы панели */
+.gap-s { height: var(--s2); }
+.stats.three .stat:last-child:nth-child(3) { grid-column: 1 / -1; }
+@media (min-width: 900px) { .stats.three { grid-template-columns: repeat(3, 1fr); } .stats.three .stat:last-child:nth-child(3) { grid-column: auto; } }
+
+/* Только для чтения с экрана */
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@keyframes rise { from { transform: scaleY(0); } }
+@keyframes grow-x { from { transform: scaleX(0); } }
+@keyframes ring-in { from { stroke-dashoffset: var(--c); } }
+@media (prefers-reduced-motion: reduce) {
+  .chart svg.play .bar, .ring.play .ring-fill, .seg-chart.play .segbar i, .rank.play .rk-bar i, .funnel.play .fn-bar i, .meter.play i { animation: none; }
+}

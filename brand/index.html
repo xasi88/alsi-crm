@@ -4,14 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>ALSI Sales CRM: брендбук</title>
+<title>ATAM SALES CRM: брендбук</title>
 <link rel="icon" href="../img/icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,800;1,900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/tokens.css?v=7a9cd2c1">
-<link rel="stylesheet" href="../css/app.css?v=7a9cd2c1">
-<link rel="stylesheet" href="../css/parts.css?v=7a9cd2c1">
+<link rel="stylesheet" href="../css/tokens.css?v=536b4882">
+<link rel="stylesheet" href="../css/app.css?v=536b4882">
+<link rel="stylesheet" href="../css/parts.css?v=536b4882">
+<link rel="stylesheet" href="../css/charts.css?v=536b4882">
 <style>
 .bb { max-width: 880px; margin: 0 auto; padding: 32px 16px 64px; }
 .bb h1 { font: 900 italic 40px/1.05 var(--f-brand); }
@@ -57,8 +58,8 @@
   <symbol id="i-down" viewBox="0 0 24 24"><path d="M5 9l7 7 7-7"/></symbol>
 </svg>
 <main class="bb">
-  <h1>ALSI Sales CRM: брендбук</h1>
-  <p>Приложение торгового ALSI. Вид «Маршрут»: светлый фон для солнца, крупный текст, одна красная кнопка на экране. Цвета сняты с alsicola.com: логотип ALSI и образцы банок. Страница собрана на тех же стилях, что и приложение.</p>
+  <h1>ATAM SALES CRM: брендбук</h1>
+  <p>Программа торговых Атама, дистрибьютора напитков ALSI. Вид «Маршрут»: светлый фон для солнца, крупный текст, одна красная кнопка на экране. Цвета сняты с alsicola.com: логотип ALSI и образцы банок. Страница собрана на тех же стилях, что и приложение.</p>
 
   <h2>Цвета</h2>
   <div class="sw">
@@ -82,7 +83,7 @@
   </div>
 
   <h2>Значок приложения</h2>
-  <div class="demo-row"><img class="appicon" src="../img/icon-512.png" alt="Значок ALSI Sales CRM: линия маршрута и красная точка"><p class="muted" style="max-width:420px">Тёмно-синий квадрат, белая линия маршрута, красная точка в конце пути. Логотип ALSI в значке не используем.</p></div>
+  <div class="demo-row"><img class="appicon" src="../img/icon-512.png" alt="Значок ATAM SALES CRM: линия маршрута и красная точка"><p class="muted" style="max-width:420px">Тёмно-синий квадрат, белая линия маршрута, красная точка в конце пути. Логотип ALSI в значке не используем.</p></div>
 
   <h2>Кнопки</h2>
   <div class="demo-row">
@@ -133,6 +134,35 @@
   </div>
   <p class="muted" style="margin-top:12px">Одна толщина линии 2. Значков «плюс» и «крестик» нет: они похожи на крест. Добавить упаковку: касание названия напитка.</p>
 
+  <h2>Графики</h2>
+  <p style="color:var(--ink-2);max-width:640px;margin-bottom:16px">Цифры видно сразу: что растёт, что падает, где отставание. Цвет только у меток, текст всегда тёмный. Цвета проверены скриптом различимости, в том числе для людей с особенностями цветового зрения.</p>
+  <div class="sw">
+    <div><i style="background:var(--c-drinks)"></i><b>#006DC0</b><span>Напитки. Выбранный столбец</span></div>
+    <div><i style="background:var(--c-sweets)"></i><b>#D46A1A</b><span>Сладости</span></div>
+    <div><i style="background:var(--c-snacks)"></i><b>#2A9D8F</b><span>Снеки</span></div>
+    <div><i style="background:linear-gradient(90deg,var(--age-1) 25%,var(--age-2) 25% 50%,var(--age-3) 50% 75%,var(--age-4) 75%)"></i><b>4 ступени красного</b><span>Долги по сроку: до 7, 8-14, 15-30, больше 30 дней</span></div>
+    <div><i style="background:var(--good)"></i><b>#18794B</b><span>Только рост к прошлому периоду, со стрелкой</span></div>
+  </div>
+  <div id="charts-demo" style="margin-top:16px;display:grid;gap:8px;max-width:520px"></div>
+  <script type="module">
+    import { h } from '../js/ui/kit.js';
+    import { columns, ring } from '../js/ui/charts.js';
+    import { hero, segBar, rankBars, funnelBars } from '../js/ui/figures.js';
+    const card = (t, ...k) => h('div', { class: 'card', style: 'margin:0' }, h('div', { class: 'card-h' }, h('h3', {}, t)), k);
+    const pts = Array.from({ length: 30 }, (_, i) => ({ key: '2026-10-' + String(i + 1).padStart(2, '0'), sum: i % 5 === 0 ? 0 : 6000 + ((i * 37) % 11) * 1900, orders: 3 }));
+    document.getElementById('charts-demo').append(
+      hero({ key: 'h', label: 'Чистая выручка', value: 161595, delta: { pct: 18, dir: 'up' }, compare: 'к 1-31 сентября' }),
+      card('Выручка по дням', columns({ key: 'c', points: pts, title: 'Выручка' })),
+      card('Категории', segBar({ key: 's', parts: [
+        { label: 'Напитки', value: 120000, text: '120 000 ₽', color: 'var(--c-drinks)' },
+        { label: 'Сладости', value: 26000, text: '26 000 ₽', color: 'var(--c-sweets)' },
+        { label: 'Снеки', value: 15595, text: '15 595 ₽', color: 'var(--c-snacks)' }] })),
+      card('План месяца', h('div', { class: 'plan-ring' }, ring({ key: 'r', pct: 22, mark: 26, size: 112, stroke: 10 }, h('b', {}, '22%'), h('small', {}, 'плана')),
+        h('div', { class: 'pr-t' }, h('b', {}, '67 из 300 уп.'), h('span', {}, 'Отставание 11 уп.'), h('span', { class: 'key' }, h('i'), 'где надо быть сегодня')))),
+      card('Визиты и заказы', funnelBars({ key: 'f', steps: [{ label: 'Визиты', value: 66 }, { label: 'ЛПР на месте', value: 51 }, { label: 'С заказом', value: 41 }] })),
+      rankBars({ key: 'k', rows: [['Магазин у дороги', 52000], ['Кафе на площади', 31000], ['Минимаркет', 12000]].map(([n, v]) => ({ label: n, value: v, text: v.toLocaleString('ru-RU') + ' ₽' })) }));
+  </script>
+
   <h2>Тон текстов</h2>
   <div class="no"><ul>
     <li>Коротко, глаголом: «Начать визит», «Деньги переданы». Точки в кнопках нет.</li>
@@ -147,6 +177,7 @@
     <li>Курсив одним словом, моноширинные подписи, капс с разрядкой, нумерация 01 / 02.</li>
     <li>Кнопки-таблетки, сетка одинаковых карточек, полоса слева у карточки, карточка в карточке.</li>
     <li>Знаки, похожие на крест. Пульс и мигание без причины.</li>
+    <li>В графиках: круговые диаграммы для близких значений, две шкалы на одном графике, число на каждом столбце, пунктир сетки, тени и объём.</li>
     <li>Люди на картинках. Фото банок и логотип ALSI можно: бренд разрешил.</li>
   </ul></div>
 </main>

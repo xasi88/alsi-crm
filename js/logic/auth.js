@@ -1,7 +1,7 @@
 // Вход по почте и паролю: проверка полей, понятные сообщения, текст приглашения.
 // Без облака: под тестами (tests/auth.test.mjs).
 
-export const APP_NAME = 'ALSI Sales CRM';
+export const APP_NAME = 'ATAM SALES CRM';
 export const APP_URL = 'https://xasi88.github.io/alsi-crm/';
 export const PASS_MIN = 8;
 

@@ -1,10 +1,10 @@
 // Запись в облако. Сначала запись ложится в базу на телефоне и сразу видна, потом уходит в облако сама.
 // Удаление мягкое: deleted = true, запись остаётся в базе и в резервной копии.
-import { db, doc, setDoc, updateDoc, writeBatch, newId } from './fb.js?v=7a9cd2c1';
-import { S, all } from './store.js?v=7a9cd2c1';
-import { isoDay } from './logic/dates.js?v=7a9cd2c1';
-import { round2 } from './logic/format.js?v=7a9cd2c1';
-import { paymentsForOrder, takesCash } from './logic/money.js?v=7a9cd2c1';
+import { db, doc, setDoc, updateDoc, writeBatch, newId } from './fb.js?v=536b4882';
+import { S, all } from './store.js?v=536b4882';
+import { isoDay } from './logic/dates.js?v=536b4882';
+import { round2 } from './logic/format.js?v=536b4882';
+import { paymentsForOrder, takesCash } from './logic/money.js?v=536b4882';
 
 let onError = () => {};
 export const setErrorHandler = (fn) => { onError = fn; };

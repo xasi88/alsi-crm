@@ -1,25 +1,26 @@
-// ALSI Sales CRM: вход, меню, экраны.
+// ATAM SALES CRM: вход, меню, экраны.
 // Телефон: нижнее меню из пяти кнопок. Широкий экран (Surface, компьютер): боковая панель со всеми разделами.
-import { onUser } from './fb.js?v=7a9cd2c1';
-import { S, start, stop, subscribe } from './store.js?v=7a9cd2c1';
-import { setErrorHandler } from './save.js?v=7a9cd2c1';
-import { h, icon, fill, toast } from './ui/kit.js?v=7a9cd2c1';
-import { mountToday } from './ui/today.js?v=7a9cd2c1';
-import { mountShops } from './ui/shops.js?v=7a9cd2c1';
-import { mountMap } from './ui/map.js?v=7a9cd2c1';
-import { mountDebts } from './ui/debts.js?v=7a9cd2c1';
-import { mountMore, MENU } from './ui/more.js?v=7a9cd2c1';
-import { mountJournal } from './ui/journal.js?v=7a9cd2c1';
-import { mountStats } from './ui/insights.js?v=7a9cd2c1';
-import { mountReport } from './ui/report.js?v=7a9cd2c1';
-import { mountPlan } from './ui/common.js?v=7a9cd2c1';
-import { mountCatalog } from './ui/catalog.js?v=7a9cd2c1';
-import { mountScript } from './ui/script.js?v=7a9cd2c1';
-import { mountDrafts } from './ui/drafts.js?v=7a9cd2c1';
-import { mountTeam } from './ui/team.js?v=7a9cd2c1';
-import { mountData } from './ui/data.js?v=7a9cd2c1';
-import { startVisit } from './ui/visit.js?v=7a9cd2c1';
-import { loginScreen, verifyScreen, deniedScreen, loadingScreen } from './ui/login.js?v=7a9cd2c1';
+import { onUser } from './fb.js?v=536b4882';
+import { S, start, stop, subscribe } from './store.js?v=536b4882';
+import { setErrorHandler } from './save.js?v=536b4882';
+import { h, icon, fill, toast } from './ui/kit.js?v=536b4882';
+import { mountToday } from './ui/today.js?v=536b4882';
+import { mountShops } from './ui/shops.js?v=536b4882';
+import { mountMap } from './ui/map.js?v=536b4882';
+import { mountDebts } from './ui/debts.js?v=536b4882';
+import { mountMore, MENU } from './ui/more.js?v=536b4882';
+import { mountJournal } from './ui/journal.js?v=536b4882';
+import { mountStats } from './ui/insights.js?v=536b4882';
+import { mountReport } from './ui/report.js?v=536b4882';
+import { mountPlan } from './ui/common.js?v=536b4882';
+import { mountCatalog } from './ui/catalog.js?v=536b4882';
+import { mountScript } from './ui/script.js?v=536b4882';
+import { mountDrafts } from './ui/drafts.js?v=536b4882';
+import { mountTeam } from './ui/team.js?v=536b4882';
+import { mountData } from './ui/data.js?v=536b4882';
+import { startVisit } from './ui/visit.js?v=536b4882';
+import { loginScreen, verifyScreen, deniedScreen, loadingScreen } from './ui/login.js?v=536b4882';
+import { resetMotion } from './ui/charts.js?v=536b4882';
 
 const root = document.getElementById('app');
 const SCREENS = {
@@ -54,7 +55,7 @@ function nav(active) {
 function side(active) {
   const items = MENU().flatMap((g) => g.items);
   return h('aside', { class: 'side', 'aria-label': 'Все разделы' },
-    h('div', { class: 'brand' }, h('span', { class: 'mark' }, 'ALSI'), h('span', {}, 'Sales CRM')),
+    h('div', { class: 'brand' }, h('span', { class: 'mark' }, 'ATAM'), h('span', {}, 'Sales CRM')),
     h('button', { class: 'btn red wide', onclick: () => startVisit() }, icon('pin'), 'Начать визит'),
     h('div', { class: 'links' }, items.filter((i) => i.id).map((i) => h('a', {
       href: '#/' + i.id, class: active === i.id || (i.id === 'shops' && active === 'map') ? 'on' : '', 'aria-current': active === i.id ? 'page' : null,
@@ -68,6 +69,7 @@ function route() {
   const name = SCREENS[id] ? id : 'today';
   if (name === current && update) { update(); return; }
   current = name;
+  resetMotion(); // новый экран: графики снова вырастают один раз
   const screen = h('main', { class: 'screen' });
   root.classList.add('signed');
   fill(root, side(name), screen, nav(name));

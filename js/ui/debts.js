@@ -1,14 +1,17 @@
 // Долги: кто должен, деньги на руках, «Деньги переданы».
 // Точка остаётся в списке, пока есть долг или деньги, которые ещё не переданы руководству.
-import { S, view, all, subscribe, shopById, canEdit } from '../store.js?v=7a9cd2c1';
-import { addPayments, handOver } from '../save.js?v=7a9cd2c1';
-import { h, icon, fill, sheet, toast, ask, field, inp } from './kit.js?v=7a9cd2c1';
-import { head, ageText, sec } from './common.js?v=7a9cd2c1';
-import { isoDay, dayShort, plural } from '../logic/dates.js?v=7a9cd2c1';
-import { rub, parseMoney } from '../logic/format.js?v=7a9cd2c1';
-import { shopDebts, debtRows, inHand, paymentError, allocate } from '../logic/money.js?v=7a9cd2c1';
-import { openOrder } from './order.js?v=7a9cd2c1';
-import { openShop } from './shop.js?v=7a9cd2c1';
+import { S, view, all, subscribe, shopById, canEdit } from '../store.js?v=536b4882';
+import { addPayments, handOver } from '../save.js?v=536b4882';
+import { h, icon, fill, sheet, toast, ask, field, inp } from './kit.js?v=536b4882';
+import { head, ageText, sec } from './common.js?v=536b4882';
+import { isoDay, dayShort, plural } from '../logic/dates.js?v=536b4882';
+import { rub, parseMoney } from '../logic/format.js?v=536b4882';
+import { shopDebts, debtRows, inHand, paymentError, allocate } from '../logic/money.js?v=536b4882';
+import { openOrder } from './order.js?v=536b4882';
+import { openShop } from './shop.js?v=536b4882';
+import { debtAging } from '../logic/dash.js?v=536b4882';
+import { segBar } from './figures.js?v=536b4882';
+import { card } from './insights.js?v=536b4882';
 
 async function handOverAsk(list, what) {
   const sum = list.reduce((n, p) => n + Number(p.amount), 0);
@@ -31,6 +34,9 @@ export function mountDebts(root) {
         h('div', { class: 'row1' }, h('span', {}, S.lead && !S.scope ? 'На руках у команды' : 'Деньги на руках'), h('b', { class: 'big-sum num' }, rub(hand.sum))),
         h('small', {}, hand.list.length ? hand.list.length + ' ' + plural(hand.list.length, ['оплата ещё не передана', 'оплаты ещё не переданы', 'оплат ещё не переданы']) : 'Все деньги переданы'),
         mine.length ? h('button', { class: 'btn red wide', onclick: () => handOverAsk(mine, 'с рук') }, 'Деньги переданы') : null),
+      total > 0 ? [h('div', { class: 'gap-s' }), card('Долги по срокам', 'чем темнее, тем старше долг', segBar({ key: 'aging', title: 'Долги по срокам',
+        parts: debtAging(debts, today).map((a, i) => ({ label: a.label + (a.shops ? ', ' + a.shops + ' ' + plural(a.shops, ['точка', 'точки', 'точек']) : ''),
+          value: a.sum, text: rub(a.sum), color: 'var(--age-' + (i + 1) + ')' })) }))] : null,
       rows.length ? sec('Кто должен', h('span', { class: 'muted', style: 'font-size:14px' }, 'старые выше')) : null,
       rows.length ? h('div', { class: 'group' }, rows.map((r) => h('button', { class: 'item', onclick: () => openShopDebt(r.shop.id) },
         h('div', { class: 't' }, h('b', {}, r.shop.name),

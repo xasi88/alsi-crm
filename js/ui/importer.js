@@ -1,11 +1,11 @@
 // Перенос базы из программы Атама: что в файле, люди, товары, запись, сверка счётчиков.
 // Только владелец. Повторный перенос перезаписывает те же записи: двойников нет.
-import { S, all, pendingCount, member } from '../store.js?v=7a9cd2c1';
-import { writeMany } from '../save.js?v=7a9cd2c1';
-import { h, fill, sheet, toast, ask, choices, field, inp } from './kit.js?v=7a9cd2c1';
-import { readAtam, convertAtam, reconcile, SRC } from '../logic/atam.js?v=7a9cd2c1';
-import { LABELS } from '../logic/backup.js?v=7a9cd2c1';
-import { rub } from '../logic/format.js?v=7a9cd2c1';
+import { S, all, pendingCount, member } from '../store.js?v=536b4882';
+import { writeMany } from '../save.js?v=536b4882';
+import { h, fill, sheet, toast, ask, choices, field, inp } from './kit.js?v=536b4882';
+import { readAtam, convertAtam, reconcile, SRC } from '../logic/atam.js?v=536b4882';
+import { LABELS } from '../logic/backup.js?v=536b4882';
+import { rub } from '../logic/format.js?v=536b4882';
 
 const ROLE_ATAM = { owner: 'админ', supervisor: 'супервайзер', sales: 'торговый' };
 const LIMIT = 18000; // бесплатный тариф Firebase: 20 000 записей в сутки
@@ -13,7 +13,7 @@ const LIMIT = 18000; // бесплатный тариф Firebase: 20 000 зап�
 export function startAtamImport(data, name) {
   const info = readAtam(data);
   if (info.error) { toast(info.error, true); return; }
-  const s = sheet({ title: 'Перенос из программы Атама', sub: name + (info.exportedAt ? ', файл от ' + info.exportedAt.slice(0, 10) : ''), full: true });
+  const s = sheet({ title: 'Перенос из прежней версии', sub: name + (info.exportedAt ? ', файл от ' + info.exportedAt.slice(0, 10) : ''), full: true });
   // Кого куда: почта в нашей команде, роль, добавить ли в команду
   const plan = new Map(info.people.map((p) => [p.userId, {
     email: p.email, name: p.name, add: p.email ? 'add' : 'me', fileRole: p.role,
@@ -35,7 +35,7 @@ export function startAtamImport(data, name) {
       h('div', { class: 'group', style: 'margin:0' }, Object.entries(info.counts).map(([k, v]) => h('div', { class: 'kv' }, h('span', {}, LABELS[k] || k), h('b', { class: 'num' }, String(v))))),
       total > LIMIT ? h('div', { class: 'warnbox' }, h('b', {}, 'Записей больше ' + LIMIT + '.'), ' Бесплатный тариф Firebase пишет до 20 000 записей в сутки. Перенос пойдёт частями: повторите на следующий день, записанное не задвоится.') : null,
       h('div', { class: 'q' }, 'Люди из файла'),
-      h('p', { class: 'hint' }, 'Их визиты и заказы запишутся на почту, которую вы укажете. Человек войдёт в «ALSI Sales CRM» с этой почтой: по паролю, который придумает сам, или через Google.'),
+      h('p', { class: 'hint' }, 'Их визиты и заказы запишутся на почту, которую вы укажете. Человек войдёт в ATAM SALES CRM с этой почтой: по паролю, который придумает сам, или через Google.'),
       info.people.map((p) => {
         const x = plan.get(p.userId);
         const box = h('div');
@@ -47,7 +47,7 @@ export function startAtamImport(data, name) {
             choices([['sales', 'Торговый'], ['supervisor', 'Супервайзер']], x.role, (v) => { x.role = v; }, { col: true })] : null);
         drawOne();
         return h('div', { class: 'group', style: 'margin:12px 0 0;padding:12px 16px' },
-          h('b', {}, (p.name || p.email || 'Без владельца') + ', у Атама ' + (ROLE_ATAM[p.role] || p.role)), h('small', { class: 'muted', style: 'display:block;margin-bottom:8px' }, 'Записей: ' + p.records + (p.email ? ', ' + p.email : '')), box);
+          h('b', {}, (p.name || p.email || 'Без владельца') + ', в прежней версии ' + (ROLE_ATAM[p.role] || p.role)), h('small', { class: 'muted', style: 'display:block;margin-bottom:8px' }, 'Записей: ' + p.records + (p.email ? ', ' + p.email : '')), box);
       }));
     s.showFoot(h('button', { class: 'btn navy wide', onclick: () => {
       for (const [, x] of plan) if (x.add === 'add' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x.email)) { toast('Проверьте почту: ' + (x.email || 'пусто'), true); return; }
@@ -85,9 +85,9 @@ export function startAtamImport(data, name) {
         h('div', { class: 'kv' }, h('span', {}, 'Новых товаров'), h('b', {}, String(conv.products.length))),
         h('div', { class: 'kv' }, h('span', {}, 'Товары, которые уже есть'), h('b', {}, String(info.counts.products - conv.products.length))),
         h('div', { class: 'kv' }, h('span', {}, 'Всего записей'), h('b', { class: 'num' }, String(n)))),
-      conv.matched.length ? [h('div', { class: 'q' }, 'Цены у нас и у Атама разные'),
-        h('p', { class: 'hint' }, 'Каталог не меняется. Старые заказы Атама сохраняют свои цены.'),
-        h('div', { class: 'group', style: 'margin:0' }, conv.matched.map((m) => h('div', { class: 'kv' }, h('span', {}, m.name), h('b', { class: 'num' }, rub(m.ours) + ' у нас, ' + rub(m.atam) + ' у Атама'))))] : null,
+      conv.matched.length ? [h('div', { class: 'q' }, 'Цены в каталоге и в файле разные'),
+        h('p', { class: 'hint' }, 'Каталог не меняется. Старые заказы сохраняют свои цены.'),
+        h('div', { class: 'group', style: 'margin:0' }, conv.matched.map((m) => h('div', { class: 'kv' }, h('span', {}, m.name), h('b', { class: 'num' }, rub(m.ours) + ' в каталоге, ' + rub(m.atam) + ' в файле'))))] : null,
       conv.problems.length ? [h('div', { class: 'q' }, 'Замечания по файлу'), h('div', { class: 'warnbox' }, conv.problems.slice(0, 12).map((p) => h('div', {}, p)),
         conv.problems.length > 12 ? h('div', {}, 'и ещё ' + (conv.problems.length - 12)) : null)] : null,
       h('p', { class: 'hint', style: 'margin-top:12px' }, 'Повторный перенос того же файла перезапишет перенесённые записи данными из файла. Двойников не будет.'));
@@ -101,7 +101,7 @@ export function startAtamImport(data, name) {
     if (!S.owner) { toast('Перенос делает только админ', true); return; }
     if (!S.online) { toast('Нужна связь с облаком', true); return; }
     if (pendingCount()) { toast('Сначала дождитесь отправки всех записей', true); return; }
-    if (!(await ask('Перенести базу?', 'Записи из файла Атама появятся у вас и у людей, которых вы добавили.', 'Перенести'))) return;
+    if (!(await ask('Перенести базу?', 'Записи из файла появятся у вас и у людей, которых вы добавили.', 'Перенести'))) return;
     btn.disabled = true;
     const now = new Date().toISOString();
     const list = [];

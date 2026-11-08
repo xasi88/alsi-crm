@@ -1,8 +1,8 @@
 {
   "id": "/alsi-crm/",
-  "name": "ALSI Sales CRM",
-  "short_name": "ALSI",
-  "description": "День торгового ALSI: точки, визиты, заказы и долги",
+  "name": "ATAM SALES CRM",
+  "short_name": "ATAM CRM",
+  "description": "Программа торговых Атама: точки, визиты, заказы и долги",
   "lang": "ru",
   "start_url": "./",
   "scope": "./",

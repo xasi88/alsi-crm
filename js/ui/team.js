@@ -1,14 +1,16 @@
 // Команда: люди, роли, супервайзер каждого, цифры за месяц. Меняет админ.
 // Роль даёт права. Супервайзер в карточке человека задаёт, чьи записи видит супервайзер.
-// Главный админ (почта автора в правилах базы) меняет всех. Другой админ: только торговых и супервайзеров.
-import { S, all, people, memberName } from '../store.js?v=7a9cd2c1';
-import { saveMember, retag } from '../save.js?v=7a9cd2c1';
-import { h, icon, fill, sheet, toast, choices, field, inp } from './kit.js?v=7a9cd2c1';
-import { inviteText, normEmail, validEmail } from '../logic/auth.js?v=7a9cd2c1';
-import { head } from './common.js?v=7a9cd2c1';
-import { isoDay, monthKey, dayShort } from '../logic/dates.js?v=7a9cd2c1';
-import { rub } from '../logic/format.js?v=7a9cd2c1';
-import { memberStats } from '../logic/stats.js?v=7a9cd2c1';
+// Главные админы (почты автора и Атама в правилах базы) меняют всех. Другой админ: только торговых и супервайзеров.
+import { S, all, people, memberName, planOf } from '../store.js?v=536b4882';
+import { saveMember, retag } from '../save.js?v=536b4882';
+import { h, icon, fill, sheet, toast, choices, field, inp } from './kit.js?v=536b4882';
+import { inviteText, normEmail, validEmail } from '../logic/auth.js?v=536b4882';
+import { head } from './common.js?v=536b4882';
+import { isoDay, monthKey, dayShort } from '../logic/dates.js?v=536b4882';
+import { rub } from '../logic/format.js?v=536b4882';
+import { memberStats } from '../logic/stats.js?v=536b4882';
+import { planPace } from '../logic/dash.js?v=536b4882';
+import { rankBars, meter } from './figures.js?v=536b4882';
 
 export const ROLES = [['sales', 'Торговый'], ['supervisor', 'Супервайзер'], ['owner', 'Админ']];
 export const roleName = (r) => (ROLES.find((x) => x[0] === r) || [, ''])[1];
@@ -21,18 +23,27 @@ export function mountTeam(root) {
     const month = monthKey(isoDay());
     const list = (S.owner ? S.team.slice() : people()).sort((a, b) => (a.active === false) - (b.active === false) || (a.name || a.id).localeCompare(b.name || b.id, 'ru'));
     const data = { shops: all('shops'), visits: all('visits'), orders: all('orders'), returns: all('returns') };
+    const stats = new Map(list.map((m) => [m.id, memberStats(m.id, data, month)]));
+    const ranked = list.filter((m) => m.active !== false && stats.get(m.id).monthSum > 0).sort((a, b) => stats.get(b.id).monthSum - stats.get(a.id).monthSum);
     fill(root,
       head('Команда', S.owner ? 'Войти могут только почты из списка: по паролю или через Google' : 'Вы и ваши торговые. Их записи вы только читаете'),
       S.owner ? h('div', { class: 'pad' }, h('button', { class: 'btn navy wide', onclick: () => editMember({ role: 'sales', active: true, lead: '' }) }, 'Добавить человека')) : null,
-      h('div', { class: 'gap' }),
+      ranked.length > 1 ? [h('div', { class: 'sec' }, h('h2', {}, 'Выручка за месяц')), rankBars({ key: 'team' + month, rows: ranked.map((m) => {
+        const x = stats.get(m.id);
+        return { label: m.name || m.id, value: x.monthSum, text: rub(x.monthSum), sub: x.monthPacks + ' уп. напитков' };
+      }) }), h('div', { class: 'sec' }, h('h2', {}, 'Люди'))] : h('div', { class: 'gap' }),
       h('div', { class: 'group' }, list.map((m) => {
-        const st = memberStats(m.id, data, month);
+        const st = stats.get(m.id);
+        const plan = planOf(month, m.id);
+        const pace = plan ? planPace(plan, st.monthPacks, isoDay()) : null;
         const edit = canManage(m);
         return h(edit ? 'button' : 'div', { class: 'item', onclick: edit ? () => editMember(m) : null },
           icon('team'), h('div', { class: 't' }, h('b', { class: m.active === false ? 'muted' : '' }, m.name || m.id),
             h('small', {}, roleName(m.role) + (m.lead ? ', супервайзер ' + memberName(m.lead) : '') + (m.active === false ? ', вход закрыт' : '')),
             h('small', { class: 'num' }, 'Точек ' + st.shops + ', визитов ' + st.visits + ', заказов ' + st.orders
-              + '. За месяц: ' + st.monthPacks + ' уп. напитков, ' + rub(st.monthSum) + (st.lastVisit ? '. Последний визит ' + dayShort(st.lastVisit, isoDay()).toLowerCase() : ''))),
+              + '. За месяц: ' + st.monthPacks + ' уп. напитков, ' + rub(st.monthSum) + (st.lastVisit ? '. Последний визит ' + dayShort(st.lastVisit, isoDay()).toLowerCase() : '')),
+            pace ? [meter({ key: 'm' + m.id + month, pct: pace.pct, mark: st.monthPacks >= plan ? null : Math.round((pace.expected / plan) * 100), label: 'План ' + st.monthPacks + ' из ' + plan + ' уп.' }),
+              h('small', { class: 'num' }, 'План ' + st.monthPacks + ' из ' + plan + ' уп., ' + pace.pct + '%')] : null),
           edit ? h('span', { class: 'chev' }, icon('right')) : null);
       })),
       h('div', { class: 'gap' }));

@@ -1,12 +1,14 @@
 // Общие куски экранов: связь, шапка, взгляд руководителя, план, фильтры, следующее действие.
-import { S, pendingCount, planOf, people, setScope, memberName, all } from '../store.js?v=7a9cd2c1';
-import { savePlan, addContact } from '../save.js?v=7a9cd2c1';
-import { h, icon, toast, sheet, choices, field, inp, fill, pickOne } from './kit.js?v=7a9cd2c1';
-import { isoDay, addDays, monthKey, monthGen, monthTitle, monthStart, dayShort, daysWord, QUICK_DATES } from '../logic/dates.js?v=7a9cd2c1';
-import { monthFact, planBar } from '../logic/day.js?v=7a9cd2c1';
-import { NEXT } from '../logic/visit.js?v=7a9cd2c1';
-import { rub, parseCount } from '../logic/format.js?v=7a9cd2c1';
-import { PERIODS, districtsOf, localitiesOf } from '../logic/filters.js?v=7a9cd2c1';
+import { S, pendingCount, planOf, people, setScope, memberName, all } from '../store.js?v=536b4882';
+import { savePlan, addContact } from '../save.js?v=536b4882';
+import { h, icon, toast, sheet, choices, field, inp, fill, pickOne } from './kit.js?v=536b4882';
+import { isoDay, addDays, monthKey, monthGen, monthTitle, monthStart, dayShort, daysWord, QUICK_DATES } from '../logic/dates.js?v=536b4882';
+import { monthFact, planBar } from '../logic/day.js?v=536b4882';
+import { NEXT } from '../logic/visit.js?v=536b4882';
+import { rub, parseCount } from '../logic/format.js?v=536b4882';
+import { PERIODS, districtsOf, localitiesOf } from '../logic/filters.js?v=536b4882';
+import { planPace } from '../logic/dash.js?v=536b4882';
+import { ring } from './charts.js?v=536b4882';
 
 export function syncChip() {
   const n = pendingCount();
@@ -48,14 +50,22 @@ export function planCard() {
   const plan = who.reduce((n, e) => n + planOf(month, e), 0);
   const bar = planBar(plan, monthFact(all('orders'), month, who, all('returns')));
   const team = who.length > 1 ? ' команды' : '';
-  const kids = bar.plan
-    ? [h('div', { class: 'row1' }, h('span', {}, 'План напитков' + team + ', ' + monthGen(month)),
-      h('span', { class: 'num' }, String(bar.fact), ' ', h('em', {}, 'из ' + bar.plan + ' уп.'))),
-    h('div', { class: 'track' }, h('i', { style: 'width:' + bar.pct + '%' })),
-    h('small', { class: 'muted' }, bar.left ? 'Осталось ' + bar.left + ' уп., выполнено ' + bar.pct + '%' : 'План выполнен')]
-    : [h('div', { class: 'row1' }, h('span', {}, 'План напитков' + team + ' не задан'),
-      h('span', { class: 'num' }, String(bar.fact), ' ', h('em', {}, 'уп. продано')))];
-  return h('a', { class: 'plan', href: '#/plan' }, kids);
+  if (!bar.plan) {
+    return h('a', { class: 'plan', href: '#/plan' }, h('div', { class: 'row1' }, h('span', {}, 'План напитков' + team + ' не задан'),
+      h('span', { class: 'num' }, String(bar.fact), ' ', h('em', {}, 'уп. продано'))));
+  }
+  // Кольцо: выполнено; красная засечка: где надо быть к сегодня; ниже прогноз на конец месяца при этом темпе
+  const pace = planPace(bar.plan, bar.fact, isoDay());
+  const done = bar.fact >= bar.plan;
+  return h('a', { class: 'plan plan-ring', href: '#/plan', 'aria-label': 'План напитков: ' + bar.fact + ' из ' + bar.plan + ' уп.' },
+    ring({ key: 'plan', pct: pace.pct, mark: done ? null : Math.round((pace.expected / bar.plan) * 100), size: 112, stroke: 10, label: 'Выполнено ' + pace.pct + '%' },
+      h('b', {}, pace.pct + '%'), h('small', {}, 'плана')),
+    h('div', { class: 'pr-t' },
+      h('span', { class: 'muted' }, 'План напитков' + team + ', ' + monthGen(month)),
+      h('b', { class: 'num' }, bar.fact + ' из ' + bar.plan + ' уп.'),
+      done ? h('span', {}, 'План выполнен') : h('span', {}, pace.ahead >= 0 ? 'Опережение ' + pace.ahead + ' уп.' : 'Отставание ' + -pace.ahead + ' уп.'),
+      done ? null : h('span', { class: 'muted' }, 'При этом темпе к концу месяца ' + pace.forecast + ' уп., ' + pace.forecastPct + '%'),
+      done ? null : h('span', { class: 'key' }, h('i'), 'где надо быть сегодня')));
 }
 
 // Экран плана: месяц назад и вперёд, цель каждому человеку

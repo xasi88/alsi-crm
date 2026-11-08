@@ -1,4 +1,4 @@
-# ALSI Sales CRM
+# ATAM SALES CRM
 
 Сайт: https://xasi88.github.io/alsi-crm/
 

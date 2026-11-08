@@ -1,8 +1,8 @@
 // Экраны входа: почта и пароль, первый вход, новый пароль, подтверждение почты, нет доступа.
 // Войти может любой, но правила базы покажут данные только почте из «Команды» и только подтверждённой.
-import { login, loginPass, signupPass, resetPass, resendVerify, checkVerified, logout } from '../fb.js?v=7a9cd2c1';
-import { h, fill, field, inp } from './kit.js?v=7a9cd2c1';
-import { emailProblem, passProblem, authText, normEmail, PASS_MIN } from '../logic/auth.js?v=7a9cd2c1';
+import { login, loginPass, signupPass, resetPass, resendVerify, checkVerified, logout } from '../fb.js?v=536b4882';
+import { h, fill, field, inp } from './kit.js?v=536b4882';
+import { emailProblem, passProblem, authText, normEmail, PASS_MIN } from '../logic/auth.js?v=536b4882';
 
 let email = ''; // почта остаётся при переходе между экранами входа
 let unwatch = () => {};
@@ -11,7 +11,7 @@ function shell(root, ...kids) {
   unwatch();
   unwatch = () => {};
   root.classList.remove('signed');
-  fill(root, h('section', { class: 'login' }, h('div', { class: 'mark' }, 'ALSI'), ...kids));
+  fill(root, h('section', { class: 'login' }, h('div', { class: 'mark' }, 'ATAM'), ...kids));
   scrollTo(0, 0);
 }
 
@@ -58,7 +58,7 @@ export function loginScreen(root, mode = 'in') {
   const pass = passField('Пароль', 'current-password');
   const go = h('button', { class: 'btn red wide', type: 'submit' }, 'Войти');
   const google = h('button', { class: 'btn white wide', type: 'button', onclick: () => run(google, msg, login) }, 'Войти через Google');
-  shell(root, h('h1', {}, 'Sales CRM'),
+  shell(root, h('h1', {}, 'SALES CRM'),
     h('p', {}, 'День торгового: точки, визиты, заказы, возвраты и долги. Работает и без связи.'),
     form(() => {
       const bad = emailProblem(email) || passProblem(pass.input.value);
@@ -70,7 +70,7 @@ export function loginScreen(root, mode = 'in') {
       link('Забыли пароль?', () => loginScreen(root, 'reset'))),
     h('div', { class: 'or' }, 'или'),
     google,
-    h('p', { class: 'note' }, 'Вход только для команды ALSI. Почту добавляет админ.'));
+    h('p', { class: 'note' }, 'Вход только для команды Атама. Почту добавляет админ.'));
 }
 
 function firstScreen(root) {

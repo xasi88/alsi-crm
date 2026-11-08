@@ -1,17 +1,20 @@
 // Экран «Сегодня»: план, цифры дня, маршрут, ближайшие дела, долги, давно без заказа.
-import { S, view, canEdit } from '../store.js?v=7a9cd2c1';
-import { doneNext } from '../save.js?v=7a9cd2c1';
-import { h, icon, fill, ext, toast, stat } from './kit.js?v=7a9cd2c1';
-import { head, planCard, owedTag, sec, whoText } from './common.js?v=7a9cd2c1';
-import { isoDay, dayTitle, dayShort, daysWord, plural } from '../logic/dates.js?v=7a9cd2c1';
-import { buildDay } from '../logic/day.js?v=7a9cd2c1';
-import { dayStats } from '../logic/stats.js?v=7a9cd2c1';
-import { qtyText } from '../logic/products.js?v=7a9cd2c1';
-import { rub, waLink, telLink } from '../logic/format.js?v=7a9cd2c1';
-import { routeLink, placeLink } from '../logic/maps.js?v=7a9cd2c1';
-import { openShop } from './shop.js?v=7a9cd2c1';
-import { startVisit } from './visit.js?v=7a9cd2c1';
-import { draftBanner } from './drafts.js?v=7a9cd2c1';
+import { S, view, canEdit } from '../store.js?v=536b4882';
+import { doneNext } from '../save.js?v=536b4882';
+import { h, icon, fill, ext, toast, stat } from './kit.js?v=536b4882';
+import { head, planCard, owedTag, sec, whoText } from './common.js?v=536b4882';
+import { isoDay, dayTitle, dayShort, daysWord, plural } from '../logic/dates.js?v=536b4882';
+import { buildDay } from '../logic/day.js?v=536b4882';
+import { dayStats } from '../logic/stats.js?v=536b4882';
+import { qtyText } from '../logic/products.js?v=536b4882';
+import { rub, waLink, telLink } from '../logic/format.js?v=536b4882';
+import { routeLink, placeLink } from '../logic/maps.js?v=536b4882';
+import { openShop } from './shop.js?v=536b4882';
+import { startVisit } from './visit.js?v=536b4882';
+import { draftBanner } from './drafts.js?v=536b4882';
+import { avgDay, delta } from '../logic/dash.js?v=536b4882';
+import { deltaChip } from './figures.js?v=536b4882';
+import { addDays } from '../logic/dates.js?v=536b4882';
 
 const TASK = { visit: 'Визит', call: 'Позвонить', whatsapp: 'Написать в WhatsApp' };
 
@@ -50,7 +53,9 @@ function stopEl(st, n, isNow) {
 function dayBlock(today) {
   const d = dayStats(view('orders').filter((o) => o.date === today));
   if (!d.orders) return null;
-  return [sec('Продано сегодня'), h('div', { class: 'stats' },
+  // Сравнение с обычным днём: средняя выручка дня с заказами за прошлые 30 дней
+  const usual = avgDay(view('orders'), view('returns'), addDays(today, -30), addDays(today, -1));
+  return [sec('Продано сегодня', usual ? deltaChip(delta(d.sum, usual), 'к обычному дню') : null), h('div', { class: 'stats' },
     stat(String(d.drinks.packs), 'уп. напитков'),
     stat(rub(d.sum), d.orders + ' ' + plural(d.orders, ['заказ', 'заказа', 'заказов'])),
     d.sweets.packs || d.sweets.units ? stat(qtyText(d.sweets.packs, d.sweets.units), 'сладости') : null,

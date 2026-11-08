@@ -1,13 +1,13 @@
 // Отчёт PDF: разделы на выбор, сотрудник, точка, категория, даты. Выбор запоминается.
 // Кнопка «Сохранить PDF» открывает окно печати: там выбрать «Сохранить как PDF».
-import { S, view, people, memberName, shopById } from '../store.js?v=7a9cd2c1';
-import { h, icon, fill, remember, choices, field, inp, pickOne, toast } from './kit.js?v=7a9cd2c1';
-import { liveHead } from './common.js?v=7a9cd2c1';
-import { isoDay, dayShort, dayTitle, plural } from '../logic/dates.js?v=7a9cd2c1';
-import { rub, prettyPhone } from '../logic/format.js?v=7a9cd2c1';
-import { CATS, GROUPS, catLabel } from '../logic/products.js?v=7a9cd2c1';
-import { periodRange } from '../logic/filters.js?v=7a9cd2c1';
-import { buildReport, SECTIONS, PRESETS } from '../logic/report.js?v=7a9cd2c1';
+import { S, view, people, memberName, shopById } from '../store.js?v=536b4882';
+import { h, icon, fill, remember, choices, field, inp, pickOne, toast } from './kit.js?v=536b4882';
+import { liveHead } from './common.js?v=536b4882';
+import { isoDay, dayShort, dayTitle, plural } from '../logic/dates.js?v=536b4882';
+import { rub, prettyPhone } from '../logic/format.js?v=536b4882';
+import { CATS, GROUPS, catLabel } from '../logic/products.js?v=536b4882';
+import { periodRange } from '../logic/filters.js?v=536b4882';
+import { buildReport, SECTIONS, PRESETS } from '../logic/report.js?v=536b4882';
 
 const CAT_ITEMS = [['', 'Все категории'], ...GROUPS.map((g) => [g.id, g.label]), ...CATS.filter((c) => c.group !== 'drinks').map((c) => [c.id, c.label])];
 
@@ -58,7 +58,7 @@ export function mountReport(root) {
     const shopLine = (x) => [x.address, x.phone ? prettyPhone(x.phone) : '', x.contact ? 'ЛПР: ' + x.contact : ''].filter(Boolean).join(', ');
     const h3 = (t) => h('h3', { class: 'rep-h' }, t);
     fill(doc,
-      h('div', { class: 'rep-title' }, h('b', {}, 'ALSI Sales CRM: отчёт'),
+      h('div', { class: 'rep-title' }, h('b', {}, 'ATAM SALES CRM: отчёт'),
         h('div', {}, (st.from ? dayShort(st.from, '') : 'с начала') + ' - ' + (st.to ? dayShort(st.to, '') : 'сегодня')
           + '. ' + (scopeRep ? memberName(scopeRep) : S.lead ? 'Вся команда' : memberName(S.email))
           + (st.shopId ? '. ' + (shopById(st.shopId)?.name || '') : '') + (st.cat ? '. ' + CAT_ITEMS.find((x) => x[0] === st.cat)[1] : '')),
