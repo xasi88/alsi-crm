@@ -1,0 +1,18 @@
+{
+  "id": "/alsi-crm/",
+  "name": "ALSI Продажи",
+  "short_name": "ALSI",
+  "description": "День торгового ALSI: точки, визиты, заказы и долги",
+  "lang": "ru",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0D2445",
+  "theme_color": "#EEF3F9",
+  "icons": [
+    { "src": "img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "img/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "img/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
