@@ -1,9 +1,9 @@
 // Расчёты для графиков: выручка по дням и месяцам, сравнение с прошлым периодом, темп плана,
 // доли категорий, воронка визитов, долги по срокам. Без облака: под тестами (tests/dash.test.mjs).
-import { addDays, daysBetween, monthKey, monthStart, monthEnd, parseDay } from './dates.js?v=536b4882';
-import { round2 } from './format.js?v=536b4882';
-import { itemSum, itemsPacks, groupOf } from './products.js?v=536b4882';
-import { orderSum as orderMoney, returnSum as returnMoney } from './money.js?v=536b4882';
+import { addDays, daysBetween, monthKey, monthStart, monthEnd, parseDay } from './dates.js?v=2f681d03';
+import { round2 } from './format.js?v=2f681d03';
+import { itemSum, itemsPacks, groupOf } from './products.js?v=2f681d03';
+import { orderSum as orderMoney, returnSum as returnMoney } from './money.js?v=2f681d03';
 
 const live = (x) => x && !x.deleted;
 

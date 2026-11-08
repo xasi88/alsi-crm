@@ -1,14 +1,14 @@
 // Точки: список с поиском, фильтрами и сортировкой (запоминаются), форма точки.
-import { S, view } from '../store.js?v=536b4882';
-import { saveShop } from '../save.js?v=536b4882';
-import { h, icon, fill, sheet, field, inp, toast, ext, remember, pickOne, seg } from './kit.js?v=536b4882';
-import { liveHead } from './common.js?v=536b4882';
-import { isoDay, daysBetween, daysWord, plural } from '../logic/dates.js?v=536b4882';
-import { rub, shopMatches, similarShops, normPhone, prettyPhone, telLink } from '../logic/format.js?v=536b4882';
-import { shopDebts } from '../logic/money.js?v=536b4882';
-import { shopRows, lastVisits, SORTS, VISITED, districtsOf, localitiesOf } from '../logic/filters.js?v=536b4882';
-import { parseMapLink, bestFix, hasPoint } from '../logic/maps.js?v=536b4882';
-import { openShop } from './shop.js?v=536b4882';
+import { S, view } from '../store.js?v=2f681d03';
+import { saveShop } from '../save.js?v=2f681d03';
+import { h, icon, fill, sheet, field, inp, toast, ext, remember, pickOne, seg } from './kit.js?v=2f681d03';
+import { liveHead } from './common.js?v=2f681d03';
+import { isoDay, daysBetween, daysWord, plural } from '../logic/dates.js?v=2f681d03';
+import { rub, shopMatches, similarShops, normPhone, prettyPhone, telLink } from '../logic/format.js?v=2f681d03';
+import { shopDebts } from '../logic/money.js?v=2f681d03';
+import { shopRows, lastVisits, SORTS, VISITED, districtsOf, localitiesOf } from '../logic/filters.js?v=2f681d03';
+import { parseMapLink, bestFix, hasPoint } from '../logic/maps.js?v=2f681d03';
+import { openShop } from './shop.js?v=2f681d03';
 
 export const shopView = () => remember('alsi-shops-' + S.email, { q: '', district: '', locality: '', visited: 'all', sort: 'name' });
 

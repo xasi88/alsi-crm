@@ -1,17 +1,17 @@
 // Итоги: панель продаж, отказы, достижения. Период, район и населённый пункт действуют на все цифры и графики.
-import { S, view, all } from '../store.js?v=536b4882';
-import { h, fill, remember, seg, stat } from './kit.js?v=536b4882';
-import { liveHead, filterBar, sec } from './common.js?v=536b4882';
-import { isoDay, dayShort, monthTitle, plural } from '../logic/dates.js?v=536b4882';
-import { rub } from '../logic/format.js?v=536b4882';
-import { qtyText } from '../logic/products.js?v=536b4882';
-import { picOf } from '../logic/pics.js?v=536b4882';
-import { filterRecords, periodRange } from '../logic/filters.js?v=536b4882';
-import { salesStats, refusalStats, achievements } from '../logic/stats.js?v=536b4882';
-import { prevRange, delta, series, groupMoney, funnel } from '../logic/dash.js?v=536b4882';
-import { columns } from './charts.js?v=536b4882';
-import { hero, segBar, rankBars, funnelBars } from './figures.js?v=536b4882';
-import { openShop } from './shop.js?v=536b4882';
+import { S, view, all } from '../store.js?v=2f681d03';
+import { h, fill, remember, seg, stat } from './kit.js?v=2f681d03';
+import { liveHead, filterBar, sec } from './common.js?v=2f681d03';
+import { isoDay, dayShort, monthTitle, plural } from '../logic/dates.js?v=2f681d03';
+import { rub } from '../logic/format.js?v=2f681d03';
+import { qtyText } from '../logic/products.js?v=2f681d03';
+import { picOf } from '../logic/pics.js?v=2f681d03';
+import { filterRecords, periodRange } from '../logic/filters.js?v=2f681d03';
+import { salesStats, refusalStats, achievements } from '../logic/stats.js?v=2f681d03';
+import { prevRange, delta, series, groupMoney, funnel } from '../logic/dash.js?v=2f681d03';
+import { columns } from './charts.js?v=2f681d03';
+import { hero, segBar, rankBars, funnelBars } from './figures.js?v=2f681d03';
+import { openShop } from './shop.js?v=2f681d03';
 
 const TABS = [['sales', 'Продажи'], ['refusals', 'Отказы'], ['wins', 'Достижения']];
 

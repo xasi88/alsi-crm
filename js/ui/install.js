@@ -1,6 +1,6 @@
 // Значок на экран телефона. Android и компьютер: окно установки браузера. iPhone: подсказка «Поделиться».
 // Приложение со значка открывается на весь экран и без интернета. После установки карточка пропадает.
-import { h, toast } from './kit.js?v=536b4882';
+import { h, toast } from './kit.js?v=2f681d03';
 
 let ev = null;
 addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); ev = e; });

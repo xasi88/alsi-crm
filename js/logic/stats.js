@@ -1,9 +1,9 @@
 // Итоги: продажи, отказы, достижения. Чистая выручка: продажи минус возвраты.
 // Напитки, сладости и снеки считаются отдельно, выручка общим итогом.
-import { round2 } from './format.js?v=536b4882';
-import { groupOf, itemPacks, itemUnits, itemSum, itemsPacks, itemsUnits } from './products.js?v=536b4882';
-import { orderSum, returnSum } from './money.js?v=536b4882';
-import { REFUSAL } from './visit.js?v=536b4882';
+import { round2 } from './format.js?v=2f681d03';
+import { groupOf, itemPacks, itemUnits, itemSum, itemsPacks, itemsUnits } from './products.js?v=2f681d03';
+import { orderSum, returnSum } from './money.js?v=2f681d03';
+import { REFUSAL } from './visit.js?v=2f681d03';
 
 const live = (x) => !x.deleted;
 const byDateAt = (a, b) => (a.date === b.date ? ((a.at || '') < (b.at || '') ? -1 : 1) : a.date < b.date ? -1 : 1);

@@ -1,14 +1,14 @@
 // Общие куски экранов: связь, шапка, взгляд руководителя, план, фильтры, следующее действие.
-import { S, pendingCount, planOf, people, setScope, memberName, all } from '../store.js?v=536b4882';
-import { savePlan, addContact } from '../save.js?v=536b4882';
-import { h, icon, toast, sheet, choices, field, inp, fill, pickOne } from './kit.js?v=536b4882';
-import { isoDay, addDays, monthKey, monthGen, monthTitle, monthStart, dayShort, daysWord, QUICK_DATES } from '../logic/dates.js?v=536b4882';
-import { monthFact, planBar } from '../logic/day.js?v=536b4882';
-import { NEXT } from '../logic/visit.js?v=536b4882';
-import { rub, parseCount } from '../logic/format.js?v=536b4882';
-import { PERIODS, districtsOf, localitiesOf } from '../logic/filters.js?v=536b4882';
-import { planPace } from '../logic/dash.js?v=536b4882';
-import { ring } from './charts.js?v=536b4882';
+import { S, pendingCount, planOf, people, setScope, memberName, all } from '../store.js?v=2f681d03';
+import { savePlan, addContact } from '../save.js?v=2f681d03';
+import { h, icon, toast, sheet, choices, field, inp, fill, pickOne } from './kit.js?v=2f681d03';
+import { isoDay, addDays, monthKey, monthGen, monthTitle, monthStart, dayShort, daysWord, QUICK_DATES } from '../logic/dates.js?v=2f681d03';
+import { monthFact, planBar } from '../logic/day.js?v=2f681d03';
+import { NEXT } from '../logic/visit.js?v=2f681d03';
+import { rub, parseCount } from '../logic/format.js?v=2f681d03';
+import { PERIODS, districtsOf, localitiesOf } from '../logic/filters.js?v=2f681d03';
+import { planPace } from '../logic/dash.js?v=2f681d03';
+import { ring } from './charts.js?v=2f681d03';
 
 export function syncChip() {
   const n = pendingCount();

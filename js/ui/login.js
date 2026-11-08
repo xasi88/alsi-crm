@@ -1,8 +1,8 @@
 // Экраны входа: почта и пароль, первый вход, новый пароль, подтверждение почты, нет доступа.
 // Войти может любой, но правила базы покажут данные только почте из «Команды» и только подтверждённой.
-import { login, loginPass, signupPass, resetPass, resendVerify, checkVerified, logout } from '../fb.js?v=536b4882';
-import { h, fill, field, inp } from './kit.js?v=536b4882';
-import { emailProblem, passProblem, authText, normEmail, PASS_MIN } from '../logic/auth.js?v=536b4882';
+import { login, loginPass, signupPass, resetPass, resendVerify, checkVerified, logout } from '../fb.js?v=2f681d03';
+import { h, fill, field, inp } from './kit.js?v=2f681d03';
+import { emailProblem, passProblem, authText, normEmail, PASS_MIN } from '../logic/auth.js?v=2f681d03';
 
 let email = ''; // почта остаётся при переходе между экранами входа
 let unwatch = () => {};
@@ -30,9 +30,16 @@ async function run(btn, msg, fn) {
 
 const link = (text, onclick) => h('button', { class: 'link', type: 'button', onclick }, text);
 
+// Поле почты. Значение берём из самого поля при нажатии (read): подстановка почты
+// с клавиатуры iPhone не всегда даёт событие ввода, и запомненная почта оставалась пустой.
 function mailInput() {
-  return inp({ type: 'email', name: 'email', inputmode: 'email', autocomplete: 'username', autocapitalize: 'off', spellcheck: 'false',
-    placeholder: 'name@mail.ru', value: email, oninput: (e) => { email = e.target.value; } });
+  const i = inp({ type: 'email', name: 'email', inputmode: 'email', autocomplete: 'username', autocapitalize: 'off', spellcheck: 'false',
+    placeholder: 'name@mail.ru', value: email });
+  const keep = () => { email = i.value; };
+  i.addEventListener('input', keep);
+  i.addEventListener('change', keep);
+  i.read = () => { keep(); return email; };
+  return i;
 }
 
 // Пароль с кнопкой «Показать»: на телефоне легко ошибиться буквой
@@ -58,13 +65,14 @@ export function loginScreen(root, mode = 'in') {
   const pass = passField('Пароль', 'current-password');
   const go = h('button', { class: 'btn red wide', type: 'submit' }, 'Войти');
   const google = h('button', { class: 'btn white wide', type: 'button', onclick: () => run(google, msg, login) }, 'Войти через Google');
+  const mail = mailInput();
   shell(root, h('h1', {}, 'SALES CRM'),
     h('p', {}, 'День торгового: точки, визиты, заказы, возвраты и долги. Работает и без связи.'),
     form(() => {
-      const bad = emailProblem(email) || passProblem(pass.input.value);
+      const bad = emailProblem(mail.read()) || passProblem(pass.input.value);
       if (bad) { msg.say(bad); return; }
       run(go, msg, () => loginPass(normEmail(email), pass.input.value));
-    }, field('Почта', mailInput()), pass.el, msg, go),
+    }, field('Почта', mail), pass.el, msg, go),
     h('div', { class: 'links' },
       link('Первый вход: придумать пароль', () => loginScreen(root, 'new')),
       link('Забыли пароль?', () => loginScreen(root, 'reset'))),
@@ -78,29 +86,31 @@ function firstScreen(root) {
   const p1 = passField('Придумайте пароль', 'new-password');
   const p2 = passField('Пароль ещё раз', 'new-password');
   const go = h('button', { class: 'btn red wide', type: 'submit' }, 'Создать пароль');
+  const mail = mailInput();
   shell(root, h('h1', {}, 'Первый вход'),
     h('p', {}, 'Введите почту, которую добавил админ, и придумайте пароль не короче ' + PASS_MIN + ' знаков. Потом на почту придёт письмо со ссылкой.'),
     form(() => {
-      const bad = emailProblem(email) || passProblem(p1.input.value, p2.input.value);
+      const bad = emailProblem(mail.read()) || passProblem(p1.input.value, p2.input.value);
       if (bad) { msg.say(bad); return; }
       run(go, msg, () => signupPass(normEmail(email), p1.input.value));
-    }, field('Почта', mailInput()), p1.el, p2.el, msg, go),
+    }, field('Почта', mail), p1.el, p2.el, msg, go),
     h('div', { class: 'links' }, link('Назад ко входу', () => loginScreen(root))));
 }
 
 function resetScreen(root) {
   const msg = note();
   const go = h('button', { class: 'btn red wide', type: 'submit' }, 'Прислать письмо');
+  const mail = mailInput();
   shell(root, h('h1', {}, 'Новый пароль'),
     h('p', {}, 'Введите почту. Придёт письмо со ссылкой, по ней вы зададите новый пароль.'),
     form(() => {
-      const bad = emailProblem(email);
+      const bad = emailProblem(mail.read());
       if (bad) { msg.say(bad); return; }
       run(go, msg, async () => {
         await resetPass(normEmail(email));
         msg.say('Письмо отправлено на ' + normEmail(email) + '. Откройте его и задайте новый пароль. Письмо может лежать в «Спаме».', true);
       });
-    }, field('Почта', mailInput()), msg, go),
+    }, field('Почта', mail), msg, go),
     h('div', { class: 'links' }, link('Назад ко входу', () => loginScreen(root))));
 }
 

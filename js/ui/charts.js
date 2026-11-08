@@ -1,9 +1,9 @@
 // Графики на SVG: столбцы по дням или месяцам, кольцо плана. Правила вида: брендбук, раздел «Графики».
 // Движение один раз при первом показе экрана; обновление данных его не повторяет. «Меньше движения» выключает всё.
-import { h, fill } from './kit.js?v=536b4882';
-import { rub } from '../logic/format.js?v=536b4882';
-import { dayShort, monthTitle } from '../logic/dates.js?v=536b4882';
-import { niceTicks, shortNum } from '../logic/dash.js?v=536b4882';
+import { h, fill } from './kit.js?v=2f681d03';
+import { rub } from '../logic/format.js?v=2f681d03';
+import { dayShort, monthTitle } from '../logic/dates.js?v=2f681d03';
+import { niceTicks, shortNum } from '../logic/dash.js?v=2f681d03';
 
 const NS = 'http://www.w3.org/2000/svg';
 export function s(tag, attrs = {}, ...kids) {

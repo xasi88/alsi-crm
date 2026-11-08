@@ -1,9 +1,9 @@
 // Деньги: долг по каждому заказу, оплаты, деньги на руках у торгового.
 // Долг дают только заказы «В долг» и «Часть сразу». Возврат уменьшает сумму заказа и его долг.
 // Оплата долга записывается на заказ (orderId). Оплата без заказа гасит самые старые долги точки.
-import { round2 } from './format.js?v=536b4882';
-import { daysBetween } from './dates.js?v=536b4882';
-import { itemsSum } from './products.js?v=536b4882';
+import { round2 } from './format.js?v=2f681d03';
+import { daysBetween } from './dates.js?v=2f681d03';
+import { itemsSum } from './products.js?v=2f681d03';
 
 export const PAYMENTS = [
   { id: 'driver', label: 'Оплата водителю', note: 'Деньги возьмёт водитель при доставке' },

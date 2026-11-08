@@ -1,20 +1,20 @@
 // Экран «Сегодня»: план, цифры дня, маршрут, ближайшие дела, долги, давно без заказа.
-import { S, view, canEdit } from '../store.js?v=536b4882';
-import { doneNext } from '../save.js?v=536b4882';
-import { h, icon, fill, ext, toast, stat } from './kit.js?v=536b4882';
-import { head, planCard, owedTag, sec, whoText } from './common.js?v=536b4882';
-import { isoDay, dayTitle, dayShort, daysWord, plural } from '../logic/dates.js?v=536b4882';
-import { buildDay } from '../logic/day.js?v=536b4882';
-import { dayStats } from '../logic/stats.js?v=536b4882';
-import { qtyText } from '../logic/products.js?v=536b4882';
-import { rub, waLink, telLink } from '../logic/format.js?v=536b4882';
-import { routeLink, placeLink } from '../logic/maps.js?v=536b4882';
-import { openShop } from './shop.js?v=536b4882';
-import { startVisit } from './visit.js?v=536b4882';
-import { draftBanner } from './drafts.js?v=536b4882';
-import { avgDay, delta } from '../logic/dash.js?v=536b4882';
-import { deltaChip } from './figures.js?v=536b4882';
-import { addDays } from '../logic/dates.js?v=536b4882';
+import { S, view, canEdit } from '../store.js?v=2f681d03';
+import { doneNext } from '../save.js?v=2f681d03';
+import { h, icon, fill, ext, toast, stat } from './kit.js?v=2f681d03';
+import { head, planCard, owedTag, sec, whoText } from './common.js?v=2f681d03';
+import { isoDay, dayTitle, dayShort, daysWord, plural } from '../logic/dates.js?v=2f681d03';
+import { buildDay } from '../logic/day.js?v=2f681d03';
+import { dayStats } from '../logic/stats.js?v=2f681d03';
+import { qtyText } from '../logic/products.js?v=2f681d03';
+import { rub, waLink, telLink } from '../logic/format.js?v=2f681d03';
+import { routeLink, placeLink } from '../logic/maps.js?v=2f681d03';
+import { openShop } from './shop.js?v=2f681d03';
+import { startVisit } from './visit.js?v=2f681d03';
+import { draftBanner } from './drafts.js?v=2f681d03';
+import { avgDay, delta } from '../logic/dash.js?v=2f681d03';
+import { deltaChip } from './figures.js?v=2f681d03';
+import { addDays } from '../logic/dates.js?v=2f681d03';
 
 const TASK = { visit: 'Визит', call: 'Позвонить', whatsapp: 'Написать в WhatsApp' };
 

@@ -1,8 +1,8 @@
 // Скрипт продаж: шаги первого контакта и ответы на возражения. Текст правит владелец.
-import { S, config } from '../store.js?v=536b4882';
-import { saveConfig } from '../save.js?v=536b4882';
-import { h, fill, sheet, toast, field, inp } from './kit.js?v=536b4882';
-import { head, sec } from './common.js?v=536b4882';
+import { S, config } from '../store.js?v=2f681d03';
+import { saveConfig } from '../save.js?v=2f681d03';
+import { h, fill, sheet, toast, field, inp } from './kit.js?v=2f681d03';
+import { head, sec } from './common.js?v=2f681d03';
 
 // Начальный текст: короткий рабочий ориентир. Владелец меняет его под себя.
 const BASE = {

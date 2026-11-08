@@ -1,11 +1,11 @@
 // Перенос базы из программы Атама: что в файле, люди, товары, запись, сверка счётчиков.
 // Только владелец. Повторный перенос перезаписывает те же записи: двойников нет.
-import { S, all, pendingCount, member } from '../store.js?v=536b4882';
-import { writeMany } from '../save.js?v=536b4882';
-import { h, fill, sheet, toast, ask, choices, field, inp } from './kit.js?v=536b4882';
-import { readAtam, convertAtam, reconcile, SRC } from '../logic/atam.js?v=536b4882';
-import { LABELS } from '../logic/backup.js?v=536b4882';
-import { rub } from '../logic/format.js?v=536b4882';
+import { S, all, pendingCount, member } from '../store.js?v=2f681d03';
+import { writeMany } from '../save.js?v=2f681d03';
+import { h, fill, sheet, toast, ask, choices, field, inp } from './kit.js?v=2f681d03';
+import { readAtam, convertAtam, reconcile, SRC } from '../logic/atam.js?v=2f681d03';
+import { LABELS } from '../logic/backup.js?v=2f681d03';
+import { rub } from '../logic/format.js?v=2f681d03';
 
 const ROLE_ATAM = { owner: 'админ', supervisor: 'супервайзер', sales: 'торговый' };
 const LIMIT = 18000; // бесплатный тариф Firebase: 20 000 записей в сутки

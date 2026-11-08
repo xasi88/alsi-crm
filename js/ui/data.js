@@ -1,12 +1,12 @@
 // Данные: счётчики, связь, работа без связи, резервная копия, перенос из программы Атама.
-import { S, pendingCount, all } from '../store.js?v=536b4882';
-import { writeMany } from '../save.js?v=536b4882';
-import { h, icon, fill, sheet, toast, ask, choices, download, fileButton, stat } from './kit.js?v=536b4882';
-import { head, sec } from './common.js?v=536b4882';
-import { isoDay } from '../logic/dates.js?v=536b4882';
-import { buildBackup, kindOf, restorePlan, fileName, COLS, LABELS } from '../logic/backup.js?v=536b4882';
-import { listDrafts } from './drafts.js?v=536b4882';
-import { startAtamImport } from './importer.js?v=536b4882';
+import { S, pendingCount, all } from '../store.js?v=2f681d03';
+import { writeMany } from '../save.js?v=2f681d03';
+import { h, icon, fill, sheet, toast, ask, choices, download, fileButton, stat } from './kit.js?v=2f681d03';
+import { head, sec } from './common.js?v=2f681d03';
+import { isoDay } from '../logic/dates.js?v=2f681d03';
+import { buildBackup, kindOf, restorePlan, fileName, COLS, LABELS } from '../logic/backup.js?v=2f681d03';
+import { listDrafts } from './drafts.js?v=2f681d03';
+import { startAtamImport } from './importer.js?v=2f681d03';
 
 // Готово ли приложение к работе без связи: файлы приложения лежат в копии на телефоне
 async function offlineCheck() {

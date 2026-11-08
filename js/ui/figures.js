@@ -1,7 +1,7 @@
 // Фигуры панелей: главное число с изменением, доли одной полосой, рейтинг с фото, воронка, шкала плана.
 // Цвета данных только у меток (полосы, квадратики легенды); текст всегда тёмный. Брендбук, раздел «Графики».
-import { h } from './kit.js?v=536b4882';
-import { s, play, countUp, rubInt } from './charts.js?v=536b4882';
+import { h } from './kit.js?v=2f681d03';
+import { s, play, countUp, rubInt } from './charts.js?v=2f681d03';
 
 const arrow = (dir) => s('svg', { viewBox: '0 0 10 10', width: 10, height: 10, 'aria-hidden': 'true', class: 'arr' },
   s('path', { d: dir === 'up' ? 'M5 1.5 9 8.5H1z' : 'M5 8.5 1 1.5h8z' }));

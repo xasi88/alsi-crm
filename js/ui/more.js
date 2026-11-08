@@ -1,11 +1,11 @@
 // Ещё: все разделы по группам. На широком экране тот же список стоит в боковой панели.
-import { S, pendingCount } from '../store.js?v=536b4882';
-import { h, icon, fill, ask, toast } from './kit.js?v=536b4882';
-import { head } from './common.js?v=536b4882';
-import { logout, logoutClean, providers, resetPass } from '../fb.js?v=536b4882';
-import { signInWays, authText } from '../logic/auth.js?v=536b4882';
-import { listDrafts } from './drafts.js?v=536b4882';
-import { installCard } from './install.js?v=536b4882';
+import { S, pendingCount } from '../store.js?v=2f681d03';
+import { h, icon, fill, ask, toast } from './kit.js?v=2f681d03';
+import { head } from './common.js?v=2f681d03';
+import { logout, logoutClean, providers, resetPass } from '../fb.js?v=2f681d03';
+import { signInWays, authText } from '../logic/auth.js?v=2f681d03';
+import { listDrafts } from './drafts.js?v=2f681d03';
+import { installCard } from './install.js?v=2f681d03';
 
 const ROLE = { owner: 'админ', supervisor: 'супервайзер', sales: 'торговый' };
 
@@ -55,7 +55,7 @@ export function mountMore(root) {
         }
         if (await ask('Выйти?', 'Все записи в облаке. Копия базы на этом телефоне сотрётся, чтобы её не увидел другой человек.', 'Выйти')) logoutClean();
       } }, icon('door'), 'Выйти')),
-      h('p', { class: 'muted pad', style: 'font-size:13px;margin-top:16px' }, 'ATAM SALES CRM, версия 7.0'));
+      h('p', { class: 'muted pad', style: 'font-size:13px;margin-top:16px' }, 'ATAM SALES CRM, версия 7.0.1'));
   };
   update();
   return update;

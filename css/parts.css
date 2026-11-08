@@ -42,7 +42,8 @@
 .field { display: block; margin-bottom: var(--s4); }
 .field > span { display: block; font-size: var(--t-small); font-weight: 600; margin-bottom: 6px; }
 .field > span em { font-style: normal; font-weight: 500; color: var(--ink-2); }
-.inp { width: 100%; min-height: var(--btn-2); border-radius: var(--r-btn); border: 2px solid var(--line); background: var(--white); padding: 10px 14px; font-size: 16px; outline: none; transition: border-color var(--fast); }
+.inp { width: 100%; min-height: var(--btn-2); border-radius: var(--r-btn); border: 2px solid var(--line); background: var(--white); color: var(--navy); -webkit-text-fill-color: var(--navy); caret-color: var(--navy); padding: 10px 14px; font-size: 16px; outline: none; transition: border-color var(--fast); }
+.inp::placeholder { color: var(--ink-2); -webkit-text-fill-color: var(--ink-2); opacity: .7; }
 .inp:focus { border-color: var(--navy); }
 textarea.inp { min-height: 88px; resize: vertical; }
 .search { position: relative; margin: 0 var(--s4) var(--s3); }

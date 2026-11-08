@@ -1,26 +1,26 @@
 // ATAM SALES CRM: вход, меню, экраны.
 // Телефон: нижнее меню из пяти кнопок. Широкий экран (Surface, компьютер): боковая панель со всеми разделами.
-import { onUser } from './fb.js?v=536b4882';
-import { S, start, stop, subscribe } from './store.js?v=536b4882';
-import { setErrorHandler } from './save.js?v=536b4882';
-import { h, icon, fill, toast } from './ui/kit.js?v=536b4882';
-import { mountToday } from './ui/today.js?v=536b4882';
-import { mountShops } from './ui/shops.js?v=536b4882';
-import { mountMap } from './ui/map.js?v=536b4882';
-import { mountDebts } from './ui/debts.js?v=536b4882';
-import { mountMore, MENU } from './ui/more.js?v=536b4882';
-import { mountJournal } from './ui/journal.js?v=536b4882';
-import { mountStats } from './ui/insights.js?v=536b4882';
-import { mountReport } from './ui/report.js?v=536b4882';
-import { mountPlan } from './ui/common.js?v=536b4882';
-import { mountCatalog } from './ui/catalog.js?v=536b4882';
-import { mountScript } from './ui/script.js?v=536b4882';
-import { mountDrafts } from './ui/drafts.js?v=536b4882';
-import { mountTeam } from './ui/team.js?v=536b4882';
-import { mountData } from './ui/data.js?v=536b4882';
-import { startVisit } from './ui/visit.js?v=536b4882';
-import { loginScreen, verifyScreen, deniedScreen, loadingScreen } from './ui/login.js?v=536b4882';
-import { resetMotion } from './ui/charts.js?v=536b4882';
+import { onUser } from './fb.js?v=2f681d03';
+import { S, start, stop, subscribe } from './store.js?v=2f681d03';
+import { setErrorHandler } from './save.js?v=2f681d03';
+import { h, icon, fill, toast } from './ui/kit.js?v=2f681d03';
+import { mountToday } from './ui/today.js?v=2f681d03';
+import { mountShops } from './ui/shops.js?v=2f681d03';
+import { mountMap } from './ui/map.js?v=2f681d03';
+import { mountDebts } from './ui/debts.js?v=2f681d03';
+import { mountMore, MENU } from './ui/more.js?v=2f681d03';
+import { mountJournal } from './ui/journal.js?v=2f681d03';
+import { mountStats } from './ui/insights.js?v=2f681d03';
+import { mountReport } from './ui/report.js?v=2f681d03';
+import { mountPlan } from './ui/common.js?v=2f681d03';
+import { mountCatalog } from './ui/catalog.js?v=2f681d03';
+import { mountScript } from './ui/script.js?v=2f681d03';
+import { mountDrafts } from './ui/drafts.js?v=2f681d03';
+import { mountTeam } from './ui/team.js?v=2f681d03';
+import { mountData } from './ui/data.js?v=2f681d03';
+import { startVisit } from './ui/visit.js?v=2f681d03';
+import { loginScreen, verifyScreen, deniedScreen, loadingScreen } from './ui/login.js?v=2f681d03';
+import { resetMotion } from './ui/charts.js?v=2f681d03';
 
 const root = document.getElementById('app');
 const SCREENS = {
