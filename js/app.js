@@ -1,24 +1,24 @@
 // ALSI Продажи: вход, меню, экраны.
 // Телефон: нижнее меню из пяти кнопок. Широкий экран (Surface, компьютер): боковая панель со всеми разделами.
-import { login, onUser, logout } from './fb.js?v=d38d063e';
-import { S, start, stop, subscribe } from './store.js?v=d38d063e';
-import { setErrorHandler } from './save.js?v=d38d063e';
-import { h, icon, fill, toast } from './ui/kit.js?v=d38d063e';
-import { mountToday } from './ui/today.js?v=d38d063e';
-import { mountShops } from './ui/shops.js?v=d38d063e';
-import { mountMap } from './ui/map.js?v=d38d063e';
-import { mountDebts } from './ui/debts.js?v=d38d063e';
-import { mountMore, MENU } from './ui/more.js?v=d38d063e';
-import { mountJournal } from './ui/journal.js?v=d38d063e';
-import { mountStats } from './ui/insights.js?v=d38d063e';
-import { mountReport } from './ui/report.js?v=d38d063e';
-import { mountPlan } from './ui/common.js?v=d38d063e';
-import { mountCatalog } from './ui/catalog.js?v=d38d063e';
-import { mountScript } from './ui/script.js?v=d38d063e';
-import { mountDrafts } from './ui/drafts.js?v=d38d063e';
-import { mountTeam } from './ui/team.js?v=d38d063e';
-import { mountData } from './ui/data.js?v=d38d063e';
-import { startVisit } from './ui/visit.js?v=d38d063e';
+import { login, onUser, logout } from './fb.js?v=69f8b533';
+import { S, start, stop, subscribe } from './store.js?v=69f8b533';
+import { setErrorHandler } from './save.js?v=69f8b533';
+import { h, icon, fill, toast } from './ui/kit.js?v=69f8b533';
+import { mountToday } from './ui/today.js?v=69f8b533';
+import { mountShops } from './ui/shops.js?v=69f8b533';
+import { mountMap } from './ui/map.js?v=69f8b533';
+import { mountDebts } from './ui/debts.js?v=69f8b533';
+import { mountMore, MENU } from './ui/more.js?v=69f8b533';
+import { mountJournal } from './ui/journal.js?v=69f8b533';
+import { mountStats } from './ui/insights.js?v=69f8b533';
+import { mountReport } from './ui/report.js?v=69f8b533';
+import { mountPlan } from './ui/common.js?v=69f8b533';
+import { mountCatalog } from './ui/catalog.js?v=69f8b533';
+import { mountScript } from './ui/script.js?v=69f8b533';
+import { mountDrafts } from './ui/drafts.js?v=69f8b533';
+import { mountTeam } from './ui/team.js?v=69f8b533';
+import { mountData } from './ui/data.js?v=69f8b533';
+import { startVisit } from './ui/visit.js?v=69f8b533';
 
 const root = document.getElementById('app');
 const SCREENS = {

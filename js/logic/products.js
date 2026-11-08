@@ -1,6 +1,6 @@
 // Товары: категории, упаковки и штуки, снимок цены в заказе.
 // Напитки продаются упаковками. Сладости и снеки можно и штуками, если в карточке товара так задано.
-import { round2, norm } from './format.js?v=d38d063e';
+import { round2, norm } from './format.js?v=69f8b533';
 
 export const CATS = [
   { id: 'drinks', label: 'Напитки', group: 'drinks' },

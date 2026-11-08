@@ -1,6 +1,6 @@
 // Данные приложения: подписка на облако, роль, взгляд руководителя.
 // Запись не ждёт облака: она сразу видна на экране, а в облако уходит сама, когда есть связь (save.js).
-import { db, collection, doc, setDoc, getDoc, onSnapshot, query, where } from './fb.js?v=d38d063e';
+import { db, collection, doc, setDoc, getDoc, onSnapshot, query, where } from './fb.js?v=69f8b533';
 
 const WORK = ['shops', 'visits', 'orders', 'payments', 'returns'];
 const SHARED = ['team', 'products', 'plans', 'config'];

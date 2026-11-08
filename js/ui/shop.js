@@ -1,19 +1,19 @@
 // Карточка точки: связь, визит, долг, следующее действие, цифры, история.
-import { S, subscribe, shopById, all, canEdit, memberName } from '../store.js?v=d38d063e';
-import { doneNext, hide } from '../save.js?v=d38d063e';
-import { h, icon, fill, sheet, ext, toast, ask, stat } from './kit.js?v=d38d063e';
-import { planContact, nextText, ageText, whoText } from './common.js?v=d38d063e';
-import { isoDay, dayShort, daysWord, daysBetween, plural } from '../logic/dates.js?v=d38d063e';
-import { rub, prettyPhone, telLink, waLink } from '../logic/format.js?v=d38d063e';
-import { shopDebts, orderSum, returnSum, payLabel, inHand } from '../logic/money.js?v=d38d063e';
-import { activeNext, resultText } from '../logic/visit.js?v=d38d063e';
-import { itemsPacks } from '../logic/products.js?v=d38d063e';
-import { placeLink, dgisLink, googleLink, hasPoint } from '../logic/maps.js?v=d38d063e';
-import { editShop } from './shops.js?v=d38d063e';
-import { startVisit, startOrder } from './visit.js?v=d38d063e';
-import { openOrder, openVisit } from './order.js?v=d38d063e';
-import { startReturn, openReturn } from './returns.js?v=d38d063e';
-import { openShopDebt } from './debts.js?v=d38d063e';
+import { S, subscribe, shopById, all, canEdit, memberName } from '../store.js?v=69f8b533';
+import { doneNext, hide } from '../save.js?v=69f8b533';
+import { h, icon, fill, sheet, ext, toast, ask, stat } from './kit.js?v=69f8b533';
+import { planContact, nextText, ageText, whoText } from './common.js?v=69f8b533';
+import { isoDay, dayShort, daysWord, daysBetween, plural } from '../logic/dates.js?v=69f8b533';
+import { rub, prettyPhone, telLink, waLink } from '../logic/format.js?v=69f8b533';
+import { shopDebts, orderSum, returnSum, payLabel, inHand } from '../logic/money.js?v=69f8b533';
+import { activeNext, resultText } from '../logic/visit.js?v=69f8b533';
+import { itemsPacks } from '../logic/products.js?v=69f8b533';
+import { placeLink, dgisLink, googleLink, hasPoint } from '../logic/maps.js?v=69f8b533';
+import { editShop } from './shops.js?v=69f8b533';
+import { startVisit, startOrder } from './visit.js?v=69f8b533';
+import { openOrder, openVisit } from './order.js?v=69f8b533';
+import { startReturn, openReturn } from './returns.js?v=69f8b533';
+import { openShopDebt } from './debts.js?v=69f8b533';
 
 function history(shopId) {
   const today = isoDay();

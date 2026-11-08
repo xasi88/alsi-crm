@@ -53,9 +53,13 @@ export function toast(text, bad = false) {
 
 // Листы поверх экрана. Кнопка «Назад» телефона закрывает верхний лист.
 const stack = [];
+let closing = []; // кто ждёт конца закрытия: закрытие идёт через историю браузера и кончается позже
 addEventListener('popstate', () => {
   const depth = history.state?.sheet || 0;
   while (stack.length > depth) drop(stack.pop());
+  const w = closing;
+  closing = [];
+  for (const f of w) f();
 });
 
 function drop(s) {
@@ -73,7 +77,8 @@ export function sheet({ title, sub = '', full = false, onClose } = {}) {
     h('div', { class: 'panel' }, head, body, foot));
   const s = {
     el, body, foot, head, onClose,
-    close() { if (stack.includes(s)) history.back(); },
+    // Новый лист открывать только после конца закрытия: s.close().then(...). Иначе закрытие унесёт и новый лист
+    close() { if (!stack.includes(s)) return Promise.resolve(); return new Promise((ok) => { closing.push(ok); history.back(); }); },
     setTitle(t, st = '') {
       fill(head,
         h('button', { class: 'ib white', 'aria-label': full ? 'Назад' : 'Свернуть', onclick: () => s.close() }, icon(full ? 'back' : 'down')),

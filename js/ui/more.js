@@ -1,9 +1,10 @@
 // Ещё: все разделы по группам. На широком экране тот же список стоит в боковой панели.
-import { S, pendingCount } from '../store.js?v=d38d063e';
-import { h, icon, fill, ask } from './kit.js?v=d38d063e';
-import { head } from './common.js?v=d38d063e';
-import { logout, logoutClean } from '../fb.js?v=d38d063e';
-import { listDrafts } from './drafts.js?v=d38d063e';
+import { S, pendingCount } from '../store.js?v=69f8b533';
+import { h, icon, fill, ask } from './kit.js?v=69f8b533';
+import { head } from './common.js?v=69f8b533';
+import { logout, logoutClean } from '../fb.js?v=69f8b533';
+import { listDrafts } from './drafts.js?v=69f8b533';
+import { installCard } from './install.js?v=69f8b533';
 
 const ROLE = { owner: 'владелец', supervisor: 'супервайзер', sales: 'торговый' };
 
@@ -34,6 +35,7 @@ export function mountMore(root) {
   const update = () => {
     fill(root,
       head('Ещё', (S.me?.name || S.email) + ', ' + (ROLE[S.role] || '')),
+      installCard(() => update()),
       MENU().map((g) => [
         h('div', { class: 'sec' }, h('h2', {}, g.title)),
         h('div', { class: 'group' }, g.items.filter((i) => !['today', 'shops', 'debts'].includes(i.id)).map((i) => h('a', { class: 'item', href: '#/' + i.id },
@@ -48,7 +50,7 @@ export function mountMore(root) {
         }
         if (await ask('Выйти?', 'Все записи в облаке. Копия базы на этом телефоне сотрётся, чтобы её не увидел другой человек.', 'Выйти')) logoutClean();
       } }, icon('door'), 'Выйти')),
-      h('p', { class: 'muted pad', style: 'font-size:13px;margin-top:16px' }, 'ALSI Продажи, версия 2.0'));
+      h('p', { class: 'muted pad', style: 'font-size:13px;margin-top:16px' }, 'ALSI Продажи, версия 2.1'));
   };
   update();
   return update;

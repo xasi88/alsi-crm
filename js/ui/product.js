@@ -1,12 +1,12 @@
 // Карточка товара: большое фото, упаковка, цены, продажи. Владелец меняет товар и фото.
 // Фото: своё (снято на телефон, лежит в товаре, поле photo) или фото упаковки производителя (img/products).
-import { S, all, view } from '../store.js?v=d38d063e';
-import { saveProduct, hide } from '../save.js?v=d38d063e';
-import { h, icon, fill, sheet, toast, ask, choices, field, inp, fileButton } from './kit.js?v=d38d063e';
-import { rub, parseMoney, parseCount, norm } from '../logic/format.js?v=d38d063e';
-import { CATS, LINES, catOf, catLabel, measure, sellsUnits, unitPriceOf, qtyText } from '../logic/products.js?v=d38d063e';
-import { picOf } from '../logic/pics.js?v=d38d063e';
-import { dayShort, isoDay } from '../logic/dates.js?v=d38d063e';
+import { S, all, view } from '../store.js?v=69f8b533';
+import { saveProduct, hide } from '../save.js?v=69f8b533';
+import { h, icon, fill, sheet, toast, ask, choices, field, inp, fileButton } from './kit.js?v=69f8b533';
+import { rub, parseMoney, parseCount, norm } from '../logic/format.js?v=69f8b533';
+import { CATS, LINES, catOf, catLabel, measure, sellsUnits, unitPriceOf, qtyText } from '../logic/products.js?v=69f8b533';
+import { picOf } from '../logic/pics.js?v=69f8b533';
+import { dayShort, isoDay } from '../logic/dates.js?v=69f8b533';
 
 // Фото товара или пустое место со значком банки
 export function pic(p, cls = 'pic') {
@@ -69,7 +69,7 @@ export function openProduct(p0) {
           saveProduct({ id: p.id, photo: '' }); local = { photo: '' }; toast('Фото производителя'); draw();
         } }, 'Вернуть фото производителя') : null] : null,
       h('div', { class: 'gap' }));
-    if (S.owner) s.showFoot(h('button', { class: 'btn navy wide', onclick: () => { s.close(); editProduct(p); } }, icon('edit'), 'Изменить товар'));
+    if (S.owner) s.showFoot(h('button', { class: 'btn navy wide', onclick: () => s.close().then(() => editProduct(p)) }, icon('edit'), 'Изменить товар'));
   };
   draw();
 }
